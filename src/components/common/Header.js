@@ -236,13 +236,13 @@ function NavigationMenu({ column: vertical }) {
           to={ROUTE_PATHS.STARTUPS4}
           className={classes.navLink}
         /> */}
-        <Tab
+        {/* <Tab
           label='LEEP innovation map'
           value='startups5'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS5}
           className={classes.navLink}
-        />
+        /> */}
         {/* <Tab
           label='Startups6'
           value='startups6'
@@ -251,7 +251,7 @@ function NavigationMenu({ column: vertical }) {
           className={classes.navLink}
         /> */}
         <Tab
-          label='Startups8'
+          label='LEEP innovation map'
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
