@@ -1,5 +1,17 @@
+
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import startups8Source from 'data/sources/startups8Source';
+import { STARTUPS8_LAYER_ID } from 'components/layers/Startups8Layer';
+import { useDispatch } from 'react-redux';
+import {
+  addLayer,
+  removeLayer,
+  addSource,
+  removeSource,
+} from '@carto/react-redux';
+
+import { useSelector } from 'react-redux';
 import {
   Button,
   CircularProgress,
@@ -101,7 +113,7 @@ function Content() {
 
       <Grid item className={classes.title}>
         <Typography variant='h3' color='inherit'>
-          React Demo
+          React Demo2
         </Typography>
       </Grid>
 

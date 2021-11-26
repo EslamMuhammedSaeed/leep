@@ -1,11 +1,12 @@
 import { VOYAGER } from '@carto/react-basemaps';
+import { DARK_MATTER } from '@carto/react-basemaps';
 import { API_VERSIONS } from '@deck.gl/carto';
 
 export const initialState = {
   viewState: {
-    latitude: 31.802892,
-    longitude: -103.007813,
-    zoom: 2,
+    latitude: 27.299674,
+    longitude: 31.018923,
+    zoom: 5,
     pitch: 0,
     bearing: 0,
     dragRotate: false,
@@ -13,9 +14,12 @@ export const initialState = {
   basemap: VOYAGER,
   credentials: {
     apiVersion: API_VERSIONS.V2,
-    username: 'TYPE HERE YOUR CARTO USERNAME',
-    apiKey: 'default_public',
-    serverUrlTemplate: 'https://{user}.carto.com',
+    username: 'riseegypt',
+    // username: 'eslammuhammed',
+    apiKey: '7ecefb7b10b21eef2a24815d552b9bded4183933',
+    // api: '0e2d7f78682e654bb64917c8415f8c87f0d043a8',
+    serverUrlTemplate: 'https://riseegypt.carto.com',
+    // serverUrlTemplate: 'https://.eslammuhammed.com',
   },
   googleApiKey: '', // only required when using a Google Basemap
   googleMapId: '', // only required when using a Google Custom Basemap

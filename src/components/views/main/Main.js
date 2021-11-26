@@ -3,6 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import LazyLoadComponent from 'components/common/LazyLoadComponent';
 import { Grid } from '@material-ui/core';
 
+const divStyle = {
+  
+  backgroundColor: 'black',
+ 
+};
+
 const MapContainer = lazy(() =>
   import(/* webpackChunkName: 'map-container' */ 'components/views/main/MapContainer')
 );
@@ -27,10 +33,13 @@ export default function Main() {
   // [hygen] Add useEffect
 
   return (
+  
     <Grid container direction='row' alignItems='stretch' item xs className={classes.main}>
+      {/* <div style={divStyle}>Hello World!</div> */}
       <LazyLoadComponent>
-        <Sidebar />
         <MapContainer />
+        <Sidebar />
+        
         <ErrorSnackbar />
       </LazyLoadComponent>
     </Grid>

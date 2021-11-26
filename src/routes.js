@@ -6,6 +6,13 @@ import DefaultView from 'components/common/DefaultView';
 const Main = lazy(() => import('components/views/main/Main'));
 const NotFound = lazy(() => import('components/views/NotFound'));
 const Login = lazy(() => import('components/views/Login'));
+const Startups = lazy(() => import('components/views/Startups.js'));
+const Startups2 = lazy(() => import('components/views/Startups2.js'));
+const Startups3 = lazy(() => import('components/views/Startups3.js'));
+const Startups4 = lazy(() => import('components/views/Startups4.js'));
+const Startups5 = lazy(() => import('components/views/Startups5.js'));
+const Startups6 = lazy(() => import('components/views/Startups6.js'));
+const Startups8 = lazy(() => import('components/views/Startups8.js'));
 // [hygen] Import views
 
 export const ROUTE_PATHS = {
@@ -13,6 +20,13 @@ export const ROUTE_PATHS = {
   DEFAULT: '/',
   OAUTH: '/oauthCallback',
   NOT_FOUND: '404',
+  STARTUPS: '/startups',
+  STARTUPS2: '/startups2',
+  STARTUPS3: '/stratups3',
+  STARTUPS4: '/startups4',
+  STARTUPS5: '/startups5',
+  STARTUPS6: '/startups6',
+  STARTUPS8: '/startups8',
   // [hygen] Add path routes
 };
 
@@ -28,6 +42,13 @@ const routes = [
     ),
     children: [
       // { path: '/', element: <Navigate to='/<your default view>' /> },
+      { path: ROUTE_PATHS.STARTUPS, element: <Startups /> },
+      { path: ROUTE_PATHS.STARTUPS2, element: <Startups2 /> },
+      { path: ROUTE_PATHS.STARTUPS3, element: <Startups3 /> },
+      { path: ROUTE_PATHS.STARTUPS4, element: <Startups4 /> },
+      { path: ROUTE_PATHS.STARTUPS5, element: <Startups5 /> },
+      { path: ROUTE_PATHS.STARTUPS6, element: <Startups6 /> },
+      { path: ROUTE_PATHS.STARTUPS8, element: <Startups8 /> },
       // [hygen] Add routes
     ],
   },

@@ -173,7 +173,8 @@ function Mobile() {
 function AppName() {
   return (
     <>
-      <strong>React</strong> Demo
+      <img width={"47px"} src={'img/leep_logo.png'} />
+      <strong>RISE</strong> Innovation Map
     </>
   );
 }
@@ -205,8 +206,57 @@ function NavigationMenu({ column: vertical }) {
         orientation={vertical ? 'vertical' : 'horizontal'}
         variant={vertical ? 'fullWidth' : 'standard'}
       >
-        <Tab label='Home' value='' component={NavLink} to={ROUTE_PATHS.DEFAULT} />
+        {/* <Tab label='Home' value='' component={NavLink} to={ROUTE_PATHS.DEFAULT} /> */}
         {/* [hygen] Import links */}
+        {/* <Tab
+          label='Startups'
+          value='startups'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS}
+          className={classes.navLink}
+        />
+        <Tab
+          label='Startups2'
+          value='startups2'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS2}
+          className={classes.navLink}
+        />
+        <Tab
+          label='Startups3'
+          value='stratups3'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS3}
+          className={classes.navLink}
+        />
+        <Tab
+          label='Startups4'
+          value='startups4'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS4}
+          className={classes.navLink}
+        /> */}
+        <Tab
+          label='LEEP innovation map'
+          value='startups5'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS5}
+          className={classes.navLink}
+        />
+        {/* <Tab
+          label='Startups6'
+          value='startups6'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS6}
+          className={classes.navLink}
+        /> */}
+        <Tab
+          label='Startups8'
+          value='startups8'
+          component={NavLink}
+          to={ROUTE_PATHS.STARTUPS8}
+          className={classes.navLink}
+        />
       </Tabs>
     </Grid>
   );
