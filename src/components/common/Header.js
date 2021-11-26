@@ -173,8 +173,8 @@ function Mobile() {
 function AppName() {
   return (
     <>
-      <img width={"47px"} src={'img/leep_logo.png'} />
-      <strong>RISE</strong> Innovation Map
+      {/* <img width={"47px"} src={'img/leep_logo.png'} /> */}
+      {/* <strong>RISE</strong> Innovation Map */}
     </>
   );
 }
@@ -255,7 +255,7 @@ function NavigationMenu({ column: vertical }) {
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink}
+          className={classes.navLink+" text-white text-decoration-none"}
         />
       </Tabs>
     </Grid>
