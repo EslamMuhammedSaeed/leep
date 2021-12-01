@@ -88,9 +88,10 @@ const options = [
 ];
 
 const styleLabel = {
-  marginTop:"20px",
+  marginTop:"10px",
   fontSize:"15px",
   marginLeft:"15px",
+  width:"95%",
  
   
 };
@@ -129,7 +130,7 @@ const card_header = {
 };
 const style2 ={
   multiselectContainer: { 
-    margin:"10px 10px 10px 0px",
+    margin:"5px 10px 5px 0px",
     paddingRight:"20px"
   },
   searchBox: { // To change search box element look
@@ -540,7 +541,7 @@ dispatch(
         <button onClick={fetch} style={{marginLeft: '10px'}}>fetch</button>
       </div> */}
       <div id="accordion">
-      <div className="card">
+      {/* <div className="card">
           
           <div className="card-header" style={background_white}>
             <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse3">
@@ -549,11 +550,11 @@ dispatch(
             </a>
           </div>
           
-        </div>
+        </div> */}
         <div className="card">
           <div className="card-header" style={background_navy}>
             <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapseOne">
-              Filters 
+              Filter By
             </a>
           </div>
           <div id="collapseOne" className="collapse show" data-parent="#accordion">
@@ -618,7 +619,7 @@ dispatch(
           
           <div className="card-header" style={background_navy}>
             <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapse2">
-              Widgets
+              Interactive Analytics
             </a>
           </div>
           <div id="collapse2" className="collapse show" data-parent="#accordion">

@@ -1,4 +1,19 @@
+import React from "react";
 import { useEffect, useState } from 'react';
+
+import { BASEMAP_LAYER_ID } from 'components/layers/BasemapLayer';
+import startups10Source from 'data/sources/startups10Source';
+import { STARTUPS10_LAYER_ID } from 'components/layers/Startups10Layer';
+import startups8Source from 'data/sources/startups8Source';
+import { STARTUPS9_LAYER_ID } from 'components/layers/Startups9Layer';
+import { STARTUPS11_LAYER_ID } from 'components/layers/Startups11Layer';
+
+import {
+  addLayer,
+  removeLayer,
+  addSource,
+  removeSource,
+} from '@carto/react-redux';
 import {
   AppBar,
   Drawer,
@@ -54,8 +69,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const background_white = {
+  background:"rgba(0,0,0,0)",
+  color:"black",
+  float:"right",
+  width:"83%",
+};
+const card_header = {
+  float:"right",
+  fontWeight:"bold",
+  fontSize:"14px",
+};
+const searchStyle = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  maxWidth:"200px",
+  display:"inline",
+  // color:"white"
+
+};
+const submitStyle = {
+  background:"#2CA58D",
+  color:"white",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  // maxWidth:"230px",
+  display:"inline",
+  marginLeft:"5px",
+  marginBottom:"4px",
+  // color:"white"
+
+};
+let searchInput = React.createRef();
+
+
 export default function Header() {
   const classes = useStyles();
+   
 
   return (
     <AppBar position='static' className={classes.header}>
@@ -192,6 +243,33 @@ function NavigationMenu({ column: vertical }) {
   const location = useLocation();
   const classes = useStylesNavigationMenu();
 
+  const dispatch = useDispatch();
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+  function onSubmit(e){
+  // navigation.goBack();
+  // console.log('hi');
+  console.log(searchInput.current.value);
+  var val = searchInput.current.value;
+  var val2 = capitalizeFirstLetter(val);
+  console.log(val2);
+  startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  console.log(startups10Source.data);
+  dispatch(
+    addSource(startups10Source)
+  );
+  
+  dispatch(
+    addLayer({
+      id: STARTUPS10_LAYER_ID,
+      source: startups10Source.id,
+    })
+  );
+  // navigate('/'+val);
+  }
+
   const pathname = location.pathname.split('/')[1] || false;
 
   return (
@@ -255,9 +333,15 @@ function NavigationMenu({ column: vertical }) {
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink+" text-white text-decoration-none"}
+          className={classes.navLink+" text-white text-decoration-none mt-2"}
         />
       </Tabs>
+      <div className="card-header border-0" style={background_white}>
+            <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse3">
+              <input type="text" className="mb-2 mb-md-0 ml-md-4 form-control" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
+              <button class="btn ml-md-2" style={submitStyle} onClick={onSubmit}>submit</button>
+            </a>
+      </div>
     </Grid>
   );
 }
@@ -277,7 +361,31 @@ function UserMenu() {
   const user = useSelector((state) => state.oauth.userInfo);
   const [anchorEl, setAnchorEl] = useState(null);
   const classes = useStylesUserMenu();
-
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+  function onSubmit(e){
+  // navigation.goBack();
+  // console.log('hi');
+  console.log(searchInput.current.value);
+  var val = searchInput.current.value;
+  var val2 = capitalizeFirstLetter(val);
+  console.log(val2);
+  startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  console.log(startups10Source.data);
+  dispatch(
+    addSource(startups10Source)
+  );
+  
+  dispatch(
+    addLayer({
+      id: STARTUPS10_LAYER_ID,
+      source: startups10Source.id,
+    })
+  );
+  // navigate('/'+val);
+  }
   // If no OAuthApp has been configured, no user-related controls are displayed
   // or
   // User is NOT logged in, so display nothing
