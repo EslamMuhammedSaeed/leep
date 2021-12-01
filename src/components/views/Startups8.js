@@ -238,6 +238,8 @@ export default function Startups8() {
     sql_main = sql_main.replace("OR  ",'OR ');
     sql_main = sql_main.replace("  OR",' OR');
     sql_main = sql_main.replace("16112021AND",'16112021 WHERE');
+    sql_main = sql_main.replace("AND ( )",'');
+    
    
     // if(sql_main.indexOf("gov_name=")>0)
     if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
@@ -364,6 +366,7 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("OR  ",'OR ');
     sql_main = sql_main.replace("  OR",' OR');
     sql_main = sql_main.replace("16112021AND",'16112021 WHERE');
+    sql_main = sql_main.replace("AND ( )",'');
     // if(sql_main.indexOf("gov_name=")>0)
   if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
     sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
