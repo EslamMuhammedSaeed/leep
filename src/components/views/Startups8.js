@@ -217,11 +217,7 @@ export default function Startups8() {
     
     
     
-    sql_main = sql_main.replace(" AND ()",'');
-    sql_main = sql_main.replace(" AND ( )",'');
-    sql_main = sql_main.replace(" AND()",'');
-    sql_main = sql_main.replace(" AND( )",'');
-    sql_main = sql_main.replace(" AND(  )",'');
+    
     sql_main = sql_main.replace(" WHERE ()",'');
     sql_main = sql_main.replace(" WHERE ( )",'');
     sql_main = sql_main.replace(" WHERE (  )",'');
@@ -248,6 +244,16 @@ export default function Startups8() {
     if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
       sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
+    sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace(" OR OR",'OR');
+    sql_main = sql_main.replace("AND ()",'');
+    sql_main = sql_main.replace("AND ( )",'');
+    sql_main = sql_main.replace(" AND ()",'');
+    sql_main = sql_main.replace(" AND ( )",'');
+    sql_main = sql_main.replace(" AND()",'');
+    sql_main = sql_main.replace(" AND( )",'');
+    sql_main = sql_main.replace(" AND(  )",'');
     console.log("removed");
     console.log(sql_main);
 
@@ -367,6 +373,7 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("  OR",' OR');
     sql_main = sql_main.replace("16112021AND",'16112021 WHERE');
     sql_main = sql_main.replace("AND ( )",'');
+    
     // if(sql_main.indexOf("gov_name=")>0)
   if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
     sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
@@ -374,6 +381,16 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
   if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
     sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
+  sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace(" OR OR",'OR');
+  sql_main = sql_main.replace("AND ()",'');
+  sql_main = sql_main.replace("AND ( )",'');
+  sql_main = sql_main.replace(" AND ()",'');
+    sql_main = sql_main.replace(" AND ( )",'');
+    sql_main = sql_main.replace(" AND()",'');
+    sql_main = sql_main.replace(" AND( )",'');
+    sql_main = sql_main.replace(" AND(  )",'');
   console.log("removed");
   console.log(sql_main);
 
