@@ -33,6 +33,7 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import SearchIcon from '@material-ui/icons/Search';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ReactComponent as CartoLogo } from 'assets/img/carto-logo.svg';
 import { ReactComponent as CartoLogoXS } from 'assets/img/carto-logo-xs.svg';
@@ -73,7 +74,7 @@ const background_white = {
   background:"rgba(0,0,0,0)",
   color:"black",
   float:"right",
-  width:"83%",
+  width:"80%",
 };
 const card_header = {
   float:"right",
@@ -188,7 +189,7 @@ function Mobile() {
         aria-label='menu'
         onClick={handleDrawerToggle}
       >
-        {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+        {drawerOpen ? <CloseIcon /> : <SearchIcon />}
       </IconButton>
       <Divider orientation='vertical' light />
       <Link component={NavLink} to={ROUTE_PATHS.DEFAULT} className={classes.title}>
@@ -226,6 +227,7 @@ function AppName() {
     <>
       {/* <img width={"47px"} src={'img/leep_logo.png'} /> */}
       {/* <strong>RISE</strong> Innovation Map */}
+      
     </>
   );
 }
@@ -247,10 +249,21 @@ function NavigationMenu({ column: vertical }) {
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [location]);
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
+  };
   
   function onSubmit(e){
   // navigation.goBack();
   // console.log('hi');
+  handleDrawerToggle(); 
+  // setDrawerOpen(!drawerOpen);
+  
   console.log(searchInput.current.value);
   var val = searchInput.current.value;
   var val2 = capitalizeFirstLetter(val);
@@ -333,15 +346,24 @@ function NavigationMenu({ column: vertical }) {
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink+" text-white text-decoration-none mt-2"}
+          className={classes.navLink+" text-md-white text-decoration-none mt-2 text-dark"}
         />
       </Tabs>
-      <div className="card-header border-0" style={background_white}>
-            <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse3">
-              <input type="text" className="mb-2 mb-md-0 ml-md-4 form-control" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
-              <button class="btn ml-md-2" style={submitStyle} onClick={onSubmit}>submit</button>
-            </a>
+      <div className="row pl-2 pt-3 pt-md-0">
+        <div className="col-7 pr-0">
+              <input type="text" className="mb-2 mb-md-0 ml-md-4 form-control mr-0" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
+        </div>
+        <div className="col-5">
+             <button class="btn ml-md-2 ml-0 mr-1 " style={submitStyle} onClick={onSubmit}>submit</button>
+        </div>
+        
+        
       </div>
+      {/* <div className="border-0 pl-2 pr-0 row" style={background_white}>
+             
+              <input type="text col-8" className="mb-2 mb-md-0 ml-md-4 form-control" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
+              <button class="btn ml-md-2 col-4 " style={submitStyle} onClick={onSubmit}>submit</button>
+      </div> */}
     </Grid>
   );
 }
@@ -365,27 +387,7 @@ function UserMenu() {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
   
-  function onSubmit(e){
-  // navigation.goBack();
-  // console.log('hi');
-  console.log(searchInput.current.value);
-  var val = searchInput.current.value;
-  var val2 = capitalizeFirstLetter(val);
-  console.log(val2);
-  startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
-  console.log(startups10Source.data);
-  dispatch(
-    addSource(startups10Source)
-  );
   
-  dispatch(
-    addLayer({
-      id: STARTUPS10_LAYER_ID,
-      source: startups10Source.id,
-    })
-  );
-  // navigate('/'+val);
-  }
   // If no OAuthApp has been configured, no user-related controls are displayed
   // or
   // User is NOT logged in, so display nothing

@@ -13,7 +13,9 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     position: 'relative',
     flex: '0 0 auto',
+    // background:'rgba(0,0,0,0)',
     [theme.breakpoints.down('xs')]: {
+      background:'rgba(0,0,0,0)',
       height: 95,
     },
     [theme.breakpoints.up('xs')]: {
@@ -70,7 +72,7 @@ const useStyleMobile = makeStyles((theme) => ({
     maxHeight: `calc(100% - ${theme.spacing(6)}px)`,
 
     '&$closed': {
-      transform: `translateY(calc(100% - ${theme.spacing(12)}px)) !important`,
+      transform: `translateY(calc(100% - ${theme.spacing(0)}px)) !important`,
       visibility: 'visible !important',
 
       '& $bottomSheetContent': {
@@ -85,6 +87,7 @@ const useStyleMobile = makeStyles((theme) => ({
     },
   },
   bottomSheetButton: {
+    width:'150px !important',
     position: 'absolute',
     bottom: theme.spacing(5),
     right: theme.spacing(2),
@@ -99,7 +102,8 @@ const useStyleMobile = makeStyles((theme) => ({
     },
 
     '& .MuiFab-label': {
-      width: theme.spacing(9),
+      // width: theme.spacing(9),
+      width: 'auto',
       justifyContent: 'flex-start',
     },
 
@@ -149,14 +153,14 @@ function Mobile() {
         variant='extended'
         size='small'
         color='inherit'
-        aria-label={bottomSheetOpen ? 'Hide' : 'Show'}
+        aria-label={bottomSheetOpen ? 'Hide Filters' : 'Show Filters'}
         className={`${classes.bottomSheetButton} ${
           !bottomSheetOpen ? classes.buttonShow : ''
         }`}
         onClick={handleWidgetsDrawerToggle}
       >
         <ExpandLessIcon className={classes.bottomSheetIcon} />
-        {bottomSheetOpen ? 'Hide' : 'Show'}
+        {bottomSheetOpen ? 'Hide Filters' : 'Show Filters'}
       </Fab>
     </>
   );
