@@ -90,6 +90,17 @@ const searchStyle = {
   // color:"white"
 
 };
+const searchStyleMobile = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  fontSize:"12px",
+  height:"30px",
+  maxWidth:"200px",
+  display:"inline",
+  // color:"white"
+
+};
 const submitStyle = {
   background:"#2CA58D",
   color:"white",
@@ -102,7 +113,21 @@ const submitStyle = {
   // color:"white"
 
 };
+const submitStyleMobile = {
+  background:"#2CA58D",
+  color:"white",
+  fontSize:"12px",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  // maxWidth:"230px",
+  display:"inline",
+  marginLeft:"5px",
+  
+  // color:"white"
+
+};
 let searchInput = React.createRef();
+let searchInput3 = React.createRef();
 
 
 export default function Header() {
@@ -165,6 +190,40 @@ const useStylesMobile = makeStyles((theme) => ({
 }));
 
 function Mobile() {
+  const dispatch = useDispatch();
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  
+
+  // const handleDrawerToggle = () => {
+  //   setDrawerOpen(!drawerOpen);
+  // };
+  
+  function onSubmit(e){
+  // navigation.goBack();
+  // console.log('hi');
+  // setDrawerOpen(false); 
+  // setDrawerOpen(!drawerOpen);
+  
+  console.log(searchInput3.current.value);
+  var val = searchInput3.current.value;
+  var val2 = capitalizeFirstLetter(val);
+  console.log(val2);
+  startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  console.log(startups10Source.data);
+  dispatch(
+    addSource(startups10Source)
+  );
+  
+  dispatch(
+    addLayer({
+      id: STARTUPS10_LAYER_ID,
+      source: startups10Source.id,
+    })
+  );
+  // navigate('/'+val);
+  }
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -183,23 +242,33 @@ function Mobile() {
 
   return (
     <Hidden smUp>
-      <IconButton
+      {/* <IconButton
         className={classes.menuButton}
         color='inherit'
         aria-label='menu'
         onClick={handleDrawerToggle}
       >
-        {drawerOpen ? <CloseIcon /> : <SearchIcon />}
-      </IconButton>
+        {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+      </IconButton> */}
       <Divider orientation='vertical' light />
-      <Link component={NavLink} to={ROUTE_PATHS.DEFAULT} className={classes.title}>
+      <Link component={NavLink} to={ROUTE_PATHS.STARTUPS8} className={classes.title}>
         <Typography component='h1' variant='subtitle1' noWrap>
           <Hidden smUp>
-            <CartoLogoXS />
+            {/* <CartoLogoXS /> */}
+            <span className="d-flex align-items-center mr-2">LOGO</span>
             <Divider orientation='vertical' light />
           </Hidden>
-          <AppName />
+          {/* <AppName/> */}
+          <div className="pl-2 py-2 pt-md-0 d-flex align-items-end w-100">
+            <div className="pr-2 ">
+                  <input type="text" className=" mb-md-0 ml-md-4 form-control mr-0" style={searchStyleMobile} placeholder="search" ref={searchInput3} id='search' ></input>
+            </div>
+            <div className="">
+                <button class="btn ml-md-2 ml-0 mr-1 pt-1" style={submitStyleMobile} onClick={onSubmit} >submit</button>
+            </div>
+          </div>
         </Typography>
+        
       </Link>
       <Drawer
         variant='temporary'
@@ -216,7 +285,9 @@ function Mobile() {
         <Toolbar variant='dense' />
         <Grid container direction='column' justifyContent='space-between' item xs>
           <NavigationMenu column={true} />
+          
         </Grid>
+        
       </Drawer>
     </Hidden>
   );
@@ -254,14 +325,14 @@ function NavigationMenu({ column: vertical }) {
     setDrawerOpen(false);
   }, [location]);
 
-  const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-  };
+  // const handleDrawerToggle = () => {
+  //   setDrawerOpen(!drawerOpen);
+  // };
   
   function onSubmit(e){
   // navigation.goBack();
   // console.log('hi');
-  handleDrawerToggle(); 
+  // setDrawerOpen(false); 
   // setDrawerOpen(!drawerOpen);
   
   console.log(searchInput.current.value);
@@ -346,10 +417,10 @@ function NavigationMenu({ column: vertical }) {
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink+" text-md-white text-decoration-none mt-2 text-dark"}
+          className={classes.navLink+" text-md-white text-decoration-none mt-2 text-white"}
         />
       </Tabs>
-      <div className="row pl-2 pt-3 pt-md-0">
+      <div className="row pl-2 pt-3 pt-md-0 d-none d-md-block">
         <div className="col-7 pr-0">
               <input type="text" className="mb-2 mb-md-0 ml-md-4 form-control mr-0" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
         </div>
