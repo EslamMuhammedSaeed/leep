@@ -1,8 +1,11 @@
 import React from "react";
 import { useEffect } from 'react';
 import { BASEMAP_LAYER_ID } from 'components/layers/BasemapLayer';
+import { UNEMPLOYMENT_LAYER_ID } from 'components/layers/UnemploymentLayer';
 import startups10Source from 'data/sources/startups10Source';
+import developmentSource from 'data/sources/developmentSource';
 import { STARTUPS10_LAYER_ID } from 'components/layers/Startups10Layer';
+import { POVERTY_LAYER_ID } from 'components/layers/PovertyLayer';
 import startups8Source from 'data/sources/startups8Source';
 import { STARTUPS9_LAYER_ID } from 'components/layers/Startups9Layer';
 import { STARTUPS11_LAYER_ID } from 'components/layers/Startups11Layer';
@@ -33,10 +36,27 @@ const exportType = 'xls'
 var sql_main = "select cartodb_id, name, gov_name, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 
 const sectors = [
-  {name: 'Education', id: 1},
-  {name: 'Environment', id: 2},
-  {name: 'Inclusive Services and Technology', id: 3},
+  {name: 'Creative Industries', id: 1},
+  {name: 'Education', id: 2},
+  {name: 'Environment', id: 3},
   {name: 'Health', id: 4},
+  {name: 'Inclusive Services and Technology', id: 5},
+  {name: 'Infrastructure and Transport', id: 6},
+  {name: 'Tourism', id: 7},
+  {name: 'Other', id: 8},
+  // {name: 'Health', id: 4},
+];
+
+const innovation_type = [
+  {name: 'For-profit enterprise', id: 1},
+  {name: 'Nonprofit enterprise', id: 2},
+  {name: 'Traditional SME', id: 3},
+  {name: 'Micro-enterprise', id: 4},
+  {name: 'Support organization', id: 5},
+  {name: 'National awareness campaign', id: 6},
+  {name: 'Local community initiative', id: 7},
+  {name: 'Other', id: 8},
+  // {name: 'Health', id: 4},
 ];
 
 const development_data = [
@@ -53,8 +73,8 @@ const development_data = [
   {name: 'male dropout rate in primary education', id: 10},
   {name: 'male illiteracy rate', id: 11},
   {name: 'male success rate in high school', id: 12},
-  {name: 'poverty rate', id: 13},
-  {name: 'unemplyment rate', id: 14}, 
+  {name: 'poverty persentage (2017/2018)', id: 13},
+  {name: 'unemployment rate', id: 14}, 
 ]
 
 const options = [
@@ -100,8 +120,20 @@ const searchStyle = {
   // background:"#2CA58D",
   // border: "0",
   // borderBottom:"1px solid white",
-  maxWidth:"200px",
+  height:"30px",
+  maxWidth:"180px",
   display:"inline",
+  // color:"white"
+
+};
+const search_float = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  position:"fixed",
+  top: "70px",
+  left: "0px",
+  padding:"7px",
   // color:"white"
 
 };
@@ -141,6 +173,7 @@ const style2 ={
   },
   chips: {
      background: "#FAA63D",
+     color: "white",
   }
   
 }
@@ -408,6 +441,134 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     })
   );
 };
+
+function innovationTypeOnSelectHandler(selectedList, selectedItem){
+
+  //  console.log(selectedList);
+  //  var govern = selectedList[0].name;
+  if(sql_main.indexOf("WHERE (innovation_type")>0|| sql_main.indexOf("WHERE(innovation_type")>0|| sql_main.indexOf("WHERE( innovation_type")>0){
+  var index = sql_main.indexOf("(sector");
+  sql_main = insert(sql_main,"innovation_type='"+selectedItem.name+"' OR ",index+1); 
+  console.log(sql_main);
+  // sql_main=sql_main+" WHERE sector='"+selectedItem.name+"'";
+  }else if(sql_main.indexOf("WHERE( innovation_type")>0){
+    var index = sql_main.indexOf("( innovation_type");
+    sql_main = insert(sql_main,"innovation_type='"+selectedItem.name+"' OR ",index+1); 
+    console.log(sql_main);
+    
+  }else if(sql_main.indexOf("WHERE ( innovation_type")>0){
+    var index = sql_main.indexOf("( innovation_type");
+    sql_main = insert(sql_main,"innovation_type='"+selectedItem.name+"' OR ",index+1); 
+    console.log(sql_main);
+    
+  }else if(sql_main.indexOf("innovation_type=")>0){
+  var index = sql_main.indexOf("(innovation_type");
+  sql_main = insert(sql_main,"innovation_type='"+selectedItem.name+"' OR ",index+1); 
+  console.log(sql_main);
+  }else if(sql_main.indexOf("WHERE")>0){
+  sql_main=sql_main+"AND (innovation_type='"+selectedItem.name+"')";
+  console.log(sql_main);
+  }else{
+  sql_main=sql_main+" WHERE (innovation_type='"+selectedItem.name+"')";
+  console.log(sql_main);
+  }
+  //  var sector_no = selectedList.length;
+  //  var sql="select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  for (let i = 0; i < sector_no; i++) {
+  //      if(i==0){
+  //        sql = sql+selectedList[i].name+"'";
+  //      }else{
+  //        sql = sql+"OR sector ='"+selectedList[i].name+"'";
+  //      }
+     
+  //  }
+  //  console.log(sql);
+  startups10Source.data=  sql_main;
+  dispatch(
+   addSource(startups10Source)
+  );
+  
+  dispatch(
+   addLayer({
+     id: STARTUPS10_LAYER_ID,
+     source: startups10Source.id,
+   })
+  );
+  };
+  
+  function innovationTypeOnRemoveHandler(selectedList, selectedItem){
+       
+    console.log(selectedList);
+    console.log(selectedItem.name);
+    var sql ="";
+  
+    console.log(sql_main);
+    sql_main = sql_main.replace(" OR innovation_type='"+selectedItem.name+"'",'');
+    sql_main = sql_main.replace(" OR innovation_type ='"+selectedItem.name+"'",'');
+    sql_main = sql_main.replace("innovation_type='"+selectedItem.name+"'",'');
+    sql_main = sql_main.replace("innovation_type ='"+selectedItem.name+"'",'');
+    sql_main = sql_main.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+  
+      sql_main = sql_main.replace("16112021AND",'16112021 WHERE');    
+      
+      
+      
+      sql_main = sql_main.replace(" AND ()",'');
+      sql_main = sql_main.replace(" AND ( )",'');
+      sql_main = sql_main.replace(" AND()",'');
+      sql_main = sql_main.replace(" AND( )",'');
+      sql_main = sql_main.replace(" AND(  )",'');
+      sql_main = sql_main.replace(" WHERE ()",'');
+      sql_main = sql_main.replace(" WHERE ( )",'');
+      sql_main = sql_main.replace(" WHERE (  )",'');
+      sql_main = sql_main.replace(" WHERE (   )",'');
+      sql_main = sql_main.replace(" WHERE()",'');
+      sql_main = sql_main.replace(" WHERE( )",'');
+      sql_main = sql_main.replace(" WHERE(  )",'');
+      sql_main = sql_main.replace("( OR",'(');
+      sql_main = sql_main.replace("( OR",'(');
+      sql_main = sql_main.replace(" OR OR",'OR');
+      sql_main = sql_main.replace("WHERE OR",'WHERE');
+      sql_main = sql_main.replace("WHERE (  OR ",'WHERE (');
+      sql_main = sql_main.replace("OR  )",')');
+      sql_main = sql_main.replace("OR  ",'OR ');
+      sql_main = sql_main.replace("  OR",' OR');
+      sql_main = sql_main.replace("16112021AND",'16112021 WHERE');
+      sql_main = sql_main.replace("AND ( )",'');
+      
+      // if(sql_main.indexOf("gov_name=")>0)
+    if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    }
+    if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    }
+    sql_main = sql_main.replace("( OR",'(');
+      sql_main = sql_main.replace("( OR",'(');
+      sql_main = sql_main.replace(" OR OR",'OR');
+    sql_main = sql_main.replace("AND ()",'');
+    sql_main = sql_main.replace("AND ( )",'');
+    sql_main = sql_main.replace(" AND ()",'');
+      sql_main = sql_main.replace(" AND ( )",'');
+      sql_main = sql_main.replace(" AND()",'');
+      sql_main = sql_main.replace(" AND( )",'');
+      sql_main = sql_main.replace(" AND(  )",'');
+    console.log("removed");
+    console.log(sql_main);
+  
+    
+    startups10Source.data=  sql_main;
+    dispatch(
+      addSource(startups10Source)
+    );
+  
+    dispatch(
+      addLayer({
+        id: STARTUPS10_LAYER_ID,
+        source: startups10Source.id,
+      })
+    );
+  };
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -435,43 +596,75 @@ dispatch(
 }
 
   const addPovertyLayer = (e) =>{
-    dispatch(addSource(startups8Source));
+    
+    dispatch(addSource(developmentSource));
+
     dispatch(
       addLayer({
-        id: STARTUPS10_LAYER_ID,
-        source: startups10Source.id,
+        id: POVERTY_LAYER_ID,
+        source: developmentSource.id,
       }),
     );
+
+    return () => {
+      dispatch(removeLayer(POVERTY_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  
+    // dispatch(addSource(startups8Source));
     // dispatch(
     //   addLayer({
-    //     id: STARTUPS11_LAYER_ID,
+    //     id: STARTUPS10_LAYER_ID,
+    //     source: startups10Source.id,
+    //   }),
+    // );
+   
+
+    // dispatch(
+    //   addLayer({
+    //     id: STARTUPS9_LAYER_ID,
     //     source: startups8Source.id,
     //   }),
     // );
+    // dispatch(
+    //   addLayer({
+    //     id: STARTUPS10_LAYER_ID,
+    //     source: startups10Source.id,
+    //   }),
+    // );
+  } 
+  const addUnemploymentLayer = (e) =>{
+    
+    dispatch(addSource(developmentSource));
 
     dispatch(
       addLayer({
-        id: STARTUPS9_LAYER_ID,
-        source: startups8Source.id,
+        id: UNEMPLOYMENT_LAYER_ID,
+        source: developmentSource.id,
       }),
     );
-    dispatch(
-      addLayer({
-        id: STARTUPS10_LAYER_ID,
-        source: startups10Source.id,
-      }),
-    );
+
+    return () => {
+      dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  
   } 
 
   function developmentDataOnSelectHandler(selectedList, selectedItem){
-    if(selectedItem.name=="average number of hospitals 100k of residents"){
+    if(selectedItem.name=="poverty persentage (2017/2018)"){
       addPovertyLayer();
-    }
+    }else if(selectedItem.name=="unemployment rate"){
+      addUnemploymentLayer();
+    }  
+    
   }
   function developmentDataOnRemoveHandler(selectedList, selectedItem){
-    if(selectedItem.name=="average number of hospitals 100k of residents"){
-      dispatch(removeLayer(STARTUPS9_LAYER_ID));
-    }
+    if(selectedItem.name=="poverty persentage (2017/2018)"){
+      dispatch(removeLayer(POVERTY_LAYER_ID));
+    }else if(selectedItem.name=="unemployment rate"){
+      dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    } 
   }
 
     // return () => {
@@ -511,6 +704,22 @@ dispatch(
       dispatch(removeSource(startups8Source.id));
     };
   }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(addSource(developmentSource));
+
+  //   dispatch(
+  //     addLayer({
+  //       id: POVERTY_LAYER_ID,
+  //       source: developmentSource.id,
+  //     }),
+  //   );
+
+  //   return () => {
+  //     dispatch(removeLayer(POVERTY_LAYER_ID));
+  //     dispatch(removeSource(developmentSource.id));
+  //   };
+  // }, [dispatch]);
   
 
   useEffect(() => {
@@ -534,6 +743,16 @@ dispatch(
   return (
    
     <Grid container direction='column' className={classes.startups5}>
+    <div className="card p-0 " style={search_float}>
+          
+          <div className="card-header p-2" style={background_white}>
+            
+              <input type="text" className=" form-control" style={searchStyle} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
+              {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
+            
+          </div>
+          
+    </div>
       {/* <Grid item>Hello World</Grid> */}
       {/* <div style={{margin: '20px'}}>
         <input placeholder="search" ref={searchInput} type="text" id='search' />
@@ -557,7 +776,7 @@ dispatch(
               Filter By
             </a>
           </div>
-          <div id="collapseOne" className="collapse show" data-parent="#accordion">
+          <div id="collapseOne" className="collapse" data-parent="#accordion">
             <div className="card-body p-0 m-0">
             <label style={styleLabel}>Governorate:
               
@@ -592,6 +811,27 @@ dispatch(
                   style={style2}
                     
               />
+
+              </label>
+              <Divider></Divider>
+
+              <label style={styleLabel}>Innovation Type:
+
+              <Multiselect
+                
+                  options={innovation_type} // Options to display in the dropdown
+                  selectedValues={innovation_type[0]} // Preselected value to persist in dropdown
+                  onSelect={innovationTypeOnSelectHandler} // Function will trigger on select event
+                  onRemove={innovationTypeOnRemoveHandler} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                  showCheckbox="true"
+                  showArrow="true"
+                  closeIcon="cancel"
+                  style={style2}
+                    
+              />
+
+
               </label>
               <Divider></Divider>
 
@@ -605,12 +845,17 @@ dispatch(
                   onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
+                  singleSelect="true"
                   showArrow="true"
                   closeIcon="cancel"
                   style={style2}
                     
               />
+
+              
               </label>
+
+              
             </div>
           </div>
         </div>

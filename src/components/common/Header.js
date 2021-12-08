@@ -259,14 +259,14 @@ function Mobile() {
             <Divider orientation='vertical' light />
           </Hidden>
           {/* <AppName/> */}
-          <div className="pl-2 py-2 pt-md-0 d-flex align-items-end w-100">
+          {/* <div className="pl-2 py-2 pt-md-0 d-flex align-items-end w-100">
             <div className="pr-2 ">
                   <input type="text" className=" mb-md-0 ml-md-4 form-control mr-0" style={searchStyleMobile} placeholder="search" ref={searchInput3} id='search' ></input>
             </div>
             <div className="">
                 <button class="btn ml-md-2 ml-0 mr-1 pt-1" style={submitStyleMobile} onClick={onSubmit} >submit</button>
             </div>
-          </div>
+          </div> */}
         </Typography>
         
       </Link>
@@ -417,10 +417,10 @@ function NavigationMenu({ column: vertical }) {
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink+" text-md-white text-decoration-none mt-2 text-white"}
+          className={classes.navLink+" text-md-white text-decoration-none  text-white"}
         />
       </Tabs>
-      <div className="row pl-2 pt-3 pt-md-0 d-none d-md-block">
+      {/* <div className="row pl-2 pt-3 pt-md-0 d-none d-md-block">
         <div className="col-7 pr-0">
               <input type="text" className="mb-2 mb-md-0 ml-md-4 form-control mr-0" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
         </div>
@@ -429,7 +429,7 @@ function NavigationMenu({ column: vertical }) {
         </div>
         
         
-      </div>
+      </div> */}
       {/* <div className="border-0 pl-2 pr-0 row" style={background_white}>
              
               <input type="text col-8" className="mb-2 mb-md-0 ml-md-4 form-control" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>

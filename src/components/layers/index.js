@@ -10,6 +10,8 @@ import Startups9Layer from './Startups9Layer';
 import Startups10Layer from './Startups10Layer';
 import Startups11Layer from './Startups11Layer';
 import BasemapLayer from './BasemapLayer';
+import PovertyLayer from './PovertyLayer';
+import UnemploymentLayer from './UnemploymentLayer';
 // [hygen] Import layers
 
 export const getLayers = () => {
@@ -26,7 +28,12 @@ export const getLayers = () => {
     
     Startups11Layer(),
     BasemapLayer(),
+    PovertyLayer(),
+    UnemploymentLayer(),
     Startups10Layer(),
+    
+    
+    
     // [hygen] Add layer
   ];
 };
