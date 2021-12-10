@@ -6,6 +6,7 @@ import { ReactComponent as CartoLogoMap } from 'assets/img/carto-logo-map.svg';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 import { Grid, Hidden } from '@material-ui/core';
+import { LegendWidget } from "@carto/react-widgets";
 
 const Map = lazy(() => import(/* webpackChunkName: 'map' */ 'components/common/map/Map'));
 
@@ -67,6 +68,7 @@ export default function MapContainer() {
         <ZoomControl className={classes.zoomControl} showCurrentZoom />
       </Hidden>
       {!isGmaps && <CartoLogoMap className={classes.cartoLogoMap} />}
+      
     </Grid>
   );
 }

@@ -12,6 +12,7 @@ import Startups11Layer from './Startups11Layer';
 import BasemapLayer from './BasemapLayer';
 import PovertyLayer from './PovertyLayer';
 import UnemploymentLayer from './UnemploymentLayer';
+import NoOfHospitalsLayer from './NoOfHospitalsLayer';
 // [hygen] Import layers
 
 export const getLayers = () => {
@@ -34,6 +35,7 @@ export const getLayers = () => {
     
     
     
+    NoOfHospitalsLayer(),
     // [hygen] Add layer
   ];
 };

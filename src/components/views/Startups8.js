@@ -10,6 +10,8 @@ import startups8Source from 'data/sources/startups8Source';
 import { STARTUPS9_LAYER_ID } from 'components/layers/Startups9Layer';
 import { STARTUPS11_LAYER_ID } from 'components/layers/Startups11Layer';
 import { useDispatch } from 'react-redux';
+import { LegendWidget } from "@carto/react-widgets";
+
 import {
   addLayer,
   removeLayer,
@@ -34,6 +36,7 @@ const fileName = 'download'
 const exportType = 'xls' 
 
 var sql_main = "select cartodb_id, name, gov_name, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main2 = "select cartodb_id, name, gov_name, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 
 const sectors = [
   {name: 'Creative Industries', id: 1},
@@ -126,14 +129,81 @@ const searchStyle = {
   // color:"white"
 
 };
+const searchStyle2 = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  height:"30px",
+  maxWidth:"180px",
+  display:"inline",
+  background:"rgba(255, 255, 255, 0.356)",
+  borderTop:"0px",
+  borderRight:"0px",
+  borderLeft:"0px",
+  borderRadius:"0px"
+  // color:"white"
+
+};
+const icon_size={
+  fontSize:"12px",
+  marginLeft:"180px",
+};
+const icon_size2={
+  fontSize:"12px",
+  marginLeft:"150px",
+};
 const search_float = {
   // background:"#2CA58D",
   // border: "0",
   // borderBottom:"1px solid white",
+  background:"rgba(255, 255, 255, 0.356)",
+  position:"fixed",
+  top: "70px",
+  right: "360px",
+  padding:"7px",
+  // color:"white"
+
+};
+const search_float_mobile = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  background:"rgba(255, 255, 255, 0.356)",
   position:"fixed",
   top: "70px",
   left: "0px",
   padding:"7px",
+  // color:"white"
+
+};
+const background_transparent ={
+  background:"rgba(255, 255, 255, 0.356)",
+  color:"black",
+};
+const card_float={
+  // overflowY: 'scroll',
+  background:"rgba(255, 255, 255, 0.356)",
+  width:"300px",
+  maxHeight:"580px",
+
+};
+const card_body_float={
+  background:"rgba(255, 255, 255, 0.356)",
+  overflowY: 'scroll',
+  overflowX: 'hidden',
+  width:"300px",
+  maxHeight:"540px",
+
+};
+const filters_float = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  background:"rgba(255, 255, 255, 0.356)",
+  position:"fixed",
+  top: "48px",
+  left: "0px",
+  // with:"300px",
   // color:"white"
 
 };
@@ -153,12 +223,18 @@ const background_navy = {
   background:"#2CA58D",
 };
 const background_white = {
-  background:"white",
+  background:"rgba(255, 255, 255, 0.356)",
   color:"black"
 };
 const card_header = {
   fontWeight:"bold",
   fontSize:"14px",
+};
+const card_header_float = {
+  fontWeight:"bold",
+  fontSize:"14px",
+  with:"300px",
+  background:"#2CA58D",
 };
 const style2 ={
   multiselectContainer: { 
@@ -174,6 +250,8 @@ const style2 ={
   chips: {
      background: "#FAA63D",
      color: "white",
+     whiteSpace: "normal",
+     
   }
   
 }
@@ -654,8 +732,10 @@ dispatch(
   function developmentDataOnSelectHandler(selectedList, selectedItem){
     if(selectedItem.name=="poverty persentage (2017/2018)"){
       addPovertyLayer();
+      dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
     }else if(selectedItem.name=="unemployment rate"){
       addUnemploymentLayer();
+      dispatch(removeLayer(POVERTY_LAYER_ID));
     }  
     
   }
@@ -747,11 +827,114 @@ dispatch(
           
           <div className="card-header p-2" style={background_white}>
             
-              <input type="text" className=" form-control" style={searchStyle} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
+              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             
           </div>
           
+    </div>
+    {/* <div className="card p-0 d-md-none" style={search_float_mobile}>
+          
+          <div className="card-header p-2" style={background_white}>
+            
+              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
+              
+            
+          </div>
+          
+    </div> */}
+
+    <div id="accordion2" className="d-none d-md-block" style={filters_float}>
+        <div className="card shadow-sm" style={card_float}>
+              <div className="card-header" style={card_header_float}>
+                  <a className="card-link text-white" style={card_header_float} data-toggle="collapse" href="#collapseOne2">
+                    Filter By 
+                    <i class="fa fa-chevron-down " style={icon_size} aria-hidden="true"></i>
+                  </a>
+              </div>
+              <div id="collapseOne2" className="collapse show" style={card_body_float} data-parent="#accordion2">
+            <div className="card-body p-0 m-0 pb-3" >
+            <label style={styleLabel}>Governorate:
+              
+              <Multiselect
+                
+                  options={options} // Options to display in the dropdown
+                  selectedValues={options[0]} // Preselected value to persist in dropdown
+                  onSelect={governOnSelectHandler} // Function will trigger on select event
+                  onRemove={governOnRemoveHandler} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                  showCheckbox="true"
+                  showArrow="true"
+                  closeIcon="cancel"
+                  style={style2}
+                    
+              />
+              </label>
+              <Divider></Divider>
+
+              <label style={styleLabel}>Innovation Sector:
+              
+              <Multiselect
+                
+                  options={sectors} // Options to display in the dropdown
+                  selectedValues={sectors[0]} // Preselected value to persist in dropdown
+                  onSelect={sectorOnSelectHandler} // Function will trigger on select event
+                  onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                  showCheckbox="true"
+                  showArrow="true"
+                  closeIcon="cancel"
+                  style={style2}
+                    
+              />
+
+              </label>
+              <Divider></Divider>
+
+              <label style={styleLabel}>Innovation Type:
+
+              <Multiselect
+                
+                  options={innovation_type} // Options to display in the dropdown
+                  selectedValues={innovation_type[0]} // Preselected value to persist in dropdown
+                  onSelect={innovationTypeOnSelectHandler} // Function will trigger on select event
+                  onRemove={innovationTypeOnRemoveHandler} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                  showCheckbox="true"
+                  showArrow="true"
+                  closeIcon="cancel"
+                  style={style2}
+                    
+              />
+
+
+              </label>
+              <Divider></Divider>
+
+              <label style={styleLabel}>Development Data:
+              
+              <Multiselect
+                
+                  options={development_data} // Options to display in the dropdown
+                  selectedValues={development_data[0]} // Preselected value to persist in dropdown
+                  onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+                  onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                  showCheckbox="true"
+                  singleSelect="true"
+                  showArrow="true"
+                  closeIcon="cancel"
+                  style={style2}
+                    
+              />
+
+              
+              </label>
+
+              
+            </div>
+          </div>
+        </div>        
     </div>
       {/* <Grid item>Hello World</Grid> */}
       {/* <div style={{margin: '20px'}}>
@@ -760,17 +943,17 @@ dispatch(
         <button onClick={fetch} style={{marginLeft: '10px'}}>fetch</button>
       </div> */}
       <div id="accordion">
-      {/* <div className="card">
+      <div className="card d-md-none">
           
           <div className="card-header" style={background_white}>
             <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse3">
-              <input type="text" className=" ml-1 form-control" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
-              <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button>
+              <input type="text" className=" ml-1 form-control" style={searchStyle} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
+              {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             </a>
           </div>
           
-        </div> */}
-        <div className="card">
+        </div>
+        <div className="card d-md-none">
           <div className="card-header" style={background_navy}>
             <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapseOne">
               Filter By
@@ -865,13 +1048,14 @@ dispatch(
           <div className="card-header" style={background_navy}>
             <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapse2">
               Interactive Analytics
+              <i class="fa fa-chevron-down " style={icon_size2} aria-hidden="true"></i>
             </a>
           </div>
           <div id="collapse2" className="collapse show" data-parent="#accordion">
             <div className="card-body p-0 m-0">
               <CategoryWidget
-                id='revenueByStoreType'
-                title='Revenue by store type'
+                id='innovationSectors'
+                title='Innovation Sectors'
                 dataSource={startups10Source.id}
                 column='sector'
                 operationColumn='sector'
@@ -879,6 +1063,16 @@ dispatch(
                 // formatter={currencyFormatter}
               />
               <Divider></Divider>
+              <CategoryWidget
+                id='innovationStages'
+                title='Innovation Stages'
+                dataSource={startups10Source.id}
+                column='innovation_stage'
+                operationColumn='innovation_stage'
+                operation={AggregationTypes.COUNT}
+                // formatter={currencyFormatter}
+              />
+              {/* <LegendWidget  /> */}
             </div>
           </div>
         </div>

@@ -17,15 +17,15 @@ export default function UnemploymentLayer() {
       id: UNEMPLOYMENT_LAYER_ID,
       getFillColor: d => {
         if(d.properties.poverty_percentage_2017_2018 <= 5){
-          return [235, 247, 227]; 
+          return [0, 255, 191]; 
         }else if(d.properties.poverty_percentage_2017_2018 <= 10){
-          return [155, 215, 112];
+          return [0, 179, 134];
         }else if(d.properties.poverty_percentage_2017_2018 <= 20){
-          return [102, 176, 50];
+          return [0, 102, 77];
         }else if(d.properties.poverty_percentage_2017_2018 <= 40){
-          return [55, 95, 27];  
+          return [0, 51, 38];  
         }else{
-          return [27, 52, 9];
+          return [0, 26, 19];
         }
       },
       pointRadiusMinPixels: 2,

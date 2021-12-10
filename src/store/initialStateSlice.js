@@ -5,7 +5,7 @@ import { API_VERSIONS } from '@deck.gl/carto';
 export const initialState = {
   viewState: {
     latitude: 27.299674,
-    longitude: 31.018923,
+    longitude: 29.518923,
     zoom: 5,
     pitch: 0,
     bearing: 0,
