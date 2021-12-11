@@ -269,6 +269,7 @@ export default function Startups8() {
   const navigate = useNavigate();
   let searchInput = React.createRef(); 
   let searchInput2 = React.createRef();
+  let searchInput5 = React.createRef();
 
   const governOnSelectHandler = (selectedList, selectedItem)=>{
 
@@ -663,7 +664,6 @@ console.log(startups10Source.data);
 dispatch(
   addSource(startups10Source)
 );
-
 dispatch(
   addLayer({
     id: STARTUPS10_LAYER_ID,
@@ -672,6 +672,27 @@ dispatch(
 );
 // navigate('/'+val);
 }
+
+function onSubmit5(e){
+  // navigation.goBack();
+  // console.log('hi');
+  console.log(searchInput5.current.value);
+  var val = searchInput5.current.value;
+  var val2 = capitalizeFirstLetter(val);
+  console.log(val2);
+  startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  console.log(startups10Source.data);
+  dispatch(
+    addSource(startups10Source)
+  );
+  dispatch(
+    addLayer({
+      id: STARTUPS10_LAYER_ID,
+      source: startups10Source.id,
+    })
+  );
+  }
+
 
   const addPovertyLayer = (e) =>{
     
@@ -827,7 +848,7 @@ dispatch(
           
           <div className="card-header p-2" style={background_white}>
             
-              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
+              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit5} placeholder="search" ref={searchInput5} id='search5' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             
           </div>
