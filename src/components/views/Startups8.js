@@ -171,20 +171,22 @@ const searchStyle2 = {
   // borderBottom:"1px solid white",
   fontFamily:'Arial',
   height:"30px",
-  maxWidth:"180px",
+  width:"250px",
+  // height:"80px",
   display:"inline",
   background:"rgba(255, 255, 255, 0.356)",
   borderTop:"0px",
   borderRight:"0px",
   borderLeft:"0px",
   borderBottom:"0px",
-  borderRadius:"0px"
+  borderRadius:"0px",
+  margin:"3px",
   // color:"white"
 
 };
 const icon_size={
   fontSize:"12px",
-  marginLeft:"180px",
+  marginLeft:"150px",
 };
 const icon_size2={
   fontSize:"12px",
@@ -196,9 +198,10 @@ const search_float = {
   // borderBottom:"1px solid white",
   background:"rgba(255, 255, 255, 0.356)",
   position:"fixed",
-  top: "63px",
-  left: "325px",
+  top: "62px",
+  left: "315px",
   padding:"7px",
+  // width:"300px"
   // color:"white"
 
 };
@@ -221,7 +224,7 @@ const background_transparent ={
 const card_float={
   // overflowY: 'scroll',
   background:"rgba(255, 255, 255, 0.356)",
-  width:"300px",
+  width:"280px",
   maxHeight:"620px",
 
 };
@@ -229,8 +232,8 @@ const card_body_float={
   background:"rgba(255, 255, 255, 0.356)",
   overflowY: 'scroll',
   overflowX: 'hidden',
-  width:"300px",
-  maxHeight:"600px",
+  width:"280px",
+  maxHeight:"500px",
 
 };
 const filters_float = {
@@ -276,12 +279,14 @@ const card_header_float = {
 };
 const style2 ={
   multiselectContainer: { 
-    margin:"5px 10px 5px 0px",
-    paddingRight:"20px"
+    marginLeft:"15px",
+    margin:"0px 10px 10px 15px",
+    width:"200px"
+    // paddingRight:"20px"
   },
   searchBox: { // To change search box element look
     minHeight: "40px",
-    maxWidth:"350px"
+    width:"240px"
 	
 	
   },
@@ -935,15 +940,15 @@ function onSubmit5(e){
         <div className="card shadow-sm" style={card_float}>
               <div className="card-header" style={card_header_float}>
                   <a className="card-link text-dark" style={card_header_float} data-toggle="collapse" href="#collapseOne2">
-                    Layers 
+                    Filter By
                     <i class="fa fa-chevron-down " style={icon_size} aria-hidden="true"></i>
                   </a>
               </div>
               <div id="collapseOne2" className="collapse show" style={card_body_float} data-parent="#accordion2">
             <div className="card-body p-0 m-0 pb-5" >
-            <label style={styleLabel}>Governorate:
-              
-              <Multiselect
+            <label style={styleLabel}>Governorate: 
+            </label>
+            <Multiselect
                 
                   options={options} // Options to display in the dropdown
                   selectedValues={options[0]} // Preselected value to persist in dropdown
@@ -952,34 +957,36 @@ function onSubmit5(e){
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
                   showArrow="true"
+                  closeOnSelect="false"
                   closeIcon="cancel"
                   style={style2}
                     
-              />
-              </label>
+            />
               <Divider></Divider>
 
               <label style={styleLabel}>Innovation Sector:
-              
-              <Multiselect
-                
-                  options={sectors} // Options to display in the dropdown
-                  selectedValues={sectors[0]} // Preselected value to persist in dropdown
-                  onSelect={sectorOnSelectHandler} // Function will trigger on select event
-                  onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
-                  displayValue="name" // Property name to display in the dropdown options
-                  showCheckbox="true"
-                  showArrow="true"
-                  closeIcon="cancel"
-                  style={style2}
-                    
-              />
 
               </label>
+              <Multiselect
+                
+                options={sectors} // Options to display in the dropdown
+                selectedValues={sectors[0]} // Preselected value to persist in dropdown
+                onSelect={sectorOnSelectHandler} // Function will trigger on select event
+                onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+                displayValue="name" // Property name to display in the dropdown options
+                showCheckbox="true"
+                showArrow="true"
+                closeOnSelect="false"
+                closeIcon="cancel"
+                style={style2}
+                  
+              />
+
               <Divider></Divider>
 
               <label style={styleLabel}>Innovation Type:
 
+              </label>
               <Multiselect
                 
                   options={innovation_type} // Options to display in the dropdown
@@ -989,17 +996,18 @@ function onSubmit5(e){
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
                   showArrow="true"
+                  closeOnSelect="false"
                   closeIcon="cancel"
                   style={style2}
                     
               />
 
 
-              </label>
               <Divider></Divider>
 
               <label style={styleLabel}>Development Data:
-              
+ 
+              </label>
               <Multiselect
                 
                   options={development_data} // Options to display in the dropdown
@@ -1010,13 +1018,13 @@ function onSubmit5(e){
                   showCheckbox="true"
                   singleSelect="true"
                   showArrow="true"
+                  closeOnSelect="false"
                   closeIcon="cancel"
                   style={style2}
                     
               />
 
               
-              </label>
 
               
             </div>
@@ -1049,7 +1057,8 @@ function onSubmit5(e){
           <div id="collapseOne" className="collapse" data-parent="#accordion">
             <div className="card-body p-0 m-0">
             <label style={styleLabel}>Governorate:
-              
+            
+              </label>
               <Multiselect
                 
                   options={options} // Options to display in the dropdown
@@ -1059,15 +1068,16 @@ function onSubmit5(e){
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
                   showArrow="true"
+                  closeOnSelect="false"
                   closeIcon="cancel"
                   style={style2}
                     
               />
-              </label>
               <Divider></Divider>
 
               <label style={styleLabel}>Innovation Sector:
-              
+ 
+              </label>
               <Multiselect
                 
                   options={sectors} // Options to display in the dropdown
@@ -1077,53 +1087,53 @@ function onSubmit5(e){
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
                   showArrow="true"
+                  closeOnSelect="false"
                   closeIcon="cancel"
                   style={style2}
                     
               />
-
-              </label>
               <Divider></Divider>
 
               <label style={styleLabel}>Innovation Type:
 
+              </label>
               <Multiselect
                 
-                  options={innovation_type} // Options to display in the dropdown
-                  selectedValues={innovation_type[0]} // Preselected value to persist in dropdown
-                  onSelect={innovationTypeOnSelectHandler} // Function will trigger on select event
-                  onRemove={innovationTypeOnRemoveHandler} // Function will trigger on remove event
-                  displayValue="name" // Property name to display in the dropdown options
-                  showCheckbox="true"
-                  showArrow="true"
-                  closeIcon="cancel"
-                  style={style2}
-                    
-              />
+                options={innovation_type} // Options to display in the dropdown
+                selectedValues={innovation_type[0]} // Preselected value to persist in dropdown
+                onSelect={innovationTypeOnSelectHandler} // Function will trigger on select event
+                onRemove={innovationTypeOnRemoveHandler} // Function will trigger on remove event
+                displayValue="name" // Property name to display in the dropdown options
+                showCheckbox="true"
+                showArrow="true"
+                closeOnSelect="false"
+                closeIcon="cancel"
+                style={style2}
+                  
+            />
 
 
-              </label>
               <Divider></Divider>
 
               <label style={styleLabel}>Development Data:
-              
+   
+        
+              </label>
               <Multiselect
                 
-                  options={development_data} // Options to display in the dropdown
-                  selectedValues={development_data[0]} // Preselected value to persist in dropdown
-                  onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
-                  onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
-                  displayValue="name" // Property name to display in the dropdown options
-                  showCheckbox="true"
-                  singleSelect="true"
-                  showArrow="true"
-                  closeIcon="cancel"
-                  style={style2}
-                    
+                options={development_data} // Options to display in the dropdown
+                selectedValues={development_data[0]} // Preselected value to persist in dropdown
+                onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+                onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+                displayValue="name" // Property name to display in the dropdown options
+                showCheckbox="true"
+                singleSelect="true"
+                showArrow="true"
+                closeOnSelect="false"
+                closeIcon="cancel"
+                style={style2}
+                  
               />
-
-              
-              </label>
 
               
             </div>
@@ -1142,7 +1152,7 @@ function onSubmit5(e){
             <div className="card-body p-0 m-0">
               <FormulaWidget
                 id='innovationStages'
-                title='Total No. of Innovations in Egypt'
+                title='No. of Innovations'
                 dataSource={startups10Source.id}
                 column='innovation_stage'
                 operationColumn='innovation_stage'
@@ -1167,6 +1177,7 @@ function onSubmit5(e){
                 column='innovation_stage'
                 operationColumn='innovation_stage'
                 operation={AggregationTypes.COUNT}
+                height="200px"
                 // formatter={currencyFormatter}
               />
               <div style={legendFloat}>
