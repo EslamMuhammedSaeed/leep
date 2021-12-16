@@ -66,6 +66,11 @@ export default function Startups10Layer() {
       //   // cartoLayerProps.onDataLoad(data);
       // },
       getFillColor: d => {
+        // colorBins({
+        //   attr: layerConfig.legend.attr,
+        //   domain: [100e6, 500e6, 1e9, 1.5e9],
+        //   colors: COLORS,
+        // });
         if(d.properties.sector === "Creative Industries"){
           return [255, 45, 132]; 
         }else if(d.properties.sector === "Education"){
@@ -83,8 +88,17 @@ export default function Startups10Layer() {
         }else{
           return [138, 43, 226];
         }
-      
+        
       },
+      // onDataLoad: (data) => {
+      //     dispatch(
+      //       updateLayer({
+      //         id: STARTUPS10_LAYER_ID,
+      //         layerAttributes: { ...layerConfig },
+      //       })
+      //     );
+      //     // cartoLayerProps.onDataLoad(data);
+      // },
       pointRadiusMinPixels: 4,
       getLineColor: [255, 255, 255],
       lineWidthMinPixels: 1,

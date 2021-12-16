@@ -64,6 +64,7 @@ export default function MapContainer() {
   return (
     <Grid item className={`${classes.mapWrapper} ${isGmaps ? classes.gmaps : ''}`}>
       <Map layers={layers} />
+      {/* <LegendWidget  /> */}
       <Hidden xsDown>
         <ZoomControl className={classes.zoomControl} showCurrentZoom />
       </Hidden>

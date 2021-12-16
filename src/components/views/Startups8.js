@@ -142,7 +142,11 @@ const styleLabel = {
  
   
 };
-
+const legendFloat={
+  position:"fixed",
+  right :"360px",
+  top:"120px",
+}
 const exportButton={
   borderRadius :"0px",
   position:"fixed",
@@ -317,6 +321,7 @@ export default function Startups8() {
       var query = sql_main;
       query = sql_main.replace(",the_geom_webmercator",'');
       query = query.replace("cartodb_id,",'');
+      // query = startups10Source.data;
       console.log(query);
       const fetched_data = await getData({credentials, opts,query});
       // console.log(fetched_data);
@@ -327,6 +332,7 @@ export default function Startups8() {
       //   fetched_data
       // });
       console.log(data);
+      // data=startups10Source.data;
     
     
     exportFromJSON({ data, fileName, exportType });
@@ -1163,7 +1169,9 @@ function onSubmit5(e){
                 operation={AggregationTypes.COUNT}
                 // formatter={currencyFormatter}
               />
-              {/* <LegendWidget  /> */}
+              <div style={legendFloat}>
+                <LegendWidget  />
+              </div>
             </div>
           </div>
         </div>
