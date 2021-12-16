@@ -10,7 +10,10 @@ import startups8Source from 'data/sources/startups8Source';
 import { STARTUPS9_LAYER_ID } from 'components/layers/Startups9Layer';
 import { STARTUPS11_LAYER_ID } from 'components/layers/Startups11Layer';
 import { useDispatch } from 'react-redux';
+import { getData } from 'data/models/model';
 import { LegendWidget } from "@carto/react-widgets";
+import { PieWidget } from "@carto/react-widgets";
+
 
 import {
   addLayer,
@@ -31,13 +34,32 @@ import {useNavigate} from 'react-router-dom';
 import {  useState } from 'react';
 import { Sync } from "@material-ui/icons";
 import exportFromJSON from 'export-from-json'
+const sectors2 = [
+  {name: 'Creative Industries'},
+  {name2: 'Education'},
+  {name: 'Environment'},
+  {name2: 'Health'},
+  {name: 'Inclusive Services and Technology'},
+  {name2: 'Infrastructure and Transport'},
+  {name: 'Tourism'},
+  {name2: 'Other'},
+];
 
-const fileName = 'download'  
-const exportType = 'xls' 
+var data = [{name: 'Creative Industries'},
+{name2: 'Education'},
+{name: 'Environment'},
+{name2: 'Health'},
+{name: 'Inclusive Services and Technology'},
+{name2: 'Infrastructure and Transport'},
+{name: 'Tourism'},
+{name2: 'Other'},
+]  
+const fileName = 'download'  ;
+const exportType = exportFromJSON.types.csv; 
 
-var sql_main = "select cartodb_id, name, gov_name, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-var sql_main2 = "select cartodb_id, name, gov_name, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-
+var sql_main = "select cartodb_id, name, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main2 = "select cartodb_id, name, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var global_data =[];
 const sectors = [
   {name: 'Creative Industries', id: 1},
   {name: 'Education', id: 2},
@@ -49,6 +71,8 @@ const sectors = [
   {name: 'Other', id: 8},
   // {name: 'Health', id: 4},
 ];
+
+
 
 const innovation_type = [
   {name: 'For-profit enterprise', id: 1},
@@ -119,6 +143,14 @@ const styleLabel = {
   
 };
 
+const exportButton={
+  borderRadius :"0px",
+  position:"fixed",
+  right :"360px",
+  top:"63px",
+  opacity:"0.8",
+  fontSize:"15px"
+}
 const searchStyle = {
   // background:"#2CA58D",
   // border: "0",
@@ -133,6 +165,7 @@ const searchStyle2 = {
   // background:"#2CA58D",
   // border: "0",
   // borderBottom:"1px solid white",
+  fontFamily:'Arial',
   height:"30px",
   maxWidth:"180px",
   display:"inline",
@@ -140,6 +173,7 @@ const searchStyle2 = {
   borderTop:"0px",
   borderRight:"0px",
   borderLeft:"0px",
+  borderBottom:"0px",
   borderRadius:"0px"
   // color:"white"
 
@@ -150,7 +184,7 @@ const icon_size={
 };
 const icon_size2={
   fontSize:"12px",
-  marginLeft:"150px",
+  marginLeft:"140px",
 };
 const search_float = {
   // background:"#2CA58D",
@@ -158,8 +192,8 @@ const search_float = {
   // borderBottom:"1px solid white",
   background:"rgba(255, 255, 255, 0.356)",
   position:"fixed",
-  top: "70px",
-  right: "360px",
+  top: "63px",
+  left: "325px",
   padding:"7px",
   // color:"white"
 
@@ -184,7 +218,7 @@ const card_float={
   // overflowY: 'scroll',
   background:"rgba(255, 255, 255, 0.356)",
   width:"300px",
-  maxHeight:"580px",
+  maxHeight:"620px",
 
 };
 const card_body_float={
@@ -192,7 +226,7 @@ const card_body_float={
   overflowY: 'scroll',
   overflowX: 'hidden',
   width:"300px",
-  maxHeight:"540px",
+  maxHeight:"600px",
 
 };
 const filters_float = {
@@ -201,8 +235,8 @@ const filters_float = {
   // borderBottom:"1px solid white",
   background:"rgba(255, 255, 255, 0.356)",
   position:"fixed",
-  top: "48px",
-  left: "0px",
+  top: "60px",
+  left: "13px",
   // with:"300px",
   // color:"white"
 
@@ -220,7 +254,7 @@ const submitStyle = {
 };
 
 const background_navy = {
-  background:"#2CA58D",
+  background:"white",
 };
 const background_white = {
   background:"rgba(255, 255, 255, 0.356)",
@@ -234,7 +268,7 @@ const card_header_float = {
   fontWeight:"bold",
   fontSize:"14px",
   with:"300px",
-  background:"#2CA58D",
+  background:"white",
 };
 const style2 ={
   multiselectContainer: { 
@@ -270,7 +304,33 @@ export default function Startups8() {
   let searchInput = React.createRef(); 
   let searchInput2 = React.createRef();
   let searchInput5 = React.createRef();
-
+  const ExportToExcel=async() =>{ 
+    
+      const credentials = {
+        username: "riseegypt",
+        apiKey: "7ecefb7b10b21eef2a24815d552b9bded4183933",
+        serverUrlTemplate: 'https://riseegypt.carto.com'
+      };
+      const opts = {
+        // format:"CSV"
+      };
+      var query = sql_main;
+      query = sql_main.replace(",the_geom_webmercator",'');
+      query = query.replace("cartodb_id,",'');
+      console.log(query);
+      const fetched_data = await getData({credentials, opts,query});
+      // console.log(fetched_data);
+      data =fetched_data;
+      console.log(global_data);
+      // console.log(fetched_data[0]);
+      // setGovern({
+      //   fetched_data
+      // });
+      console.log(data);
+    
+    
+    exportFromJSON({ data, fileName, exportType });
+  }
   const governOnSelectHandler = (selectedList, selectedItem)=>{
 
     if(sql_main.indexOf("WHERE (gov_name")>0 || sql_main.indexOf("WHERE(gov_name")>0){
@@ -351,11 +411,11 @@ export default function Startups8() {
     
    
     // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -424,7 +484,7 @@ sql_main=sql_main+" WHERE (sector='"+selectedItem.name+"')";
 console.log(sql_main);
 }
 //  var sector_no = selectedList.length;
-//  var sql="select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+//  var sql="select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
 //  for (let i = 0; i < sector_no; i++) {
 //      if(i==0){
 //        sql = sql+selectedList[i].name+"'";
@@ -488,11 +548,11 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("AND ( )",'');
     
     // if(sql_main.indexOf("gov_name=")>0)
-  if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-    sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
-  if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-    sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
   sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -552,7 +612,7 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
   console.log(sql_main);
   }
   //  var sector_no = selectedList.length;
-  //  var sql="select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  var sql="select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
   //  for (let i = 0; i < sector_no; i++) {
   //      if(i==0){
   //        sql = sql+selectedList[i].name+"'";
@@ -616,11 +676,11 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
       sql_main = sql_main.replace("AND ( )",'');
       
       // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name,gov_name ,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
       sql_main = sql_main.replace("( OR",'(');
@@ -659,7 +719,7 @@ console.log(searchInput.current.value);
 var val = searchInput.current.value;
 var val2 = capitalizeFirstLetter(val);
 console.log(val2);
-startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+startups10Source.data=  "select cartodb_id, name, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
 console.log(startups10Source.data);
 dispatch(
   addSource(startups10Source)
@@ -680,7 +740,7 @@ function onSubmit5(e){
   var val = searchInput5.current.value;
   var val2 = capitalizeFirstLetter(val);
   console.log(val2);
-  startups10Source.data=  "select cartodb_id, name, gov_name,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  startups10Source.data=  "select cartodb_id, name, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
   console.log(startups10Source.data);
   dispatch(
     addSource(startups10Source)
@@ -790,21 +850,21 @@ function onSubmit5(e){
   //   };
   // }, [dispatch]);
   
-  useEffect(() => {
-    dispatch(addSource(startups8Source));
+  // useEffect(() => {
+  //   dispatch(addSource(startups8Source));
 
-    dispatch(
-      addLayer({
-        id: BASEMAP_LAYER_ID,
-        source: startups8Source.id,
-      }),
-    );
+  //   dispatch(
+  //     addLayer({
+  //       id: BASEMAP_LAYER_ID,
+  //       source: startups8Source.id,
+  //     }),
+  //   );
 
-    return () => {
-      dispatch(removeLayer(BASEMAP_LAYER_ID));
-      dispatch(removeSource(startups8Source.id));
-    };
-  }, [dispatch]);
+  //   return () => {
+  //     dispatch(removeLayer(BASEMAP_LAYER_ID));
+  //     dispatch(removeSource(startups8Source.id));
+  //   };
+  // }, [dispatch]);
 
   // useEffect(() => {
   //   dispatch(addSource(developmentSource));
@@ -846,7 +906,7 @@ function onSubmit5(e){
     <Grid container direction='column' className={classes.startups5}>
     <div className="card p-0 " style={search_float}>
           
-          <div className="card-header p-2" style={background_white}>
+          <div className="card-header p-1" style={background_white}>
             
               <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit5} placeholder="search" ref={searchInput5} id='search5' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
@@ -868,13 +928,13 @@ function onSubmit5(e){
     <div id="accordion2" className="d-none d-md-block" style={filters_float}>
         <div className="card shadow-sm" style={card_float}>
               <div className="card-header" style={card_header_float}>
-                  <a className="card-link text-white" style={card_header_float} data-toggle="collapse" href="#collapseOne2">
-                    Filter By 
+                  <a className="card-link text-dark" style={card_header_float} data-toggle="collapse" href="#collapseOne2">
+                    Layers 
                     <i class="fa fa-chevron-down " style={icon_size} aria-hidden="true"></i>
                   </a>
               </div>
               <div id="collapseOne2" className="collapse show" style={card_body_float} data-parent="#accordion2">
-            <div className="card-body p-0 m-0 pb-3" >
+            <div className="card-body p-0 m-0 pb-5" >
             <label style={styleLabel}>Governorate:
               
               <Multiselect
@@ -1066,14 +1126,24 @@ function onSubmit5(e){
 
         <div className="card">
           
-          <div className="card-header" style={background_navy}>
+          {/* <div className="card-header" style={background_navy}>
             <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapse2">
               Interactive Analytics
               <i class="fa fa-chevron-down " style={icon_size2} aria-hidden="true"></i>
             </a>
-          </div>
+          </div> */}
           <div id="collapse2" className="collapse show" data-parent="#accordion">
             <div className="card-body p-0 m-0">
+              <FormulaWidget
+                id='innovationStages'
+                title='Total No. of Innovations in Egypt'
+                dataSource={startups10Source.id}
+                column='innovation_stage'
+                operationColumn='innovation_stage'
+                operation={AggregationTypes.COUNT}
+                // formatter={currencyFormatter}
+              />
+              <Divider></Divider>
               <CategoryWidget
                 id='innovationSectors'
                 title='Innovation Sectors'
@@ -1084,7 +1154,7 @@ function onSubmit5(e){
                 // formatter={currencyFormatter}
               />
               <Divider></Divider>
-              <CategoryWidget
+              <PieWidget
                 id='innovationStages'
                 title='Innovation Stages'
                 dataSource={startups10Source.id}
@@ -1114,7 +1184,7 @@ function onSubmit5(e){
 <div>
 
 </div>
-{/* <button type="button" onClick={ExportToExcel}>Export To Excel</button>  */}
+<button type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button> 
 {/* <button type="button" onClick={hit2}>here</button> */}
 
       {/* <Select

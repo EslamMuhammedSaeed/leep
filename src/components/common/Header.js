@@ -413,7 +413,7 @@ function NavigationMenu({ column: vertical }) {
           className={classes.navLink}
         /> */}
         <Tab
-          label='LEEP innovation map'
+          label='LEEP Innovation Map'
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}

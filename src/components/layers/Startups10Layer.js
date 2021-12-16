@@ -67,21 +67,21 @@ export default function Startups10Layer() {
       // },
       getFillColor: d => {
         if(d.properties.sector === "Creative Industries"){
-          return [138, 43, 226]; 
+          return [255, 45, 132]; 
         }else if(d.properties.sector === "Education"){
-          return [165, 42, 42];
+          return [30, 70, 142];
         }else if(d.properties.sector === "Environment"){
-          return [34, 139, 34];
+          return [58, 139, 40];
         }else if(d.properties.sector === "Health"){
-          return [0, 135 , 251];
+          return [233, 78, 36];
         }else if(d.properties.sector === "Inclusive Services AND Technology"){
-          return [255, 189 , 150];
+          return [255, 168, 38];
         }else if(d.properties.sector === "Infrastructure and Transport"){
-          return [105, 105, 105];
+          return [3, 117, 125];
         }else if(d.properties.sector === "Tourism"){
-          return [255, 99, 71];
+          return [83, 186, 193];
         }else{
-          return [245, 245, 245];
+          return [138, 43, 226];
         }
       
       },

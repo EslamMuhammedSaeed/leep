@@ -1,5 +1,6 @@
 import { VOYAGER } from '@carto/react-basemaps';
 import { DARK_MATTER } from '@carto/react-basemaps';
+import { POSITRON } from '@carto/react-basemaps';
 import { API_VERSIONS } from '@deck.gl/carto';
 
 export const initialState = {
@@ -11,7 +12,7 @@ export const initialState = {
     bearing: 0,
     dragRotate: false,
   },
-  basemap: VOYAGER,
+  basemap: POSITRON,
   credentials: {
     apiVersion: API_VERSIONS.V2,
     username: 'riseegypt',
