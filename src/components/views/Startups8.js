@@ -241,7 +241,7 @@ const card_float={
   // overflowY: 'scroll',
   background:"rgba(255, 255, 255, 0.356)",
   width:"280px",
-  maxHeight:"620px",
+  maxHeight:"790px",
 
 };
 const card_body_float={
@@ -249,7 +249,7 @@ const card_body_float={
   overflowY: 'scroll',
   overflowX: 'hidden',
   width:"280px",
-  maxHeight:"500px",
+  maxHeight:"450px",
 
 };
 const filters_float = {
