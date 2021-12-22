@@ -57,8 +57,8 @@ var data = [{name: 'Creative Industries'},
 const fileName = 'download'  ;
 const exportType = exportFromJSON.types.csv; 
 
-var sql_main = "select cartodb_id, name, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-var sql_main2 = "select cartodb_id, name, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main2 = "select cartodb_id, name, sdgs, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 var global_data =[];
 const sectors = [
   {name: 'Creative Industries', id: 1},
@@ -85,7 +85,23 @@ const innovation_type = [
   {name: 'Other', id: 8},
   // {name: 'Health', id: 4},
 ];
-
+const SDGs = [
+  
+  {name: 'GOAL 1: NO POVERTY', id: 1},
+  {name: 'GOAL 2: ZERO HUNGER', id: 2},
+  {name: 'GOAL 3: GOOD HEALTH AND WELL-BEING', id: 3},
+  {name: 'GOAL 4: QUALITY EDUCATION', id: 4},
+  {name: 'GOAL 5: GENDER EQUALITY', id: 5},
+  {name: 'GOAL 6: CLEAN WATER AND SANITATION', id: 6},
+  {name: 'GOAL 7: AFFORDABLE AND CLEAN ENERGY', id: 7},
+  {name: 'GOAL 8: DECENT WORK AND ECONOMIC GROWTH', id: 8},
+  {name: 'GOAL 9: INDUSTRY, INNOVATION AND INFRASTRUCTURE', id: 9},
+  {name: 'GOAL 10: REDUCED INEQUALITIES', id: 10},
+  {name: 'GOAL 11: SUSTAINABLE CITIES AND COMMUNITIES', id: 11},
+  {name: 'GOAL 12: RESPONSIBLE CONSUMPTION AND PRODUCTION', id: 12},
+  {name: 'GOAL 13: CLIMATE ACTION', id: 13},
+  {name: 'GOAL 14: LIFE BELOW WATER', id: 14}, 
+]
 const development_data = [
   
   {name: 'average number of hospitals 100k of residents', id: 1},
@@ -422,11 +438,11 @@ export default function Startups8() {
     
    
     // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -495,7 +511,7 @@ sql_main=sql_main+" WHERE (sector='"+selectedItem.name+"')";
 console.log(sql_main);
 }
 //  var sector_no = selectedList.length;
-//  var sql="select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+//  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
 //  for (let i = 0; i < sector_no; i++) {
 //      if(i==0){
 //        sql = sql+selectedList[i].name+"'";
@@ -517,6 +533,61 @@ dispatch(
  })
 );
 };
+
+function SDGsOnSelectHandler(selectedList, selectedItem){
+
+  //  console.log(selectedList);
+  //  var govern = selectedList[0].name;
+  if(sql_main.indexOf("WHERE (sdgs")>0|| sql_main.indexOf("WHERE(sdgs")>0|| sql_main.indexOf("WHERE( sdgs")>0){
+  var index = sql_main.indexOf("(sdgs");
+  sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  //LOWER(name) LIKE LOWER('%"+val+"%')
+  console.log(sql_main);
+  // sql_main=sql_main+" WHERE sector='"+selectedItem.name+"'";
+  }else if(sql_main.indexOf("WHERE( LOWER(sdgs)")>0){
+    var index = sql_main.indexOf("( LOWER(sdgs)");
+    sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+    console.log(sql_main);
+    
+  }else if(sql_main.indexOf("WHERE ( LOWER(sdgs)")>0){
+    var index = sql_main.indexOf("( LOWER(sdgs)");
+    sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+    console.log(sql_main);
+    
+  }else if(sql_main.indexOf("LOWER(sdgs)")>0){
+  var index = sql_main.indexOf("(LOWER(sdgs)");
+  sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  console.log(sql_main);
+  }else if(sql_main.indexOf("WHERE")>0){
+  sql_main=sql_main+"AND (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+  console.log(sql_main);
+  }else{
+  sql_main=sql_main+" WHERE (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+  console.log(sql_main);
+  }
+  //  var sector_no = selectedList.length;
+  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  for (let i = 0; i < sector_no; i++) {
+  //      if(i==0){
+  //        sql = sql+selectedList[i].name+"'";
+  //      }else{
+  //        sql = sql+"OR sector ='"+selectedList[i].name+"'";
+  //      }
+     
+  //  }
+  //  console.log(sql);
+  startups10Source.data=  sql_main;
+  dispatch(
+   addSource(startups10Source)
+  );
+  
+  dispatch(
+   addLayer({
+     id: STARTUPS10_LAYER_ID,
+     source: startups10Source.id,
+   })
+  );
+  };
 
 function sectorOnRemoveHandler(selectedList, selectedItem){
      
@@ -559,11 +630,84 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("AND ( )",'');
     
     // if(sql_main.indexOf("gov_name=")>0)
-  if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-    sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
-  if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-    sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  }
+  sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace(" OR OR",'OR');
+  sql_main = sql_main.replace("AND ()",'');
+  sql_main = sql_main.replace("AND ( )",'');
+  sql_main = sql_main.replace(" AND ()",'');
+    sql_main = sql_main.replace(" AND ( )",'');
+    sql_main = sql_main.replace(" AND()",'');
+    sql_main = sql_main.replace(" AND( )",'');
+    sql_main = sql_main.replace(" AND(  )",'');
+  console.log("removed");
+  console.log(sql_main);
+
+  
+  startups10Source.data=  sql_main;
+  dispatch(
+    addSource(startups10Source)
+  );
+
+  dispatch(
+    addLayer({
+      id: STARTUPS10_LAYER_ID,
+      source: startups10Source.id,
+    })
+  );
+};
+function SDGsOnRemoveHandler(selectedList, selectedItem){
+     
+  console.log(selectedList);
+  console.log(selectedItem.name);
+  var sql ="";
+
+  console.log(sql_main);
+  sql_main = sql_main.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+  sql_main = sql_main.replace(" OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+  sql_main = sql_main.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+  // sql_main = sql_main.replace("sector ='"+selectedItem.name+"'",'');
+  sql_main = sql_main.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+
+    sql_main = sql_main.replace("16112021AND",'16112021 WHERE');    
+    
+    
+    
+    sql_main = sql_main.replace(" AND ()",'');
+    sql_main = sql_main.replace(" AND ( )",'');
+    sql_main = sql_main.replace(" AND()",'');
+    sql_main = sql_main.replace(" AND( )",'');
+    sql_main = sql_main.replace(" AND(  )",'');
+    sql_main = sql_main.replace(" WHERE ()",'');
+    sql_main = sql_main.replace(" WHERE ( )",'');
+    sql_main = sql_main.replace(" WHERE (  )",'');
+    sql_main = sql_main.replace(" WHERE (   )",'');
+    sql_main = sql_main.replace(" WHERE()",'');
+    sql_main = sql_main.replace(" WHERE( )",'');
+    sql_main = sql_main.replace(" WHERE(  )",'');
+    sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace("( OR",'(');
+    sql_main = sql_main.replace(" OR OR",'OR');
+    sql_main = sql_main.replace("WHERE OR",'WHERE');
+    sql_main = sql_main.replace("WHERE (  OR ",'WHERE (');
+    sql_main = sql_main.replace("OR  )",')');
+    sql_main = sql_main.replace("OR  ",'OR ');
+    sql_main = sql_main.replace("  OR",' OR');
+    sql_main = sql_main.replace("16112021AND",'16112021 WHERE');
+    sql_main = sql_main.replace("AND ( )",'');
+    
+    // if(sql_main.indexOf("gov_name=")>0)
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  }
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
   sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -623,7 +767,7 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
   console.log(sql_main);
   }
   //  var sector_no = selectedList.length;
-  //  var sql="select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
   //  for (let i = 0; i < sector_no; i++) {
   //      if(i==0){
   //        sql = sql+selectedList[i].name+"'";
@@ -687,11 +831,11 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
       sql_main = sql_main.replace("AND ( )",'');
       
       // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
       sql_main = sql_main.replace("( OR",'(');
@@ -730,7 +874,7 @@ console.log(searchInput.current.value);
 var val = searchInput.current.value;
 var val2 = capitalizeFirstLetter(val);
 console.log(val2);
-startups10Source.data=  "select cartodb_id, name, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
 console.log(startups10Source.data);
 dispatch(
   addSource(startups10Source)
@@ -751,7 +895,7 @@ function onSubmit5(e){
   var val = searchInput5.current.value;
   var val2 = capitalizeFirstLetter(val);
   console.log(val2);
-  startups10Source.data=  "select cartodb_id, name, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
   console.log(startups10Source.data);
   dispatch(
     addSource(startups10Source)
@@ -957,7 +1101,7 @@ function onSubmit5(e){
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
                   showArrow="true"
-                  closeOnSelect="false"
+                  closeOnSelect={false}
                   closeIcon="cancel"
                   style={style2}
                     
@@ -976,7 +1120,7 @@ function onSubmit5(e){
                 displayValue="name" // Property name to display in the dropdown options
                 showCheckbox="true"
                 showArrow="true"
-                closeOnSelect="false"
+                closeOnSelect={false}
                 closeIcon="cancel"
                 style={style2}
                   
@@ -996,7 +1140,7 @@ function onSubmit5(e){
                   displayValue="name" // Property name to display in the dropdown options
                   showCheckbox="true"
                   showArrow="true"
-                  closeOnSelect="false"
+                  closeOnSelect={false}
                   closeIcon="cancel"
                   style={style2}
                     
@@ -1018,7 +1162,25 @@ function onSubmit5(e){
                   showCheckbox="true"
                   singleSelect="true"
                   showArrow="true"
-                  closeOnSelect="false"
+                  closeOnSelect={false}
+                  closeIcon="cancel"
+                  style={style2}
+                    
+              />
+              <label style={styleLabel}>SDGs:
+ 
+              </label>
+              <Multiselect
+                
+                  options={SDGs} // Options to display in the dropdown
+                  selectedValues={SDGs[0]} // Preselected value to persist in dropdown
+                  onSelect={SDGsOnSelectHandler} // Function will trigger on select event
+                  onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
+                  displayValue="name" // Property name to display in the dropdown options
+                  // showCheckbox="true"
+                  // closeOnSelect=false
+                  showArrow="true"
+                  closeOnSelect={false}
                   closeIcon="cancel"
                   style={style2}
                     
