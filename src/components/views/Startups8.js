@@ -262,7 +262,7 @@ const dev_float = {
   padding:"2px",
   paddingTop: "12px",
   
-  width:"750px",
+  width:"350px",
 };
 
 const search_float_mobile = {
