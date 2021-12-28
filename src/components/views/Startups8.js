@@ -116,7 +116,7 @@ const development_data = [
   {name: 'male dropout rate in primary education', id: 10},
   {name: 'male illiteracy rate', id: 11},
   {name: 'male success rate in high school', id: 12},
-  {name: 'poverty persentage (2017/2018)', id: 13},
+  {name: 'poverty percentage (2017/2018)', id: 13},
   {name: 'unemployment rate', id: 14}, 
 ]
 
@@ -166,8 +166,8 @@ const legendFloat={
 const exportButton={
   borderRadius :"0px",
   position:"fixed",
-  right :"360px",
-  top:"63px",
+  right :"366px",
+  top:"61px",
   opacity:"0.8",
   fontSize:"15px"
 }
@@ -221,6 +221,50 @@ const search_float = {
   // color:"white"
 
 };
+const search_float2 = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  background:"rgba(255, 255, 255)",
+  position:"fixed",
+  bottom: "30px",
+  right: "360px",
+  padding:"7px",
+  // width:"300px"
+  // color:"white"
+
+};
+
+const sdg_float = {
+  background:"rgba(255, 255, 255)",
+  position:"fixed",
+  top: "48px",
+  left: "0px",
+  padding:"2px",
+  paddingTop: "12px",
+  paddingLeft:"10px",
+  width:window.innerWidth-350+"px",
+};
+const govern_float = {
+  background:"rgba(255, 255, 255,0)",
+  position:"fixed",
+  top: "48px",
+  left: "240px",
+  padding:"2px",
+  paddingTop: "12px",
+  width:"350px",
+};
+const dev_float = {
+  background:"rgba(255, 255, 255,0)",
+  position:"fixed",
+  top: "48px",
+  left: "470px",
+  padding:"2px",
+  paddingTop: "12px",
+  
+  width:"750px",
+};
+
 const search_float_mobile = {
   // background:"#2CA58D",
   // border: "0",
@@ -293,6 +337,30 @@ const card_header_float = {
   with:"300px",
   background:"white",
 };
+const style3 ={
+  multiselectContainer: { 
+    marginLeft:"15px",
+    margin:"0px 10px 10px 15px",
+    width:"200px"
+    // paddingRight:"20px"
+  },
+  searchBox: { // To change search box element look
+    minHeight: "40px",
+    minWidth:"300px",
+    maxHeight: "40px",
+	
+	
+  },
+  chips: {
+     background: "#FAA63D",
+     color: "white",
+     whiteSpace: "normal",
+    // display:"none"
+     
+     
+  }
+  
+}
 const style2 ={
   multiselectContainer: { 
     marginLeft:"15px",
@@ -302,7 +370,7 @@ const style2 ={
   },
   searchBox: { // To change search box element look
     minHeight: "40px",
-    width:"240px"
+    width:"200px"
 	
 	
   },
@@ -310,6 +378,7 @@ const style2 ={
      background: "#FAA63D",
      color: "white",
      whiteSpace: "normal",
+     display:"none",
      
   }
   
@@ -709,6 +778,8 @@ function SDGsOnRemoveHandler(selectedList, selectedItem){
   if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
     sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
+  
+  sql_main = sql_main.replace("OR )",')');
   sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace(" OR OR",'OR');
@@ -719,6 +790,7 @@ function SDGsOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace(" AND()",'');
     sql_main = sql_main.replace(" AND( )",'');
     sql_main = sql_main.replace(" AND(  )",'');
+    sql_main = sql_main.replace("( OR",'(');
   console.log("removed");
   console.log(sql_main);
 
@@ -966,7 +1038,7 @@ function onSubmit5(e){
   } 
 
   function developmentDataOnSelectHandler(selectedList, selectedItem){
-    if(selectedItem.name=="poverty persentage (2017/2018)"){
+    if(selectedItem.name=="poverty percentage (2017/2018)"){
       addPovertyLayer();
       dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
     }else if(selectedItem.name=="unemployment rate"){
@@ -976,7 +1048,7 @@ function onSubmit5(e){
     
   }
   function developmentDataOnRemoveHandler(selectedList, selectedItem){
-    if(selectedItem.name=="poverty persentage (2017/2018)"){
+    if(selectedItem.name=="poverty percentage (2017/2018)"){
       dispatch(removeLayer(POVERTY_LAYER_ID));
     }else if(selectedItem.name=="unemployment rate"){
       dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
@@ -1059,11 +1131,11 @@ function onSubmit5(e){
   return (
    
     <Grid container direction='column' className={classes.startups5}>
-    <div className="card p-0 " style={search_float}>
+    <div className="card p-0 " style={search_float2}>
           
           <div className="card-header p-1" style={background_white}>
             
-              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit5} placeholder="search" ref={searchInput5} id='search5' ></input>
+              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit5} placeholder="Search Innovation" ref={searchInput5} id='search5' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             
           </div>
@@ -1079,8 +1151,9 @@ function onSubmit5(e){
           </div>
           
     </div> */}
+    
 
-    <div id="accordion2" className="d-none d-md-block" style={filters_float}>
+    {/* <div id="accordion2" className="d-none d-md-block" style={filters_float}>
         <div className="card shadow-sm" style={card_float}>
               <div className="card-header" style={card_header_float}>
                   <a className="card-link text-dark" style={card_header_float} data-toggle="collapse" href="#collapseOne2">
@@ -1192,7 +1265,11 @@ function onSubmit5(e){
             </div>
           </div>
         </div>        
-    </div>
+    </div> */}
+
+
+
+
       {/* <Grid item>Hello World</Grid> */}
       {/* <div style={{margin: '20px'}}>
         <input placeholder="search" ref={searchInput} type="text" id='search' />
@@ -1365,6 +1442,66 @@ function onSubmit5(e){
 <div>
 
 </div>
+
+<div style={sdg_float} className="shadow-sm">
+    <Multiselect
+                
+        options={SDGs} // Options to display in the dropdown
+        selectedValues={SDGs[0]} // Preselected value to persist in dropdown
+        onSelect={SDGsOnSelectHandler} // Function will trigger on select event
+        onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
+        displayValue="name" // Property name to display in the dropdown options
+        placeholder="Filter by SDG"
+        // showCheckbox="true"
+        // closeOnSelect=false
+        showCheckbox={true}
+        showArrow="true"
+        closeOnSelect={false}
+        closeIcon="cancel"
+        style={style2}
+          
+    />
+    </div>
+
+    <div style={govern_float}>
+    <Multiselect
+                
+        options={options} // Options to display in the dropdown
+        selectedValues={options[0]} // Preselected value to persist in dropdown
+        onSelect={governOnSelectHandler} // Function will trigger on select event
+        onRemove={governOnRemoveHandler} // Function will trigger on remove event
+        displayValue="name" // Property name to display in the dropdown options
+        showCheckbox="true"
+        showArrow="true"
+        placeholder="Filter by Governorate"
+        closeOnSelect={false}
+        closeIcon="cancel"
+        style={style2}
+          
+    />
+    </div>
+    <div style={dev_float}>
+    <Multiselect
+                
+        options={development_data} // Options to display in the dropdown
+        selectedValues={development_data[0]} // Preselected value to persist in dropdown
+        onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+        onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+        displayValue="name" // Property name to display in the dropdown options
+        showCheckbox={true}
+        placeholder="Development Data Layer"
+        // singleSelect={true}
+        selectionLimit={1}
+        showArrow="true"
+        hidePlaceholder={false}
+        closeOnSelect={false}
+        closeIcon="cancel"
+        style={style2}
+          
+    />
+    </div>
+
+
 <button type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button> 
 {/* <button type="button" onClick={hit2}>here</button> */}
 
