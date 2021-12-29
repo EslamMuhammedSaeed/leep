@@ -167,7 +167,7 @@ const exportButton={
   borderRadius :"0px",
   position:"fixed",
   right :"366px",
-  top:"61px",
+  top:"54px",
   opacity:"0.8",
   fontSize:"15px"
 }
@@ -241,26 +241,27 @@ const sdg_float = {
   top: "48px",
   left: "0px",
   padding:"2px",
-  paddingTop: "12px",
-  paddingLeft:"10px",
+  paddingTop: "6px",
+  paddingLeft:"103px",
+  height:"50px",
   width:window.innerWidth-350+"px",
 };
 const govern_float = {
   background:"rgba(255, 255, 255,0)",
   position:"fixed",
   top: "48px",
-  left: "240px",
+  left: "333px",
   padding:"2px",
-  paddingTop: "12px",
+  paddingTop: "6px",
   width:"350px",
 };
 const dev_float = {
   background:"rgba(255, 255, 255,0)",
   position:"fixed",
   top: "48px",
-  left: "470px",
+  left: "565px",
   padding:"2px",
-  paddingTop: "12px",
+  paddingTop: "6px",
   
   width:"350px",
 };
@@ -369,7 +370,7 @@ const style2 ={
     // paddingRight:"20px"
   },
   searchBox: { // To change search box element look
-    minHeight: "40px",
+    minHeight: "36px",
     width:"200px"
 	
 	
@@ -1489,7 +1490,7 @@ function onSubmit5(e){
         onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
         displayValue="name" // Property name to display in the dropdown options
         showCheckbox={true}
-        placeholder="Development Data Layer"
+        placeholder="Development Data"
         // singleSelect={true}
         selectionLimit={1}
         showArrow="true"

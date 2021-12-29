@@ -306,8 +306,10 @@ function AppName() {
 const useStylesNavigationMenu = makeStyles((theme) => ({
   navTabs: {
     '& .MuiTabs-indicator': {
+      // top:"0px",
       backgroundColor:
-        theme.palette.appBar?.contrastText || theme.palette.primary?.contrastText,
+        "#2c3032",
+        // theme.palette.appBar?.contrastText || theme.palette.primary?.contrastText,
     },
   },
 }));
@@ -413,11 +415,11 @@ function NavigationMenu({ column: vertical }) {
           className={classes.navLink}
         /> */}
         <Tab
-          label='LEEP Innovation Map'
+          label='Egypt Innovation Map'
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink+" text-md-white text-decoration-none  text-white"}
+          className={classes.navLink+" text-md-white text-decoration-none  text-white border-0"}
         />
       </Tabs>
       {/* <div className="row pl-2 pt-3 pt-md-0 d-none d-md-block">
