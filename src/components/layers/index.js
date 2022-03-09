@@ -13,6 +13,13 @@ import BasemapLayer from './BasemapLayer';
 import PovertyLayer from './PovertyLayer';
 import UnemploymentLayer from './UnemploymentLayer';
 import NoOfHospitalsLayer from './NoOfHospitalsLayer';
+import SdgLayer from './SdgLayer';
+import Sdg2Layer from './Sdg2Layer';
+import PopulationLayer from './PopulationLayer';
+import HouseholdLayer from './HouseholdLayer';
+import Household2Layer from './Household2Layer';
+import Household3Layer from './Household3Layer';
+import Household4Layer from './Household4Layer';
 // [hygen] Import layers
 
 export const getLayers = () => {
@@ -31,11 +38,22 @@ export const getLayers = () => {
     BasemapLayer(),
     PovertyLayer(),
     UnemploymentLayer(),
+    NoOfHospitalsLayer(),
+    SdgLayer(),
+    Sdg2Layer(),
+    Household4Layer(),
+    Household3Layer(),
+    Household2Layer(),
+    HouseholdLayer(),
+    PopulationLayer(),
     Startups10Layer(),
     
     
     
-    NoOfHospitalsLayer(),
+    
+    
+    
+
     // [hygen] Add layer
   ];
 };

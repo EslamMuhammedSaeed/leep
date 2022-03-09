@@ -76,9 +76,9 @@ function generateHtml(
   formatterFunction = (v) => v
 ) {
   return html.concat(
-    `${showColumnName ? `<strong>${propertyName}</strong>: ` : ''}${formatterFunction(
+    `<div class="pop-up">${showColumnName ? `<strong>${propertyName}</strong>: ` : ''}${formatterFunction(
       feature.properties[propertyName]
-    )}<br/>`
+    )}<br/></div>`
   );
 }
 

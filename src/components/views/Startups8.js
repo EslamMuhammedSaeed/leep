@@ -3,9 +3,22 @@ import { useEffect } from 'react';
 import { BASEMAP_LAYER_ID } from 'components/layers/BasemapLayer';
 import { UNEMPLOYMENT_LAYER_ID } from 'components/layers/UnemploymentLayer';
 import startups10Source from 'data/sources/startups10Source';
+
+// import startups13Source from 'data/sources/startups13Source';
+// import { SDG_LAYER_ID } from 'components/layers/SdgLayer';
+import startups14Source from 'data/sources/startups14Source';
+import { SDG2_LAYER_ID } from 'components/layers/Sdg2Layer';
+import sdGsSource from 'data/sources/sdGsSource';
+
 import developmentSource from 'data/sources/developmentSource';
 import { STARTUPS10_LAYER_ID } from 'components/layers/Startups10Layer';
 import { POVERTY_LAYER_ID } from 'components/layers/PovertyLayer';
+import { POPULATION_LAYER_ID } from 'components/layers/PopulationLayer';
+import { HOUSEHOLD_LAYER_ID } from 'components/layers/HouseholdLayer';
+import { HOUSEHOLD2_LAYER_ID } from 'components/layers/Household2Layer';
+import { HOUSEHOLD3_LAYER_ID } from 'components/layers/Household3Layer';
+import { HOUSEHOLD4_LAYER_ID } from 'components/layers/Household4Layer';
+
 import startups8Source from 'data/sources/startups8Source';
 import { STARTUPS9_LAYER_ID } from 'components/layers/Startups9Layer';
 import { STARTUPS11_LAYER_ID } from 'components/layers/Startups11Layer';
@@ -13,6 +26,7 @@ import { useDispatch } from 'react-redux';
 import { getData } from 'data/models/model';
 import { LegendWidget } from "@carto/react-widgets";
 import { PieWidget } from "@carto/react-widgets";
+import { HistogramWidget } from "@carto/react-widgets";
 
 
 import {
@@ -55,11 +69,12 @@ var data = [{name: 'Creative Industries'},
 {name2: 'Other'},
 ]  
 const fileName = 'download'  ;
-const exportType = exportFromJSON.types.csv; 
+const exportType = exportFromJSON.types.xls; 
 
-var sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-var sql_main2 = "select cartodb_id, name, sdgs, gov_name,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main2 = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 var global_data =[];
+const customFormatter = (value) => `${value} Years`;
 const sectors = [
   {name: 'Creative Industries', id: 1},
   {name: 'Education', id: 2},
@@ -114,10 +129,13 @@ const development_data = [
   {name: 'illiteracy rate', id: 8},
   {name: 'male dropout rate in preparatory education', id: 9},
   {name: 'male dropout rate in primary education', id: 10},
-  {name: 'male illiteracy rate', id: 11},
-  {name: 'male success rate in high school', id: 12},
-  {name: 'poverty percentage (2017/2018)', id: 13},
-  {name: 'unemployment rate', id: 14}, 
+  {name: 'households connected to electricity', id: 11},
+  {name: 'households connected to sewage', id: 12},
+  {name: 'households connected to water', id: 13},
+  {name: 'poverty percentage (2017/2018)', id: 14},
+  {name: 'unemployment rate', id: 15}, 
+  {name: 'population percentage', id: 16},
+  {name: 'phone lines', id: 17},
 ]
 
 const options = [
@@ -242,7 +260,7 @@ const sdg_float = {
   left: "0px",
   padding:"2px",
   paddingTop: "6px",
-  paddingLeft:"103px",
+  paddingLeft:"5px",
   height:"50px",
   width:window.innerWidth-350+"px",
 };
@@ -250,7 +268,16 @@ const govern_float = {
   background:"rgba(255, 255, 255,0)",
   position:"fixed",
   top: "48px",
-  left: "333px",
+  left: "220px",
+  padding:"2px",
+  paddingTop: "6px",
+  width:"350px",
+};
+const sector_float = {
+  background:"rgba(255, 255, 255,0)",
+  position:"fixed",
+  top: "48px",
+  left: "440px",
   padding:"2px",
   paddingTop: "6px",
   width:"350px",
@@ -259,7 +286,7 @@ const dev_float = {
   background:"rgba(255, 255, 255,0)",
   position:"fixed",
   top: "48px",
-  left: "565px",
+  left: "660px",
   padding:"2px",
   paddingTop: "6px",
   
@@ -968,7 +995,7 @@ function onSubmit5(e){
   var val = searchInput5.current.value;
   var val2 = capitalizeFirstLetter(val);
   console.log(val2);
-  startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+  startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') "  ;
   console.log(startups10Source.data);
   dispatch(
     addSource(startups10Source)
@@ -983,7 +1010,8 @@ function onSubmit5(e){
 
 
   const addPovertyLayer = (e) =>{
-    
+    var poverty_sql = "select gov_name_en as governorate,poverty_percentage_2017_2018,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = poverty_sql;
     dispatch(addSource(developmentSource));
 
     dispatch(
@@ -1006,6 +1034,7 @@ function onSubmit5(e){
     //   }),
     // );
    
+    
 
     // dispatch(
     //   addLayer({
@@ -1020,6 +1049,97 @@ function onSubmit5(e){
     //   }),
     // );
   } 
+
+  const addPopulationLayer = (e) =>{
+    var population_sql = "select gov_name_en as governorate,population_percentage_2017_census_approximated_to_2nd_decimal,percentage_of_urban_population_2017_census,percentage_of_rural_population_2017_census,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = population_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: POPULATION_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(POPULATION_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
+  } 
+  const addHouseholdWaterLayer = (e) =>{
+    var householdwater_sql = "select gov_name_en as governorate,percentage_of_households_connected_to_the_public_network_of_wat,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = householdwater_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
+  } 
+  const addHouseholdElectricityLayer = (e) =>{
+    var householdelectricity_sql = "select gov_name_en as governorate,percentage_of_households_connected_to_the_public_network_of_ele,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = householdelectricity_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD2_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD2_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
+  } 
+  const addHouseholdSewageLayer = (e) =>{
+    var householdsewage_sql = "select gov_name_en as governorate,percentage_of_households_connected_to_the_public_network_of_sew,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = householdsewage_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD3_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD3_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
+  }
+  const addPhonelinesLayer = (e) =>{
+    var household4_sql = "select gov_name_en as governorate,average_number_of_home_phone_lines_1000_households_2019_2020,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household4_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD4_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD4_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
+  }  
   const addUnemploymentLayer = (e) =>{
     
     dispatch(addSource(developmentSource));
@@ -1041,11 +1161,36 @@ function onSubmit5(e){
   function developmentDataOnSelectHandler(selectedList, selectedItem){
     if(selectedItem.name=="poverty percentage (2017/2018)"){
       addPovertyLayer();
-      dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+      // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+      // dispatch(removeLayer(POPULATION_LAYER_ID));
     }else if(selectedItem.name=="unemployment rate"){
       addUnemploymentLayer();
-      dispatch(removeLayer(POVERTY_LAYER_ID));
-    }  
+      // dispatch(removeLayer(POVERTY_LAYER_ID));
+      
+    }else if(selectedItem.name=="population percentage"){
+      addPopulationLayer();
+      // dispatch(removeLayer(POVERTY_LAYER_ID));
+      // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    }else if(selectedItem.name=="households connected to water"){
+      addHouseholdWaterLayer();
+      // dispatch(removeLayer(POVERTY_LAYER_ID));
+      // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    }else if(selectedItem.name=="households connected to electricity"){
+      addHouseholdElectricityLayer();
+      // dispatch(removeLayer(POVERTY_LAYER_ID));
+      // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    }else if(selectedItem.name=="households connected to sewage"){
+      addHouseholdSewageLayer();
+      // dispatch(removeLayer(POVERTY_LAYER_ID));
+      // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    }else if(selectedItem.name=="phone lines"){
+      addPhonelinesLayer();
+      // dispatch(removeLayer(POVERTY_LAYER_ID));
+      // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    } 
+     
+
+ 
     
   }
   function developmentDataOnRemoveHandler(selectedList, selectedItem){
@@ -1053,7 +1198,17 @@ function onSubmit5(e){
       dispatch(removeLayer(POVERTY_LAYER_ID));
     }else if(selectedItem.name=="unemployment rate"){
       dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    } 
+    }else if(selectedItem.name=="population percentage"){
+      dispatch(removeLayer(POPULATION_LAYER_ID));
+    }else if(selectedItem.name=="households connected to water"){
+      dispatch(removeLayer(HOUSEHOLD_LAYER_ID));
+    }else if(selectedItem.name=="households connected to electricity"){
+      dispatch(removeLayer(HOUSEHOLD2_LAYER_ID));
+    }else if(selectedItem.name=="households connected to sewage"){
+      dispatch(removeLayer(HOUSEHOLD3_LAYER_ID));
+    }else if(selectedItem.name=="phone lines"){
+      dispatch(removeLayer(HOUSEHOLD4_LAYER_ID));
+    }   
   }
 
     // return () => {
@@ -1109,6 +1264,25 @@ function onSubmit5(e){
   //     dispatch(removeSource(developmentSource.id));
   //   };
   // }, [dispatch]);
+  // dispatch(
+  //   addSource(startups14Source)
+  // );
+
+  useEffect(() => {
+    dispatch(addSource(startups14Source));
+
+    dispatch(
+      addLayer({
+        id: SDG2_LAYER_ID,
+        source: startups14Source.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(SDG2_LAYER_ID));
+      dispatch(removeSource(startups14Source.id));
+    };
+  }, [dispatch]);
   
 
   useEffect(() => {
@@ -1409,6 +1583,24 @@ function onSubmit5(e){
                 operation={AggregationTypes.COUNT}
                 // formatter={currencyFormatter}
               />
+              <CategoryWidget
+                id='sdgs'
+                title='SDGs'
+                dataSource={startups14Source.id}
+                column='sdg'
+                operationColumn='sdg'
+                operation={AggregationTypes.COUNT}
+                // formatter={currencyFormatter}
+              />
+              <CategoryWidget
+                id='innovationTypes'
+                title='Innovation Types'
+                dataSource={startups10Source.id}
+                column='innovation_type'
+                operationColumn='innovation_type'
+                operation={AggregationTypes.COUNT}
+                // formatter={currencyFormatter}
+              />
               <Divider></Divider>
               <PieWidget
                 id='innovationStages'
@@ -1420,6 +1612,16 @@ function onSubmit5(e){
                 height="200px"
                 // formatter={currencyFormatter}
               />
+              {/* <HistogramWidget
+                id="innovationStages2"
+                title="Innovation Stages 2"
+                dataSource={startups10Source.id}
+                operation={AggregationTypes.COUNT}
+                column="innovation_stage"
+                xAxisFormatter={customFormatter}
+                ticks={[1, 3, 6, 9]}
+                formatter={customFormatter}
+              /> */}
               <div style={legendFloat}>
                 <LegendWidget  />
               </div>
@@ -1481,6 +1683,25 @@ function onSubmit5(e){
           
     />
     </div>
+    <div style={sector_float}>
+    <Multiselect
+                
+      options={sectors} // Options to display in the dropdown
+      selectedValues={sectors[0]} // Preselected value to persist in dropdown
+      onSelect={sectorOnSelectHandler} // Function will trigger on select event
+      onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+      displayValue="name" // Property name to display in the dropdown options
+      showCheckbox="true"
+      showArrow="true"
+      placeholder="Filter by Sector"
+      closeOnSelect={false}
+      closeIcon="cancel"
+      style={style2}        
+    />
+    </div>
+
+           
+
     <div style={dev_float}>
     <Multiselect
                 

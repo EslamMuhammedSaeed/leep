@@ -190,6 +190,49 @@ button:focus{
 .makeStyles-drawerPaper-108{
   z-index: 999 !important;
 }
+/* [class*=makeStyles2-tooltip-]{
+  display: none;
+} */
+[class*=makeStyles2-tooltip-] .content{
+  color: white;
+    opacity: 1;
+    padding: 8px 12px;
+    padding-right: 0px;
+    z-index: 999;
+    position: relative;
+    font-size: 0.75rem;
+    transform: translate(-50%, calc(-100% - 20px));
+    box-shadow: 5px 5px 15px #2929295b;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    line-height: 1.334;
+    border-radius: 4px;
+    letter-spacing: 0.017em;
+    background-color: #2c3032;
+    -webkit-font-smoothing: antialiased;
+    max-height: 100px;
+    box-sizing: content-box;
+    overflow-y: visible;
+    overflow-x:visible;
+}
+[class*=makeStyles2-tooltip-] .content strong{
+    color: rgb(224, 224, 224);
+    display: block;
+    min-width: 200px;
+    padding-bottom: 5px !important;
+}
+[class*=makeStyles2-tooltip-] .content .arrow{
+    top: calc(100% - 1px);
+    left: 50%;
+    width: 0;
+    height: 0;
+    display: block;
+    position: absolute;
+    border-top: 8px solid #2c3032;
+    border-left: 8px solid transparent;
+    margin-left: -8px;
+    border-right: 8px solid transparent;
+}
 /* .makeStyles-progressbar-71 div:first-child{
   background-color: black !important;
 } */
