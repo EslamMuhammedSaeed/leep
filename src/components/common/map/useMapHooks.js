@@ -4,7 +4,7 @@ import { setViewState } from '@carto/react-redux';
 
 const useStyles = makeStyles((theme) => ({
   tooltip: {
-    display:'none !important',
+    // display:'none !important',
     '& .content': {
       ...theme.typography.caption,
       position: 'relative',
@@ -88,9 +88,9 @@ export function useMapHooks() {
     let s =isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab';
     // console.log(s=='grabbing');
     if(s=='grabbing'){
-      console.log(isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab');
+      // console.log(isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab');
       if(document.getElementById('custom-tooltip')){
-        console.log('jjjj');
+        // console.log('jjjj');
         let div2 = document.getElementById('custom-tooltip');
         div2.classList.remove('d-block');
         div2.classList.add('d-none');
