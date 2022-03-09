@@ -105,7 +105,30 @@ export default function Startups10Layer() {
       pickable: true,
       
       onHover: (info,event) => {
-        console.log(info,event);
+        const d= document.getElementById('deckgl-overlay');
+        console.log(d);
+        // d.onmousedown = function(event) {
+        //   console.log('here u are');
+        //   if(document.getElementById('custom-tooltip')){
+        //         // console.log('jjjj');
+        //         let div2 = document.getElementById('custom-tooltip');
+        //         div2.classList.remove('d-block');
+        //         div2.classList.add('d-none');
+        //       }
+        // }
+        // d.onclick = function(event) {
+        //   console.log('here u are');
+         
+        // }
+        // d.onmouseup = function(event) {
+        //   console.log('here u are3');
+         
+        // }
+        // d.onmousemove = function(event) {
+        //   console.log('here u are4');
+         
+        // }
+        // console.log(info,event);
         // if(document.getElementById('custom-tooltip')){
         //   let div2 = document.getElementById('custom-tooltip');
         //   div2.classList.remove('d-none');
@@ -137,6 +160,47 @@ export default function Startups10Layer() {
       //   }
       // },
       onClick: (info, event) =>{ 
+        const d= document.getElementById('deckgl-overlay');
+        console.log(d);
+        d.onmousedown = function(event) {
+          console.log('here u are');
+          if(document.getElementById('custom-tooltip2')){
+                // console.log('jjjj');
+                let div2 = document.getElementById('custom-tooltip2');
+                div2.classList.remove('d-block');
+                div2.classList.add('d-none');
+            }
+        }
+        d.onclick = function(event) {
+          console.log('here u are');
+          if(document.getElementById('custom-tooltip2')){
+            // console.log('jjjj');
+            let div2 = document.getElementById('custom-tooltip2');
+            div2.classList.remove('d-block');
+            div2.classList.add('d-none');
+        }
+         
+        }
+        d.onmouseup = function(event) {
+          console.log('here u are3');
+          if(document.getElementById('custom-tooltip2')){
+            // console.log('jjjj');
+            let div2 = document.getElementById('custom-tooltip2');
+            div2.classList.remove('d-block');
+            div2.classList.add('d-none');
+        }
+         
+        }
+        d.onmousemove = function(event) {
+          console.log('here u are4');
+          if(document.getElementById('custom-tooltip2')){
+            // console.log('jjjj');
+            let div2 = document.getElementById('custom-tooltip2');
+            div2.classList.remove('d-block');
+            div2.classList.add('d-none');
+        }
+        }
+         
         if (info?.object) {
           info.object = {
             html: htmlForFeature({ feature: info.object }),
@@ -159,14 +223,12 @@ export default function Startups10Layer() {
         if(document.getElementById('custom-tooltip')){
           var elem = document.getElementById('custom-tooltip');
          elem.parentNode.removeChild(elem);
-          // console.log('jjjj');
-          // let div2 = document.getElementById('custom-tooltip');
           
-          // div2.classList.remove('d-none');
-          // div2.classList.add('d-block');
+        }
+        if(document.getElementById('custom-tooltip2')){
+          var elem = document.getElementById('custom-tooltip2');
+         elem.parentNode.removeChild(elem);
           
-          // let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-40)+'px); border-color: red;'
-          // div2.setAttribute('style',attr2);
         }
         // else{
         //   let div1 = document.createElement("div");
@@ -207,6 +269,30 @@ export default function Startups10Layer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
+          .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
+          .replaceAll('<strong>name</strong>','<strong>Name</strong>')
+          .replaceAll('<strong>gov_name</strong>','<strong>Governorate</strong>')
+          .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
+          .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
+          .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
+          
+          
+          
+          let div5 = document.createElement("div");
+          div5.className = "makeStyles2-tooltip-39 d-md-none d-block "
+          div5.id = "custom-tooltip2";
+          let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-40)+'px); border-color: red;'
+          div5.setAttribute('style',attr2);
+          // div1.append("Some text");
+          y.append(div5);
+          let content2 = document.createElement("div");
+          let arr6 = document.createElement("div");
+          // arr5.setAttribute('style','height:20px;width:20px;z-index: 1;position: absolute;color: rgb(160, 167, 180);background: none;padding: 0px;top: 0px;left: 0px;transform: translate('+event.center.x+'px,' +(event.center.y-40)+'px);');
+          // arr5.append("Some text");
+          content2.className = "content";
+          // content.append("Some text");
+          div5.append(content2);
+          content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
           .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
           .replaceAll('<strong>name</strong>','<strong>Name</strong>')
           .replaceAll('<strong>gov_name</strong>','<strong>Governorate</strong>')
