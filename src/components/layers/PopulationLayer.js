@@ -139,7 +139,33 @@ export default function PopulationLayer() {
           content.className = "content";
           // content.append("Some text");
           div1.append(content);
-          content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
+          content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
+          .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
+          .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
+          .replaceAll('<strong>percentage_of_urban_population_2017_census</strong>','<strong>Urban Population (%)</strong>')
+          .replaceAll('<strong>percentage_of_rural_population_2017_census</strong>','<strong>Rural Population (%)</strong>')
+          .replaceAll('<strong>population_percentage_2017_census_approximated_to_2nd_decimal</strong>','<strong>Population (%)</strong>')
+
+          .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
+          .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
+          .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
+
+
+          let div5 = document.createElement("div");
+          div5.className = "makeStyles2-tooltip-39 d-md-none d-block "
+          div5.id = "custom-tooltip2";
+          let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-40)+'px); border-color: red;'
+          div5.setAttribute('style',attr2);
+          // div1.append("Some text");
+          y.append(div5);
+          let content2 = document.createElement("div");
+          let arr6 = document.createElement("div");
+          // arr5.setAttribute('style','height:20px;width:20px;z-index: 1;position: absolute;color: rgb(160, 167, 180);background: none;padding: 0px;top: 0px;left: 0px;transform: translate('+event.center.x+'px,' +(event.center.y-40)+'px);');
+          // arr5.append("Some text");
+          content2.className = "content";
+          // content.append("Some text");
+          div5.append(content2);
+          content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
           .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
           .replaceAll('<strong>percentage_of_urban_population_2017_census</strong>','<strong>Urban Population (%)</strong>')

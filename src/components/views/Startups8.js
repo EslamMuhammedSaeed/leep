@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { BASEMAP_LAYER_ID } from 'components/layers/BasemapLayer';
 import { UNEMPLOYMENT_LAYER_ID } from 'components/layers/UnemploymentLayer';
 import startups10Source from 'data/sources/startups10Source';
+import pollutionSource from 'data/sources/pollutionSource';
 
 // import startups13Source from 'data/sources/startups13Source';
 // import { SDG_LAYER_ID } from 'components/layers/SdgLayer';
@@ -18,6 +19,16 @@ import { HOUSEHOLD_LAYER_ID } from 'components/layers/HouseholdLayer';
 import { HOUSEHOLD2_LAYER_ID } from 'components/layers/Household2Layer';
 import { HOUSEHOLD3_LAYER_ID } from 'components/layers/Household3Layer';
 import { HOUSEHOLD4_LAYER_ID } from 'components/layers/Household4Layer';
+import { HOUSEHOLD5_LAYER_ID } from 'components/layers/Household5Layer';
+import { HOUSEHOLD6_LAYER_ID } from 'components/layers/Household6Layer';
+import { HOUSEHOLD7_LAYER_ID } from 'components/layers/Household7Layer';
+import { HOUSEHOLD8_LAYER_ID } from 'components/layers/Household8Layer';
+import { HOUSEHOLD9_LAYER_ID } from 'components/layers/Household9Layer';
+import { HOUSEHOLD10_LAYER_ID } from 'components/layers/Household10Layer';
+import { HOUSEHOLD11_LAYER_ID } from 'components/layers/Household11Layer';
+import { HOUSEHOLD12_LAYER_ID } from 'components/layers/Household12Layer';
+import { HOUSEHOLD13_LAYER_ID } from 'components/layers/Household13Layer';
+import { POLLUTION_LAYER_ID } from 'components/layers/PollutionLayer';
 
 import startups8Source from 'data/sources/startups8Source';
 import { STARTUPS9_LAYER_ID } from 'components/layers/Startups9Layer';
@@ -71,8 +82,8 @@ var data = [{name: 'Creative Industries'},
 const fileName = 'download'  ;
 const exportType = exportFromJSON.types.xls; 
 
-var sql_main = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-var sql_main2 = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage,innovation_type, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main2 = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage,innovation_type, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 var global_data =[];
 const customFormatter = (value) => `${value} Years`;
 const sectors = [
@@ -119,23 +130,22 @@ const SDGs = [
 ]
 const development_data = [
   
-  {name: 'average number of hospitals 100k of residents', id: 1},
+  {name: 'average number of hospitals / 100k of residents', id: 1},
   {name: 'dropout rate in preparatory education', id: 2},
   {name: 'dropout rate in primary education', id: 3},
-  {name: 'female dropout rate in preparatory education', id: 4},
-  {name: 'female dropout rate in primary education', id: 5},
-  {name: 'female illiteracy rate', id: 6},
-  {name: 'female success rate in high school', id: 7},
-  {name: 'illiteracy rate', id: 8},
-  {name: 'male dropout rate in preparatory education', id: 9},
-  {name: 'male dropout rate in primary education', id: 10},
-  {name: 'households connected to electricity', id: 11},
-  {name: 'households connected to sewage', id: 12},
-  {name: 'households connected to water', id: 13},
-  {name: 'poverty percentage (2017/2018)', id: 14},
-  {name: 'unemployment rate', id: 15}, 
-  {name: 'population percentage', id: 16},
-  {name: 'phone lines', id: 17},
+  {name: 'garbage', id: 4},
+  {name: 'households connected to electricity', id: 5},
+  {name: 'households connected to sewage', id: 6},
+  {name: 'households connected to water', id: 7},
+  {name: 'illiteracy percentage', id: 8},
+  {name: 'municipal waste', id: 9},
+  {name: 'phone lines', id: 10},
+  {name: 'pollution', id: 11},
+  {name: 'population percentage', id: 12},
+  {name: 'poverty percentage', id: 13},
+  {name: 'total GDP', id: 14},
+  {name: 'unemployment percentage', id: 15}, 
+   
 ]
 
 const options = [
@@ -183,9 +193,11 @@ const legendFloat={
 }
 const exportButton={
   borderRadius :"0px",
-  position:"fixed",
-  right :"366px",
-  top:"54px",
+  // position:"fixed",
+  // right :"366px",
+  // top:"54px",
+  marginLeft:"10px",
+  height:"37px",
   opacity:"0.8",
   fontSize:"15px"
 }
@@ -252,17 +264,35 @@ const search_float2 = {
   // color:"white"
 
 };
-
-const sdg_float = {
-  background:"rgba(255, 255, 255)",
+const filters_wrap = {
+  width:"99%",
   position:"fixed",
+  display:"flex",
   top: "48px",
   left: "0px",
+  background:"white",
+  flexDirection:"row",
+  zIndex:"800",
+ 
+}
+const ignore = {
+  width:"350px",
+  height:"50px",
+  
+
+}
+const sdg_float = {
+  background:"rgb(255, 255, 255)",
+  // position:"fixed",
+  // top: "48px",
+  // left: "0px",
+  
+  display:"flex",
   padding:"2px",
   paddingTop: "6px",
   paddingLeft:"5px",
   height:"50px",
-  width:window.innerWidth-350+"px",
+  // width:window.innerWidth-350+"px",
 };
 const govern_float = {
   background:"rgba(255, 255, 255,0)",
@@ -393,7 +423,8 @@ const style2 ={
   multiselectContainer: { 
     marginLeft:"15px",
     margin:"0px 10px 10px 15px",
-    width:"200px"
+    width:"200px",
+    background:"white",
     // paddingRight:"20px"
   },
   searchBox: { // To change search box element look
@@ -535,11 +566,11 @@ export default function Startups8() {
     
    
     // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -608,7 +639,7 @@ sql_main=sql_main+" WHERE (sector='"+selectedItem.name+"')";
 console.log(sql_main);
 }
 //  var sector_no = selectedList.length;
-//  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+//  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
 //  for (let i = 0; i < sector_no; i++) {
 //      if(i==0){
 //        sql = sql+selectedList[i].name+"'";
@@ -663,7 +694,7 @@ function SDGsOnSelectHandler(selectedList, selectedItem){
   console.log(sql_main);
   }
   //  var sector_no = selectedList.length;
-  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
   //  for (let i = 0; i < sector_no; i++) {
   //      if(i==0){
   //        sql = sql+selectedList[i].name+"'";
@@ -727,11 +758,11 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("AND ( )",'');
     
     // if(sql_main.indexOf("gov_name=")>0)
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
   sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -800,11 +831,11 @@ function SDGsOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("AND ( )",'');
     
     // if(sql_main.indexOf("gov_name=")>0)
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
   
   sql_main = sql_main.replace("OR )",')');
@@ -867,7 +898,7 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
   console.log(sql_main);
   }
   //  var sector_no = selectedList.length;
-  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
   //  for (let i = 0; i < sector_no; i++) {
   //      if(i==0){
   //        sql = sql+selectedList[i].name+"'";
@@ -931,11 +962,11 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
       sql_main = sql_main.replace("AND ( )",'');
       
       // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
       sql_main = sql_main.replace("( OR",'(');
@@ -974,7 +1005,7 @@ console.log(searchInput.current.value);
 var val = searchInput.current.value;
 var val2 = capitalizeFirstLetter(val);
 console.log(val2);
-startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
 console.log(startups10Source.data);
 dispatch(
   addSource(startups10Source)
@@ -1009,46 +1040,46 @@ function onSubmit5(e){
   }
 
 
-  const addPovertyLayer = (e) =>{
-    var poverty_sql = "select gov_name_en as governorate,poverty_percentage_2017_2018,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
-    developmentSource.data = poverty_sql;
-    dispatch(addSource(developmentSource));
+  // const addPovertyLayer = (e) =>{
+  //   var poverty_sql = "select gov_name_en as governorate,poverty_percentage_2017_2018,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+  //   developmentSource.data = poverty_sql;
+  //   dispatch(addSource(developmentSource));
 
-    dispatch(
-      addLayer({
-        id: POVERTY_LAYER_ID,
-        source: developmentSource.id,
-      }),
-    );
+  //   dispatch(
+  //     addLayer({
+  //       id: POVERTY_LAYER_ID,
+  //       source: developmentSource.id,
+  //     }),
+  //   );
 
-    return () => {
-      dispatch(removeLayer(POVERTY_LAYER_ID));
-      dispatch(removeSource(developmentSource.id));
-    };
+  //   return () => {
+  //     dispatch(removeLayer(POVERTY_LAYER_ID));
+  //     dispatch(removeSource(developmentSource.id));
+  //   };
   
-    // dispatch(addSource(startups8Source));
-    // dispatch(
-    //   addLayer({
-    //     id: STARTUPS10_LAYER_ID,
-    //     source: startups10Source.id,
-    //   }),
-    // );
+  //   // dispatch(addSource(startups8Source));
+  //   // dispatch(
+  //   //   addLayer({
+  //   //     id: STARTUPS10_LAYER_ID,
+  //   //     source: startups10Source.id,
+  //   //   }),
+  //   // );
    
     
 
-    // dispatch(
-    //   addLayer({
-    //     id: STARTUPS9_LAYER_ID,
-    //     source: startups8Source.id,
-    //   }),
-    // );
-    // dispatch(
-    //   addLayer({
-    //     id: STARTUPS10_LAYER_ID,
-    //     source: startups10Source.id,
-    //   }),
-    // );
-  } 
+  //   // dispatch(
+  //   //   addLayer({
+  //   //     id: STARTUPS9_LAYER_ID,
+  //   //     source: startups8Source.id,
+  //   //   }),
+  //   // );
+  //   // dispatch(
+  //   //   addLayer({
+  //   //     id: STARTUPS10_LAYER_ID,
+  //   //     source: startups10Source.id,
+  //   //   }),
+  //   // );
+  // } 
 
   const addPopulationLayer = (e) =>{
     var population_sql = "select gov_name_en as governorate,population_percentage_2017_census_approximated_to_2nd_decimal,percentage_of_urban_population_2017_census,percentage_of_rural_population_2017_census,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
@@ -1139,31 +1170,190 @@ function onSubmit5(e){
       dispatch(removeSource(developmentSource.id));
     };
 
-  }  
-  const addUnemploymentLayer = (e) =>{
-    
+  }
+  const addGarbageLayer = (e) =>{
+    var household5_sql = "select gov_name_en as governorate,amount_of_collected_garbage_in_ton_2020,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household5_sql;
     dispatch(addSource(developmentSource));
 
     dispatch(
       addLayer({
-        id: UNEMPLOYMENT_LAYER_ID,
+        id: HOUSEHOLD5_LAYER_ID,
         source: developmentSource.id,
       }),
     );
 
     return () => {
-      dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+      dispatch(removeLayer(HOUSEHOLD5_LAYER_ID));
       dispatch(removeSource(developmentSource.id));
     };
+
+  }
+  const addMunicipalLayer = (e) =>{
+    var household6_sql = "select gov_name_en as governorate,amount_of_collected_municipal_waste_in_ton_2019,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household6_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD6_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD6_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
+  }    
+  const addUnemploymentLayer = (e) =>{
+    
+    var household7_sql = "select gov_name_en as governorate,unemployment_percentage_2020,male_unemployment_percentage_2020,female_unemployment_percentage_2020,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household7_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD7_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD7_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+
   
   } 
+  const addDropout1Layer = (e) =>{
+    var household8_sql = "select gov_name_en as governorate,dropout_percentage_in_primary_education_2017_2018_2018_2019,male_dropout_percentage_in_primary_education_2017_2018_2018_201,female_dropout_percentage_in_primary_education_2017_2018_2018_2,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household8_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD8_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD8_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  }
+  const addDropout2Layer = (e) =>{
+    var household9_sql = "select gov_name_en as governorate,dropout_percentage_in_preparatory_education_2017_2018_2018_2019,male_dropout_percentage_in_preparatory_education_2017_2018_2018,female_dropout_percentage_in_preparatory_education_2017_2018_20,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household9_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD9_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD9_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  }
+  const addIlliteracyLayer = (e) =>{
+    var household10_sql = "select gov_name_en as governorate,illiteracy_percentage_2017_census,male_illiteracy_percentage_2017_census,female_illiteracy_percentage_2017_census,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household10_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD10_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD10_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  }
+  const addGDPLayer = (e) =>{
+    var household11_sql = "select gov_name_en as governorate,total_gdp_in_thousand_egp_2015_2016,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household11_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD11_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD11_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  }
+  const addPovertyLayer = (e) =>{
+    var household12_sql = "select gov_name_en as governorate,poverty_percentage_2017_2018,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household12_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD12_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD12_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  }
+  const addHospitalLayer = (e) =>{
+    var household13_sql = "select gov_name_en as governorate,average_number_of_hospitals_100k_of_residents,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
+    developmentSource.data = household13_sql;
+    dispatch(addSource(developmentSource));
+
+    dispatch(
+      addLayer({
+        id: HOUSEHOLD13_LAYER_ID,
+        source: developmentSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(HOUSEHOLD13_LAYER_ID));
+      dispatch(removeSource(developmentSource.id));
+    };
+  }
+  const addPollutionLayer = (e) =>{
+    var household14_sql = "select observation_area,sulfur_dioxide_so2_annual_average_concentrations_microgram_m,nitrogen_dioxide_no2_annual_average_concentrations_microgram,solid_particles_with_a_diameter_less_than_10_micrometers_pm10,the_geom_webmercator from dataset_pollution_toxic_concentrations";
+    pollutionSource.data = household14_sql;
+    dispatch(addSource(pollutionSource));
+
+    dispatch(
+      addLayer({
+        id: POLLUTION_LAYER_ID,
+        source: pollutionSource.id,
+      }),
+    );
+
+    return () => {
+      dispatch(removeLayer(POLLUTION_LAYER_ID));
+      dispatch(removeSource(pollutionSource.id));
+    };
+  }
+
 
   function developmentDataOnSelectHandler(selectedList, selectedItem){
-    if(selectedItem.name=="poverty percentage (2017/2018)"){
+    if(selectedItem.name=="poverty (2017/2018)"){
       addPovertyLayer();
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
       // dispatch(removeLayer(POPULATION_LAYER_ID));
-    }else if(selectedItem.name=="unemployment rate"){
+    }else if(selectedItem.name=="unemployment percentage"){
       addUnemploymentLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       
@@ -1187,17 +1377,32 @@ function onSubmit5(e){
       addPhonelinesLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    } 
-     
+    }else if(selectedItem.name=="garbage"){
+      addGarbageLayer();
+    }else if(selectedItem.name=="municipal waste"){
+      addMunicipalLayer();
+    }else if(selectedItem.name=="dropout rate in primary education"){
+      addDropout1Layer();
+    }else if(selectedItem.name=="dropout rate in preparatory education"){
+      addDropout2Layer();
+    }else if(selectedItem.name=="illiteracy percentage"){
+      addIlliteracyLayer();
+    }else if(selectedItem.name=="total GDP"){
+      addGDPLayer();
+    }else if(selectedItem.name=="poverty percentage"){
+      addPovertyLayer();
+    }else if(selectedItem.name=="average number of hospitals / 100k of residents"){
+      addHospitalLayer();
+    }else if(selectedItem.name=="pollution"){
+      addPollutionLayer();
+    }        
 
- 
-    
   }
   function developmentDataOnRemoveHandler(selectedList, selectedItem){
-    if(selectedItem.name=="poverty percentage (2017/2018)"){
+    if(selectedItem.name=="poverty (2017/2018)"){
       dispatch(removeLayer(POVERTY_LAYER_ID));
-    }else if(selectedItem.name=="unemployment rate"){
-      dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
+    }else if(selectedItem.name=="unemployment percentage"){
+      dispatch(removeLayer(HOUSEHOLD7_LAYER_ID));
     }else if(selectedItem.name=="population percentage"){
       dispatch(removeLayer(POPULATION_LAYER_ID));
     }else if(selectedItem.name=="households connected to water"){
@@ -1208,7 +1413,28 @@ function onSubmit5(e){
       dispatch(removeLayer(HOUSEHOLD3_LAYER_ID));
     }else if(selectedItem.name=="phone lines"){
       dispatch(removeLayer(HOUSEHOLD4_LAYER_ID));
-    }   
+    }else if(selectedItem.name=="garbage"){
+      dispatch(removeLayer(HOUSEHOLD5_LAYER_ID));
+    }else if(selectedItem.name=="municipal waste"){
+      dispatch(removeLayer(HOUSEHOLD6_LAYER_ID));
+    }else if(selectedItem.name=="dropout rate in primary education"){
+      dispatch(removeLayer(HOUSEHOLD8_LAYER_ID));
+    }else if(selectedItem.name=="dropout rate in preparatory education"){
+      dispatch(removeLayer(HOUSEHOLD9_LAYER_ID));
+    }else if(selectedItem.name=="illiteracy percentage"){
+      dispatch(removeLayer(HOUSEHOLD10_LAYER_ID));
+    }else if(selectedItem.name=="total GDP"){
+      dispatch(removeLayer(HOUSEHOLD11_LAYER_ID));
+    }else if(selectedItem.name=="poverty percentage"){
+      dispatch(removeLayer(HOUSEHOLD12_LAYER_ID));
+    }else if(selectedItem.name=="average number of hospitals / 100k of residents"){
+      dispatch(removeLayer(HOUSEHOLD12_LAYER_ID));
+    }else if(selectedItem.name=="pollution"){
+      dispatch(removeLayer(POLLUTION_LAYER_ID));
+    }      
+       
+
+
   }
 
     // return () => {
@@ -1581,9 +1807,10 @@ function onSubmit5(e){
                 column='sector'
                 operationColumn='sector'
                 operation={AggregationTypes.COUNT}
+                className='here'
                 // formatter={currencyFormatter}
               />
-              <CategoryWidget
+              {/* <CategoryWidget
                 id='sdgs'
                 title='SDGs'
                 dataSource={startups14Source.id}
@@ -1591,7 +1818,7 @@ function onSubmit5(e){
                 operationColumn='sdg'
                 operation={AggregationTypes.COUNT}
                 // formatter={currencyFormatter}
-              />
+              /> */}
               <CategoryWidget
                 id='innovationTypes'
                 title='Innovation Types'
@@ -1602,14 +1829,14 @@ function onSubmit5(e){
                 // formatter={currencyFormatter}
               />
               <Divider></Divider>
-              <PieWidget
+              <CategoryWidget
                 id='innovationStages'
                 title='Innovation Stages'
                 dataSource={startups10Source.id}
                 column='innovation_stage'
                 operationColumn='innovation_stage'
                 operation={AggregationTypes.COUNT}
-                height="200px"
+                // height="200px"
                 // formatter={currencyFormatter}
               />
               {/* <HistogramWidget
@@ -1622,9 +1849,9 @@ function onSubmit5(e){
                 ticks={[1, 3, 6, 9]}
                 formatter={customFormatter}
               /> */}
-              <div style={legendFloat}>
+              {/* <div style={legendFloat}>
                 <LegendWidget  />
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -1645,28 +1872,82 @@ function onSubmit5(e){
 <div>
 
 </div>
+<div style={filters_wrap} className="flex-nowrap shadow-sm">
+  <div style={sdg_float} className=" flex-wrap">
+                  <Multiselect
+                              
+                      options={SDGs} // Options to display in the dropdown
+                      selectedValues={SDGs[0]} // Preselected value to persist in dropdown
+                      onSelect={SDGsOnSelectHandler} // Function will trigger on select event
+                      onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
+                      displayValue="name" // Property name to display in the dropdown options
+                      placeholder="Filter by SDG"
+                      // showCheckbox="true"
+                      // closeOnSelect=false
+                      showCheckbox={true}
+                      showArrow="true"
+                      closeOnSelect={false}
+                      closeIcon="cancel"
+                      style={style2}
+                        
+                  />
+                  <Multiselect
+                              
+                              options={options} // Options to display in the dropdown
+                              selectedValues={options[0]} // Preselected value to persist in dropdown
+                              onSelect={governOnSelectHandler} // Function will trigger on select event
+                              onRemove={governOnRemoveHandler} // Function will trigger on remove event
+                              displayValue="name" // Property name to display in the dropdown options
+                              showCheckbox="true"
+                              showArrow="true"
+                              placeholder="Filter by Governorate"
+                              closeOnSelect={false}
+                              closeIcon="cancel"
+                              style={style2}
+                                
+                  />
+                  <Multiselect
+                  
+                              options={sectors} // Options to display in the dropdown
+                              selectedValues={sectors[0]} // Preselected value to persist in dropdown
+                              onSelect={sectorOnSelectHandler} // Function will trigger on select event
+                              onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+                              displayValue="name" // Property name to display in the dropdown options
+                              showCheckbox="true"
+                              showArrow="true"
+                              placeholder="Filter by Sector"
+                              closeOnSelect={false}
+                              closeIcon="cancel"
+                              style={style2}        
+                  />
+                  <Multiselect
+                  
+                      options={development_data} // Options to display in the dropdown
+                      selectedValues={development_data[0]} // Preselected value to persist in dropdown
+                      onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+                      onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+                      displayValue="name" // Property name to display in the dropdown options
+                      showCheckbox={true}
+                      placeholder="Development Data"
+                      // singleSelect={true}
+                      selectionLimit={1}
+                      showArrow="true"
+                      hidePlaceholder={false}
+                      closeOnSelect={false}
+                      closeIcon="cancel"
+                      style={style2}
+                        
+                  />
+                  <button type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button> 
+                  <div style={legendFloat}>
+                    <LegendWidget  />
+                  </div>
+      </div>
+      <div style={ignore} className="d-inline-block">
+      </div>
+    </div>  
 
-<div style={sdg_float} className="shadow-sm">
-    <Multiselect
-                
-        options={SDGs} // Options to display in the dropdown
-        selectedValues={SDGs[0]} // Preselected value to persist in dropdown
-        onSelect={SDGsOnSelectHandler} // Function will trigger on select event
-        onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
-        displayValue="name" // Property name to display in the dropdown options
-        placeholder="Filter by SDG"
-        // showCheckbox="true"
-        // closeOnSelect=false
-        showCheckbox={true}
-        showArrow="true"
-        closeOnSelect={false}
-        closeIcon="cancel"
-        style={style2}
-          
-    />
-    </div>
-
-    <div style={govern_float}>
+    {/* <div style={govern_float}>
     <Multiselect
                 
         options={options} // Options to display in the dropdown
@@ -1682,8 +1963,8 @@ function onSubmit5(e){
         style={style2}
           
     />
-    </div>
-    <div style={sector_float}>
+    </div> */}
+    {/* <div style={sector_float}>
     <Multiselect
                 
       options={sectors} // Options to display in the dropdown
@@ -1698,10 +1979,10 @@ function onSubmit5(e){
       closeIcon="cancel"
       style={style2}        
     />
-    </div>
+    </div> */}
 
            
-
+{/* 
     <div style={dev_float}>
     <Multiselect
                 
@@ -1721,10 +2002,10 @@ function onSubmit5(e){
         style={style2}
           
     />
-    </div>
+    </div> */}
 
 
-<button type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button> 
+{/* <button type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button>  */}
 {/* <button type="button" onClick={hit2}>here</button> */}
 
       {/* <Select

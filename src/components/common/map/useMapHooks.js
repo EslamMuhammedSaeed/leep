@@ -88,12 +88,27 @@ export function useMapHooks() {
     let s =isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab';
     // console.log(s=='grabbing');
     if(s=='grabbing'){
-    //   // console.log(isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab');
+      // console.log(isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab');
       if(document.getElementById('custom-tooltip')){
         // console.log('jjjj');
         let div2 = document.getElementById('custom-tooltip');
-        div2.classList.remove('d-block');
-        div2.classList.remove('d-md-block');
+        // var elem = document.getElementById('custom-tooltip');
+         div2.parentNode.removeChild(div2);
+        // div2.classList.remove('d-block');
+        // div2.classList.remove('d-md-block');
+        // div2.classList.add('d-none');
+      }
+    }
+    if(s=='grab'){
+      // console.log(isDragging ? 'grabbing' : isHovering ? 'pointer' : 'grab');
+      if(document.getElementById('custom-tooltip2')){
+        // console.log('jjjj');
+
+        var elem = document.getElementById('custom-tooltip2');
+         elem.parentNode.removeChild(elem);
+        // let div2 = document.getElementById('custom-tooltip2');
+        // div2.classList.remove('d-block');
+        // div2.classList.remove('d-md-block');
         // div2.classList.add('d-none');
       }
     }

@@ -79,7 +79,7 @@ export default function Startups10Layer() {
           return [58, 139, 40];
         }else if(d.properties.sector === "Health"){
           return [233, 78, 36];
-        }else if(d.properties.sector === "Inclusive Services AND Technology"){
+        }else if(d.properties.sector === "Inclusive Services and Technology"){
           return [255, 168, 38];
         }else if(d.properties.sector === "Infrastructure and Transport"){
           return [3, 117, 125];
@@ -181,25 +181,19 @@ export default function Startups10Layer() {
         }
          
         }
-        d.onmouseup = function(event) {
-          console.log('here u are3');
-          if(document.getElementById('custom-tooltip2')){
-            // console.log('jjjj');
-            let div2 = document.getElementById('custom-tooltip2');
-            div2.classList.remove('d-block');
-            div2.classList.add('d-none');
-        }
-         
-        }
-        d.onmousemove = function(event) {
-          console.log('here u are4');
-          if(document.getElementById('custom-tooltip2')){
-            // console.log('jjjj');
-            let div2 = document.getElementById('custom-tooltip2');
-            div2.classList.remove('d-block');
-            div2.classList.add('d-none');
-        }
-        }
+       
+        
+        
+
+      //   d.ontouchstart = function(event) {
+      //     console.log('here u are4');
+      //     if(document.getElementById('custom-tooltip2')){
+      //       // console.log('jjjj');
+      //       let div2 = document.getElementById('custom-tooltip2');
+      //       div2.classList.remove('d-block');
+      //       div2.classList.add('d-none');
+      //   }
+      // }
          
         if (info?.object) {
           info.object = {
@@ -268,7 +262,7 @@ export default function Startups10Layer() {
           content.className = "content";
           // content.append("Some text");
           div1.append(content);
-          content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
+          content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
           .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
           .replaceAll('<strong>name</strong>','<strong>Name</strong>')
           .replaceAll('<strong>gov_name</strong>','<strong>Governorate</strong>')
@@ -292,7 +286,7 @@ export default function Startups10Layer() {
           content2.className = "content";
           // content.append("Some text");
           div5.append(content2);
-          content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
+          content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
           .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
           .replaceAll('<strong>name</strong>','<strong>Name</strong>')
           .replaceAll('<strong>gov_name</strong>','<strong>Governorate</strong>')
@@ -301,13 +295,13 @@ export default function Startups10Layer() {
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
           
         // <div class="makeStyles-tooltip-76 d-block" style="z-index: 1; position: absolute; pointer-events: none; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; display: none; transform: translate(610px, 179px); border-color: red;"><div class="content"><div class="pop-up"><strong>name</strong> Sandan<br><div style="min-height:5px;"></div></div><div class="pop-up"><strong>gov_name</strong> Sohag<br><div style="min-height:5px;"></div></div><div class="pop-up"><strong>sector</strong> Environment<br><div style="min-height:5px;"></div></div><div class="pop-up"><strong>sdgs</strong> <br><div style="min-height:5px;"></div></div><div class="pop-up"><strong>innovation_type</strong> <br><div style="min-height:5px;"></div></div><div class="pop-up"><strong>innovation_stage</strong> <br><div style="min-height:5px;"></div></div><div class="arrow"></div></div></div>
-        // z.setAttribute('style', 'display:block');
+        z.setAttribute('style', 'display:block');
 
-        // let p = document.createElement("p");
-        // p.className = 'here';
-        // p.setAttribute('style', 'color: blue;position:absolute;top:2px;bottom:500px;color:black;height:100px;width:100px');
-        // p.append("Some text");
-        // x.append(p);
+        let p = document.createElement("p");
+        p.className = 'here';
+        p.setAttribute('style', 'color: blue;position:absolute;top:2px;bottom:500px;color:black;height:100px;width:100px');
+        p.append("Some text");
+        x.append(p);
       },
     });
   }

@@ -20,6 +20,16 @@ import HouseholdLayer from './HouseholdLayer';
 import Household2Layer from './Household2Layer';
 import Household3Layer from './Household3Layer';
 import Household4Layer from './Household4Layer';
+import Household5Layer from './Household5Layer';
+import Household6Layer from './Household6Layer';
+import Household7Layer from './Household7Layer';
+import Household8Layer from './Household8Layer';
+import Household9Layer from './Household9Layer';
+import Household10Layer from './Household10Layer';
+import Household11Layer from './Household11Layer';
+import Household12Layer from './Household12Layer';
+import Household13Layer from './Household13Layer';
+import PollutionLayer from './PollutionLayer';
 // [hygen] Import layers
 
 export const getLayers = () => {
@@ -41,6 +51,15 @@ export const getLayers = () => {
     NoOfHospitalsLayer(),
     SdgLayer(),
     Sdg2Layer(),
+    Household13Layer(),
+    Household12Layer(),
+    Household11Layer(),
+    Household10Layer(),
+    Household9Layer(),
+    Household8Layer(),
+    Household7Layer(),
+    Household6Layer(),
+    Household5Layer(),
     Household4Layer(),
     Household3Layer(),
     Household2Layer(),
@@ -54,6 +73,14 @@ export const getLayers = () => {
     
     
 
+    
+    
+    
+    
+    
+    
+    
+    PollutionLayer(),
     // [hygen] Add layer
   ];
 };

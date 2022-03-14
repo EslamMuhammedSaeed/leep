@@ -8,46 +8,54 @@ import {  colorBins } from "@deck.gl/carto";
 import { useDispatch } from 'react-redux';
 import { updateLayer } from "@carto/react-redux";
 
-export const HOUSEHOLD_LAYER_ID = 'householdLayer';
+export const HOUSEHOLD9_LAYER_ID = 'household9Layer';
+const color1 = [241,238,246];
+const color2 = [189,201,225];
+const color3 = [116,169,207];
+const color4 = [43,140,190];
+const color5 = [4,90,141];
+
+
+
 
 export const COLORS = [
-  [239,243,255],
-  [189,215,231],
-  [107,174,214],
-  [49,130,189],
-  [8,81,156],
+  color1,
+  color2,
+  color3,
+  color4,
+  color5,
 ];
 
 export const LABELS = [
-  '60%',
-  '70%',
-  '80%',
-  '90%',
-  
+  '1',
+  '3',
+  '5',
+  '7',
+
 ];
 
 const layerConfig = {
-  title: 'Access to Water',
+  title: 'Dropout in Preparatory Education',
   visible: true,
   switchable: false,
   legend: {
-    attr: '% of Households Connected to the Public Network',
+    attr: 'Percent',
     type: LEGEND_TYPES.BINS,
     labels: LABELS,
     colors: COLORS,
   },
 };
 
-export default function HouseholdLayer() {
+export default function Household9Layer() {
   const dispatch = useDispatch();
-  const { householdLayer } = useSelector((state) => state.carto.layers);
-  const source = useSelector((state) => selectSourceById(state, householdLayer?.source));
+  const { household9Layer } = useSelector((state) => state.carto.layers);
+  const source = useSelector((state) => selectSourceById(state, household9Layer?.source));
   const cartoLayerProps = useCartoLayerProps({ source });
 
-  if (householdLayer && source) {
+  if (household9Layer && source) {
     return new CartoLayer({
       ...cartoLayerProps,
-      id: HOUSEHOLD_LAYER_ID,
+      id: HOUSEHOLD9_LAYER_ID,
       getFillColor: d => {
         
         colorBins({
@@ -55,17 +63,17 @@ export default function HouseholdLayer() {
           domain: [100e6, 500e6, 1e9, 1.5e9],
           colors: COLORS,
         });
-        if(d.properties.percentage_of_households_connected_to_the_public_network_of_wat <= 60){
-          return [239,243,255]; 
-        }else if(d.properties.percentage_of_households_connected_to_the_public_network_of_wat <= 70){
-          return [189,215,231];
-        }else if(d.properties.percentage_of_households_connected_to_the_public_network_of_wat <= 80){
-          return [107,174,214];
-        }else if(d.properties.percentage_of_households_connected_to_the_public_network_of_wat <= 90){
-          return [49,130,189];  
+        if(d.properties.dropout_percentage_in_preparatory_education_2017_2018_2018_2019 <= 1){
+          return color1; 
+        }else if(d.properties.dropout_percentage_in_preparatory_education_2017_2018_2018_2019 <= 3){
+          return color2;
+        }else if(d.properties.dropout_percentage_in_preparatory_education_2017_2018_2018_2019 <= 5){
+          return color3;
+        }else if(d.properties.dropout_percentage_in_preparatory_education_2017_2018_2018_2019 <= 7){
+          return color4;  
         }else{
           // console.log(d.properties.population_percentage_2017_census_approximated_to_2nd_decimal);
-          return [8,81,156];
+          return color5;
         }
       
       },
@@ -76,21 +84,14 @@ export default function HouseholdLayer() {
       onDataLoad: (data) => {
         dispatch(
           updateLayer({
-            id: HOUSEHOLD_LAYER_ID,
+            id: HOUSEHOLD9_LAYER_ID,
             layerAttributes: { ...layerConfig },
           })
         );
         // cartoLayerProps.onDataLoad(data);
       },
       
-      // onHover: (info) => {
-      //   if (info?.object) {
-      //     info.object = {
-      //       html: htmlForFeature({ feature: info.object }),
-      //       style: {},
-      //     };
-      //   }
-      // },
+      
 
       onClick: (info, event) =>{ 
         if (info?.object) {
@@ -131,14 +132,14 @@ export default function HouseholdLayer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('percentage_of_households_connected_to_the_public_network_of_wat','Access to Water (%)')
+          .replaceAll('dropout_percentage_in_preparatory_education_2017_2018_2018_2019','Dropout Percentage in Primary Education')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
+          .replaceAll('<strong>male_dropout_percentage_in_preparatory_education_2017_2018_2018_</strong>','<strong>Male Dropout Percentage in preparatory Education</strong>')
+          .replaceAll('<strong>female_dropout_percentage_in_preparatory_education_2017_2018_20</strong>','<strong>Female Dropout Percentage in preparatory Education</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
           // div1.append(arr5);
-
-          
           let div5 = document.createElement("div");
           div5.className = "makeStyles2-tooltip-39 d-md-none d-block "
           div5.id = "custom-tooltip2";
@@ -154,8 +155,11 @@ export default function HouseholdLayer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('percentage_of_households_connected_to_the_public_network_of_wat','Access to Water (%)')
+          .replaceAll('dropout_percentage_in_preparatory_education_2017_2018_2018_2019','Dropout Percentage in Primary Education')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
+          .replaceAll('<strong>male_dropout_percentage_in_preparatory_education_2017_2018_2018</strong>','<strong>Male Dropout Percentage in preparatory Education</strong>')
+          .replaceAll('<strong>female_dropout_percentage_in_preparatory_education_2017_2018_20</strong>','<strong>Female Dropout Percentage in preparatory Education</strong>')
+          
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
@@ -181,3 +185,6 @@ export default function HouseholdLayer() {
     });
   }
 }
+
+
+
