@@ -129,7 +129,7 @@ export default function Household13Layer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('average_number_of_hospitals_100k_of_residents','Average Number of Hospitals / 100K Residents')
+          .replaceAll('average_number_of_hospitals_100k_of_residents','Average No. / 100K Residents')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
@@ -150,7 +150,7 @@ export default function Household13Layer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('average_number_of_hospitals_100k_of_residents','Average Number of Hospitals / 100K Residents')
+          .replaceAll('average_number_of_hospitals_100k_of_residents','Average No. / 100K Residents')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
           
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')

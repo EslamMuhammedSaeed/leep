@@ -9,31 +9,35 @@ import { colorBins } from "@deck.gl/carto";
 import { useDispatch } from 'react-redux';
 
 export const COLORS = [
-  [247, 254, 174],
-  [183, 230, 165],
-  [124, 203, 162],
-  [70, 174, 160],
   [4, 82, 117],
 ];
 
 export const LABELS = [
-  'Health',
-  'Education',
-  'Creative Industries',
-  'Environment',
+  'Observation Area',
 ];
         
 
 const layerConfig = {
-  title: 'Innovation',
+  // title: 'Innovation',
+  // visible: true,
+  // switchable: false,
+  // legend: {
+  //   attr: 'innovation_type',
+  //   type: LEGEND_TYPES.CATEGORY,
+  //   labels: LABELS,
+  //   colors: COLORS,
+  // },
+  title: 'Pollution',
   visible: true,
   switchable: false,
+  showOpacityControl: true,
+  // opacity: 0.6,
   legend: {
-    attr: 'innovation_type',
+    attr: 'Annual Average in Microgram/M^3',
     type: LEGEND_TYPES.CATEGORY,
     labels: LABELS,
     colors: COLORS,
-  },
+  }
 };
 
 export const POLLUTION_LAYER_ID = 'pollutionLayer';
@@ -49,13 +53,22 @@ export default function PollutionLayer() {
       ...cartoLayerProps,
       id: POLLUTION_LAYER_ID,
       getFillColor: d => {
-        return [254,153,41];
+        return [0,0,0,0];
         
       },
-      pointRadiusMinPixels: 7,
-      getLineColor: [255, 255, 255],
-      lineWidthMinPixels: 1,
+      pointRadiusMinPixels: 5,
+      getLineColor: [254,153,41],
+      lineWidthMinPixels: 5,
       pickable: true,
+      onDataLoad: (data) => {
+        dispatch(
+          updateLayer({
+            id: POLLUTION_LAYER_ID,
+            layerAttributes: { ...layerConfig },
+          })
+        );
+        // cartoLayerProps.onDataLoad && cartoLayerProps.onDataLoad(data);
+      },
       onHover: (info) => {
         if (info?.object) {
           info.object = {
@@ -128,11 +141,11 @@ export default function PollutionLayer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('sulfur_dioxide_so2_annual_average_concentrations_microgram_m','Sulfur Dioxide Concentrations')
+          .replaceAll('sulfur_dioxide_so2_annual_average_concentrations_microgram_m','SO2 Concentrations')
 
-          .replaceAll('nitrogen_dioxide_no2_annual_average_concentrations_microgram','Nitrogen Dioxide Concentrations')
+          .replaceAll('nitrogen_dioxide_no2_annual_average_concentrations_microgram','NO2 Concentrations')
 
-          .replaceAll('solid_particles_with_a_diameter_less_than_10_micrometers_pm10','Particles with Diameter Less Than 10 Micrometers Concentrations')
+          .replaceAll('solid_particles_with_a_diameter_less_than_10_micrometers_pm10','PM10 Concentrations')
           
           .replaceAll('<strong>observation_area</strong>','<strong>Observation Area</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
@@ -156,11 +169,11 @@ export default function PollutionLayer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('sulfur_dioxide_so2_annual_average_concentrations_microgram_m','Sulfur Dioxide Concentrations')
+          .replaceAll('sulfur_dioxide_so2_annual_average_concentrations_microgram_m','SO2 Concentrations')
 
-          .replaceAll('nitrogen_dioxide_no2_annual_average_concentrations_microgram','Nitrogen Dioxide Concentrations')
+          .replaceAll('nitrogen_dioxide_no2_annual_average_concentrations_microgram','NO2 Concentrations')
 
-          .replaceAll('solid_particles_with_a_diameter_less_than_10_micrometers_pm10','Particles with Diameter Less Than 10 Micrometers Concentrations')
+          .replaceAll('solid_particles_with_a_diameter_less_than_10_micrometers_pm10','PM10 Concentrations')
           
           .replaceAll('<strong>observation_area</strong>','<strong>Observation Area</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')

@@ -113,66 +113,67 @@ const innovation_type = [
 ];
 const SDGs = [
   
-  {name: 'GOAL 1: NO POVERTY', id: 1},
-  {name: 'GOAL 2: ZERO HUNGER', id: 2},
-  {name: 'GOAL 3: GOOD HEALTH AND WELL-BEING', id: 3},
-  {name: 'GOAL 4: QUALITY EDUCATION', id: 4},
-  {name: 'GOAL 5: GENDER EQUALITY', id: 5},
-  {name: 'GOAL 6: CLEAN WATER AND SANITATION', id: 6},
-  {name: 'GOAL 7: AFFORDABLE AND CLEAN ENERGY', id: 7},
-  {name: 'GOAL 8: DECENT WORK AND ECONOMIC GROWTH', id: 8},
-  {name: 'GOAL 9: INDUSTRY, INNOVATION AND INFRASTRUCTURE', id: 9},
-  {name: 'GOAL 10: REDUCED INEQUALITIES', id: 10},
-  {name: 'GOAL 11: SUSTAINABLE CITIES AND COMMUNITIES', id: 11},
-  {name: 'GOAL 12: RESPONSIBLE CONSUMPTION AND PRODUCTION', id: 12},
-  {name: 'GOAL 13: CLIMATE ACTION', id: 13},
-  {name: 'GOAL 14: LIFE BELOW WATER', id: 14}, 
+  {name: 'Goal 1: No Poverty', id: 1},
+  {name: 'Goal 2: Zero Hunger', id: 2},
+  {name: 'Goal 3: Good Health and Well-Being', id: 3},
+  {name: 'Goal 4: Quality Education', id: 4},
+  {name: 'Goal 5: Gender Equality', id: 5},
+  {name: 'Goal 6: Clean Water and Sanitation', id: 6},
+  {name: 'Goal 7: Affordable and Clean Energy', id: 7},
+  {name: 'Goal 8: Decent Work and Economic Growth', id: 8},
+  {name: 'Goal 9: Industry, Innovation and Infrastructure', id: 9},
+  {name: 'Goal 10: Reduced Inequalities', id: 10},
+  {name: 'Goal 11: Sustainable Cities and Communities', id: 11},
+  {name: 'Goal 12: Responsible Consumption and Production', id: 12},
+  {name: 'Goal 13: Climate Action', id: 13},
+  {name: 'Goal 14: Life Below Water', id: 14}, 
 ]
 const development_data = [
   
-  {name: 'average number of hospitals / 100k of residents', id: 1},
-  {name: 'dropout rate in preparatory education', id: 2},
-  {name: 'dropout rate in primary education', id: 3},
-  {name: 'garbage', id: 4},
-  {name: 'households connected to electricity', id: 5},
-  {name: 'households connected to sewage', id: 6},
-  {name: 'households connected to water', id: 7},
-  {name: 'illiteracy percentage', id: 8},
-  {name: 'municipal waste', id: 9},
-  {name: 'phone lines', id: 10},
-  {name: 'pollution', id: 11},
-  {name: 'population percentage', id: 12},
-  {name: 'poverty percentage', id: 13},
-  {name: 'total GDP', id: 14},
-  {name: 'unemployment percentage', id: 15}, 
+  {name: 'Access to Hospitals', id: 1},
+  {name: 'Dropout in Preparatory Education', id: 2},
+  {name: 'Dropout in Primary Education', id: 3},
+  {name: 'Garbage', id: 4},
+  {name: 'Access to Electricity', id: 5},
+  {name: 'Access to Sewage', id: 6},
+  {name: 'Access to Water', id: 7},
+  {name: 'Illiteracy', id: 8},
+  {name: 'Municipal Waste', id: 9},
+  {name: 'Landline Phone Connectivity', id: 10},
+  {name: 'Pollution', id: 11},
+  {name: 'Population', id: 12},
+  {name: 'Poverty', id: 13},
+  {name: 'Total GDP', id: 14},
+  {name: 'Unemployment', id: 15}, 
    
 ]
 
 const options = [
 {name: 'Alexandria', id: 1},
-{name: 'Aswan', id: 2},
-{name: 'Asyut', id: 3},
-{name: 'Beheira', id: 4},
-{name: 'Beni Suef', id: 5},
+{name: 'Assiut', id: 2},
+{name: 'Aswan', id: 3},
+{name: 'Bani Swif', id: 4},
+{name: 'Behera', id: 5},
+
 {name: 'Cairo', id: 6},
 {name: 'Dakahlia', id: 7},
-{name: 'Damietta', id: 8},
-{name: 'Faiyum', id: 9},
+{name: 'Domiat', id: 8},
+{name: 'Fayoum', id: 9},
 {name: 'Gharbia', id: 10},
 {name: 'Giza', id: 11},
 {name: 'Ismailia', id: 12},
-{name: 'Kafr El Sheikh', id: 13},
+{name: 'Kafr Sheikh', id: 13},
 {name: 'Luxor', id: 14},
-{name: 'Matruh', id: 15},
-{name: 'Minya', id: 16},
-{name: 'Monufia', id: 17},
+{name: 'Marsa Matrooh', id: 15},
+{name: 'Menia', id: 16},
+{name: 'Menoufia', id: 17},
 {name: 'New Valley', id: 18},
 {name: 'North Sinai', id: 19},
 {name: 'Port Said', id: 20},
-{name: 'Qalyubia', id: 21},
+{name: 'Qaluobia', id: 21},
 {name: 'Qena', id: 22},
 {name: 'Red Sea', id: 23},
-{name: 'Sharqia', id: 24},
+{name: 'Sharkia', id: 24},
 {name: 'Sohag', id: 25},
 {name: 'South Sinai', id: 26},
 {name: 'Suez', id: 27}
@@ -216,8 +217,8 @@ const searchStyle2 = {
   // border: "0",
   // borderBottom:"1px solid white",
   fontFamily:'Arial',
-  height:"30px",
-  width:"250px",
+  height:"20px",
+  width:"200px",
   // height:"80px",
   display:"inline",
   background:"rgba(255, 255, 255, 0.356)",
@@ -227,6 +228,7 @@ const searchStyle2 = {
   borderBottom:"0px",
   borderRadius:"0px",
   margin:"3px",
+  fontSize:"0.9rem"
   // color:"white"
 
 };
@@ -423,13 +425,13 @@ const style2 ={
   multiselectContainer: { 
     marginLeft:"15px",
     margin:"0px 10px 10px 15px",
-    width:"200px",
+    width:"190px",
     background:"white",
     // paddingRight:"20px"
   },
   searchBox: { // To change search box element look
     minHeight: "36px",
-    width:"200px"
+    width:"190px"
 	
 	
   },
@@ -1353,47 +1355,47 @@ function onSubmit5(e){
       addPovertyLayer();
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
       // dispatch(removeLayer(POPULATION_LAYER_ID));
-    }else if(selectedItem.name=="unemployment percentage"){
+    }else if(selectedItem.name=="Unemployment"){
       addUnemploymentLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       
-    }else if(selectedItem.name=="population percentage"){
+    }else if(selectedItem.name=="Population"){
       addPopulationLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    }else if(selectedItem.name=="households connected to water"){
+    }else if(selectedItem.name=="Access to Water"){
       addHouseholdWaterLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    }else if(selectedItem.name=="households connected to electricity"){
+    }else if(selectedItem.name=="Access to Electricity"){
       addHouseholdElectricityLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    }else if(selectedItem.name=="households connected to sewage"){
+    }else if(selectedItem.name=="Access to Sewage"){
       addHouseholdSewageLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    }else if(selectedItem.name=="phone lines"){
+    }else if(selectedItem.name=="Landline Phone Connectivity"){
       addPhonelinesLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    }else if(selectedItem.name=="garbage"){
+    }else if(selectedItem.name=="Garbage"){
       addGarbageLayer();
-    }else if(selectedItem.name=="municipal waste"){
+    }else if(selectedItem.name=="Municipal Waste"){
       addMunicipalLayer();
-    }else if(selectedItem.name=="dropout rate in primary education"){
+    }else if(selectedItem.name=="Dropout in Primary Education"){
       addDropout1Layer();
-    }else if(selectedItem.name=="dropout rate in preparatory education"){
+    }else if(selectedItem.name=="Dropout in Preparatory Education"){
       addDropout2Layer();
-    }else if(selectedItem.name=="illiteracy percentage"){
+    }else if(selectedItem.name=="Illiteracy"){
       addIlliteracyLayer();
-    }else if(selectedItem.name=="total GDP"){
+    }else if(selectedItem.name=="Total GDP"){
       addGDPLayer();
-    }else if(selectedItem.name=="poverty percentage"){
+    }else if(selectedItem.name=="Poverty"){
       addPovertyLayer();
-    }else if(selectedItem.name=="average number of hospitals / 100k of residents"){
+    }else if(selectedItem.name=="Access to Hospitals"){
       addHospitalLayer();
-    }else if(selectedItem.name=="pollution"){
+    }else if(selectedItem.name=="Pollution"){
       addPollutionLayer();
     }        
 
@@ -1401,35 +1403,35 @@ function onSubmit5(e){
   function developmentDataOnRemoveHandler(selectedList, selectedItem){
     if(selectedItem.name=="poverty (2017/2018)"){
       dispatch(removeLayer(POVERTY_LAYER_ID));
-    }else if(selectedItem.name=="unemployment percentage"){
+    }else if(selectedItem.name=="Unemployment"){
       dispatch(removeLayer(HOUSEHOLD7_LAYER_ID));
-    }else if(selectedItem.name=="population percentage"){
+    }else if(selectedItem.name=="Population"){
       dispatch(removeLayer(POPULATION_LAYER_ID));
-    }else if(selectedItem.name=="households connected to water"){
+    }else if(selectedItem.name=="Access to Water"){
       dispatch(removeLayer(HOUSEHOLD_LAYER_ID));
-    }else if(selectedItem.name=="households connected to electricity"){
+    }else if(selectedItem.name=="Access to Electricity"){
       dispatch(removeLayer(HOUSEHOLD2_LAYER_ID));
-    }else if(selectedItem.name=="households connected to sewage"){
+    }else if(selectedItem.name=="Access to Sewage"){
       dispatch(removeLayer(HOUSEHOLD3_LAYER_ID));
-    }else if(selectedItem.name=="phone lines"){
+    }else if(selectedItem.name=="Landline Phone Connectivity"){
       dispatch(removeLayer(HOUSEHOLD4_LAYER_ID));
-    }else if(selectedItem.name=="garbage"){
+    }else if(selectedItem.name=="Garbage"){
       dispatch(removeLayer(HOUSEHOLD5_LAYER_ID));
-    }else if(selectedItem.name=="municipal waste"){
+    }else if(selectedItem.name=="Municipal Waste"){
       dispatch(removeLayer(HOUSEHOLD6_LAYER_ID));
-    }else if(selectedItem.name=="dropout rate in primary education"){
+    }else if(selectedItem.name=="Dropout in Primary Education"){
       dispatch(removeLayer(HOUSEHOLD8_LAYER_ID));
-    }else if(selectedItem.name=="dropout rate in preparatory education"){
+    }else if(selectedItem.name=="Dropout in Preparatory Education"){
       dispatch(removeLayer(HOUSEHOLD9_LAYER_ID));
-    }else if(selectedItem.name=="illiteracy percentage"){
+    }else if(selectedItem.name=="Illiteracy"){
       dispatch(removeLayer(HOUSEHOLD10_LAYER_ID));
-    }else if(selectedItem.name=="total GDP"){
+    }else if(selectedItem.name=="Total GDP"){
       dispatch(removeLayer(HOUSEHOLD11_LAYER_ID));
-    }else if(selectedItem.name=="poverty percentage"){
+    }else if(selectedItem.name=="Poverty"){
       dispatch(removeLayer(HOUSEHOLD12_LAYER_ID));
-    }else if(selectedItem.name=="average number of hospitals / 100k of residents"){
-      dispatch(removeLayer(HOUSEHOLD12_LAYER_ID));
-    }else if(selectedItem.name=="pollution"){
+    }else if(selectedItem.name=="Access to Hospitals"){
+      dispatch(removeLayer(HOUSEHOLD13_LAYER_ID));
+    }else if(selectedItem.name=="Pollution"){
       dispatch(removeLayer(POLLUTION_LAYER_ID));
     }      
        
@@ -1792,7 +1794,7 @@ function onSubmit5(e){
             <div className="card-body p-0 m-0">
               <FormulaWidget
                 id='innovationStages'
-                title='No. of Innovations'
+                title='Total No. of Innovations'
                 dataSource={startups10Source.id}
                 column='innovation_stage'
                 operationColumn='innovation_stage'
@@ -1802,7 +1804,7 @@ function onSubmit5(e){
               <Divider></Divider>
               <CategoryWidget
                 id='innovationSectors'
-                title='Innovation Sectors'
+                title='Innovation Sector'
                 dataSource={startups10Source.id}
                 column='sector'
                 operationColumn='sector'
@@ -1821,7 +1823,7 @@ function onSubmit5(e){
               /> */}
               <CategoryWidget
                 id='innovationTypes'
-                title='Innovation Types'
+                title='Innovation Type'
                 dataSource={startups10Source.id}
                 column='innovation_type'
                 operationColumn='innovation_type'
@@ -1831,7 +1833,7 @@ function onSubmit5(e){
               <Divider></Divider>
               <CategoryWidget
                 id='innovationStages'
-                title='Innovation Stages'
+                title='Innovation Stage'
                 dataSource={startups10Source.id}
                 column='innovation_stage'
                 operationColumn='innovation_stage'

@@ -132,10 +132,10 @@ export default function Household9Layer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('dropout_percentage_in_preparatory_education_2017_2018_2018_2019','Dropout Percentage in Primary Education')
+          .replaceAll('dropout_percentage_in_preparatory_education_2017_2018_2018_2019','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>male_dropout_percentage_in_preparatory_education_2017_2018_2018_</strong>','<strong>Male Dropout Percentage in preparatory Education</strong>')
-          .replaceAll('<strong>female_dropout_percentage_in_preparatory_education_2017_2018_20</strong>','<strong>Female Dropout Percentage in preparatory Education</strong>')
+          .replaceAll('<strong>male_dropout_percentage_in_preparatory_education_2017_2018_2018</strong>','<strong>Male Percentage</strong>')
+          .replaceAll('<strong>female_dropout_percentage_in_preparatory_education_2017_2018_20</strong>','<strong>Female Percentage</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
@@ -155,10 +155,10 @@ export default function Household9Layer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('dropout_percentage_in_preparatory_education_2017_2018_2018_2019','Dropout Percentage in Primary Education')
+          .replaceAll('dropout_percentage_in_preparatory_education_2017_2018_2018_2019','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>male_dropout_percentage_in_preparatory_education_2017_2018_2018</strong>','<strong>Male Dropout Percentage in preparatory Education</strong>')
-          .replaceAll('<strong>female_dropout_percentage_in_preparatory_education_2017_2018_20</strong>','<strong>Female Dropout Percentage in preparatory Education</strong>')
+          .replaceAll('<strong>male_dropout_percentage_in_preparatory_education_2017_2018_2018</strong>','<strong>Male Percentage</strong>')
+          .replaceAll('<strong>female_dropout_percentage_in_preparatory_education_2017_2018_20</strong>','<strong>Female Percentage</strong>')
           
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')

@@ -140,10 +140,10 @@ export default function PopulationLayer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
+          .replaceAll('poverty_percentage_2017_2018','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>percentage_of_urban_population_2017_census</strong>','<strong>Urban Population (%)</strong>')
-          .replaceAll('<strong>percentage_of_rural_population_2017_census</strong>','<strong>Rural Population (%)</strong>')
+          .replaceAll('<strong>percentage_of_urban_population_2017_census</strong>','<strong>Urban Percentage</strong>')
+          .replaceAll('<strong>percentage_of_rural_population_2017_census</strong>','<strong>Rural Percentage</strong>')
           .replaceAll('<strong>population_percentage_2017_census_approximated_to_2nd_decimal</strong>','<strong>Population (%)</strong>')
 
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
@@ -166,10 +166,10 @@ export default function PopulationLayer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
+          .replaceAll('poverty_percentage_2017_2018','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>percentage_of_urban_population_2017_census</strong>','<strong>Urban Population (%)</strong>')
-          .replaceAll('<strong>percentage_of_rural_population_2017_census</strong>','<strong>Rural Population (%)</strong>')
+          .replaceAll('<strong>percentage_of_urban_population_2017_census</strong>','<strong>Urban Percentage</strong>')
+          .replaceAll('<strong>percentage_of_rural_population_2017_census</strong>','<strong>Rural Percentage</strong>')
           .replaceAll('<strong>population_percentage_2017_census_approximated_to_2nd_decimal</strong>','<strong>Population (%)</strong>')
 
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')

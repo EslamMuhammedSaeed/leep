@@ -34,7 +34,7 @@ export const LABELS = [
 ];
 
 const layerConfig = {
-  title: 'Unemployment Percentage (2020)',
+  title: 'Unemployment',
   visible: true,
   switchable: false,
   legend: {
@@ -131,10 +131,10 @@ export default function Household7Layer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('unemployment_percentage_2020','Unemployment Percentage (2020)')
+          .replaceAll('unemployment_percentage_2020','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>male_unemployment_percentage_2020</strong>','<strong>Male Unemployment Percentage (2020)</strong>')
-          .replaceAll('<strong>female_unemployment_percentage_2020</strong>','<strong>Female Unemployment Percentage (2020)</strong>')
+          .replaceAll('<strong>male_unemployment_percentage_2020</strong>','<strong>Male Percentage</strong>')
+          .replaceAll('<strong>female_unemployment_percentage_2020</strong>','<strong>Female Percentage</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
@@ -154,10 +154,10 @@ export default function Household7Layer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('unemployment_percentage_2020','Unemployment Percentage (2020)')
+          .replaceAll('unemployment_percentage_2020','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>male_unemployment_percentage_2020</strong>','<strong>Male Unemployment Percentage (2020)</strong>')
-          .replaceAll('<strong>female_unemployment_percentage_2020</strong>','<strong>Female Unemployment Percentage (2020)</strong>')
+          .replaceAll('<strong>male_unemployment_percentage_2020</strong>','<strong>Male Percentage</strong>')
+          .replaceAll('<strong>female_unemployment_percentage_2020</strong>','<strong>Female Percentage</strong>')
           
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')

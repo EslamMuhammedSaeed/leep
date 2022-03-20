@@ -163,7 +163,9 @@ function Desktop() {
     <Hidden xsDown>
       <Link component={NavLink} to={ROUTE_PATHS.DEFAULT} className={classes.title}>
         <Typography component='h1' variant='subtitle1' noWrap>
-          <CartoLogo />
+          {/* <CartoLogo /> */}
+          <img src={'img/LEEP_white.png'}/>
+
           <AppName />
         </Typography>
       </Link>
