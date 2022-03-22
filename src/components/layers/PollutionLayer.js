@@ -9,7 +9,7 @@ import { colorBins } from "@deck.gl/carto";
 import { useDispatch } from 'react-redux';
 
 export const COLORS = [
-  [4, 82, 117],
+  [255,244,200],
 ];
 
 export const LABELS = [
@@ -57,7 +57,7 @@ export default function PollutionLayer() {
         
       },
       pointRadiusMinPixels: 5,
-      getLineColor: [254,153,41],
+      getLineColor: [255,244,200],
       lineWidthMinPixels: 5,
       pickable: true,
       onDataLoad: (data) => {

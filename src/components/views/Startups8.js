@@ -207,7 +207,7 @@ const searchStyle = {
   // border: "0",
   // borderBottom:"1px solid white",
   height:"30px",
-  maxWidth:"180px",
+  width:"100%",
   display:"inline",
   // color:"white"
 
@@ -432,6 +432,30 @@ const style2 ={
   searchBox: { // To change search box element look
     minHeight: "36px",
     width:"190px"
+	
+	
+  },
+  chips: {
+     background: "#FAA63D",
+     color: "white",
+     whiteSpace: "normal",
+     display:"none",
+     
+  }
+  
+}
+
+const style7 ={
+  multiselectContainer: { 
+    // marginLeft:"15px",
+    margin:"10px 10px 10px 10px",
+    width:"90%",
+    background:"white",
+    // paddingRight:"20px"
+  },
+  searchBox: { // To change search box element look
+    minHeight: "36px",
+    width:"95%"
 	
 	
   },
@@ -1496,24 +1520,25 @@ function onSubmit5(e){
   //   addSource(startups14Source)
   // );
 
-  useEffect(() => {
-    dispatch(addSource(startups14Source));
+  // useEffect(() => {
+  //   dispatch(addSource(startups14Source));
 
-    dispatch(
-      addLayer({
-        id: SDG2_LAYER_ID,
-        source: startups14Source.id,
-      }),
-    );
+  //   dispatch(
+  //     addLayer({
+  //       id: SDG2_LAYER_ID,
+  //       source: startups14Source.id,
+  //     }),
+  //   );
 
-    return () => {
-      dispatch(removeLayer(SDG2_LAYER_ID));
-      dispatch(removeSource(startups14Source.id));
-    };
-  }, [dispatch]);
+  //   return () => {
+  //     dispatch(removeLayer(SDG2_LAYER_ID));
+  //     dispatch(removeSource(startups14Source.id));
+  //   };
+  // }, [dispatch]);
   
 
   useEffect(() => {
+    startups10Source.data= "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021"
     dispatch(addSource(startups10Source));
 
     dispatch(
@@ -1534,7 +1559,7 @@ function onSubmit5(e){
   return (
    
     <Grid container direction='column' className={classes.startups5}>
-    <div className="card p-0 " style={search_float2}>
+    <div className="card p-0 d-none d-md-block" style={search_float2}>
           
           <div className="card-header p-1" style={background_white}>
             
@@ -1680,102 +1705,134 @@ function onSubmit5(e){
         <button onClick={fetch} style={{marginLeft: '10px'}}>fetch</button>
       </div> */}
       <div id="accordion">
-      <div className="card d-md-none">
+        <div className="card d-md-none">
           
           <div className="card-header" style={background_white}>
             <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse3">
-              <input type="text" className=" ml-1 form-control" style={searchStyle} onChange={onSubmit} placeholder="search" ref={searchInput} id='search' ></input>
+              <input type="text" className=" ml-1 form-control" style={searchStyle} onChange={onSubmit5} placeholder="Search Innovation" ref={searchInput5} id='search' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             </a>
           </div>
           
         </div>
+        <div className="d-md-none" >
+                <LegendWidget  />
+        </div>
         <div className="card d-md-none">
           <div className="card-header" style={background_navy}>
-            <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapseOne">
-              Filter By
-            </a>
+            
+                <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapseOne">
+                  <div className="row">
+                    <div className="col-9">
+                       Filter By
+                    </div>
+                    <div className="col-3 text-center">
+                      <i class="fa fa-chevron-down m-0" style={icon_size2} aria-hidden="true"></i>
+                    </div>
+                  </div>
+                </a>
+              
+              
+            
           </div>
           <div id="collapseOne" className="collapse" data-parent="#accordion">
             <div className="card-body p-0 m-0">
-            <label style={styleLabel}>Governorate:
+              {/* <label style={styleLabel}>SDGs:
+
+              </label> */}
+              <Multiselect
+                              
+                      options={SDGs} // Options to display in the dropdown
+                      selectedValues={SDGs[0]} // Preselected value to persist in dropdown
+                      onSelect={SDGsOnSelectHandler} // Function will trigger on select event
+                      onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
+                      displayValue="name" // Property name to display in the dropdown options
+                      placeholder="Filter by SDG"
+                      // showCheckbox="true"
+                      // closeOnSelect=false
+                      showCheckbox={true}
+                      showArrow="true"
+                      closeOnSelect={false}
+                      closeIcon="cancel"
+                      style={style7}
+                        
+              />
+
+
+              {/* <Divider></Divider> */}
+
+              {/* <label style={styleLabel}>Governorate:
             
-              </label>
+              </label> */}
               <Multiselect
-                
-                  options={options} // Options to display in the dropdown
-                  selectedValues={options[0]} // Preselected value to persist in dropdown
-                  onSelect={governOnSelectHandler} // Function will trigger on select event
-                  onRemove={governOnRemoveHandler} // Function will trigger on remove event
-                  displayValue="name" // Property name to display in the dropdown options
-                  showCheckbox="true"
-                  showArrow="true"
-                  closeOnSelect="false"
-                  closeIcon="cancel"
-                  style={style2}
-                    
+                              
+                              options={options} // Options to display in the dropdown
+                              selectedValues={options[0]} // Preselected value to persist in dropdown
+                              onSelect={governOnSelectHandler} // Function will trigger on select event
+                              onRemove={governOnRemoveHandler} // Function will trigger on remove event
+                              displayValue="name" // Property name to display in the dropdown options
+                              showCheckbox="true"
+                              showArrow="true"
+                              placeholder="Filter by Governorate"
+                              closeOnSelect={false}
+                              closeIcon="cancel"
+                              style={style7}
+                                
               />
-              <Divider></Divider>
+              {/* <Divider></Divider> */}
 
-              <label style={styleLabel}>Innovation Sector:
+              {/* <label style={styleLabel}>Innovation Sector:
  
-              </label>
+              </label> */}
               <Multiselect
-                
-                  options={sectors} // Options to display in the dropdown
-                  selectedValues={sectors[0]} // Preselected value to persist in dropdown
-                  onSelect={sectorOnSelectHandler} // Function will trigger on select event
-                  onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
-                  displayValue="name" // Property name to display in the dropdown options
-                  showCheckbox="true"
-                  showArrow="true"
-                  closeOnSelect="false"
-                  closeIcon="cancel"
-                  style={style2}
-                    
-              />
-              <Divider></Divider>
-
-              <label style={styleLabel}>Innovation Type:
-
-              </label>
-              <Multiselect
-                
-                options={innovation_type} // Options to display in the dropdown
-                selectedValues={innovation_type[0]} // Preselected value to persist in dropdown
-                onSelect={innovationTypeOnSelectHandler} // Function will trigger on select event
-                onRemove={innovationTypeOnRemoveHandler} // Function will trigger on remove event
-                displayValue="name" // Property name to display in the dropdown options
-                showCheckbox="true"
-                showArrow="true"
-                closeOnSelect="false"
-                closeIcon="cancel"
-                style={style2}
                   
-            />
+                              options={sectors} // Options to display in the dropdown
+                              selectedValues={sectors[0]} // Preselected value to persist in dropdown
+                              onSelect={sectorOnSelectHandler} // Function will trigger on select event
+                              onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+                              displayValue="name" // Property name to display in the dropdown options
+                              showCheckbox="true"
+                              showArrow="true"
+                              placeholder="Filter by Sector"
+                              closeOnSelect={false}
+                              closeIcon="cancel"
+                              style={style7}        
+              />
+              {/* <Divider></Divider> */}
+
+              {/* <label style={styleLabel}>Development Data:
+
+              </label> */}
+              <Multiselect
+                  
+                      options={development_data} // Options to display in the dropdown
+                      selectedValues={development_data[0]} // Preselected value to persist in dropdown
+                      onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+                      onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+                      displayValue="name" // Property name to display in the dropdown options
+                      showCheckbox={true}
+                      placeholder="Development Data"
+                      // singleSelect={true}
+                      selectionLimit={1}
+                      showArrow="true"
+                      hidePlaceholder={false}
+                      closeOnSelect={false}
+                      closeIcon="cancel"
+                      style={style7}
+                        
+              />
 
 
               <Divider></Divider>
+              <div className="text-center px-4">
+                <button type="button" className="btn btn-dark btn-block mx-0 px-0 my-2" style={exportButton} onClick={ExportToExcel}>Export</button> 
+              </div>
+              {/* <Divider></Divider>
+              <div className="d-md-none" >
+                <LegendWidget  />
+              </div> */}
 
-              <label style={styleLabel}>Development Data:
-   
-        
-              </label>
-              <Multiselect
-                
-                options={development_data} // Options to display in the dropdown
-                selectedValues={development_data[0]} // Preselected value to persist in dropdown
-                onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
-                onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
-                displayValue="name" // Property name to display in the dropdown options
-                showCheckbox="true"
-                singleSelect="true"
-                showArrow="true"
-                closeOnSelect="false"
-                closeIcon="cancel"
-                style={style2}
-                  
-              />
+             
 
               
             </div>
@@ -1784,12 +1841,22 @@ function onSubmit5(e){
 
         <div className="card">
           
-          {/* <div className="card-header" style={background_navy}>
-            <a className="card-link text-white" style={card_header} data-toggle="collapse" href="#collapse2">
-              Interactive Analytics
-              <i class="fa fa-chevron-down " style={icon_size2} aria-hidden="true"></i>
-            </a>
-          </div> */}
+          <div className="card-header d-md-none" style={background_navy}>
+              
+                    <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse2">
+                      <div className="row">
+                          <div className="col-9">
+                               Interactive Analytics
+                          </div>
+                          <div className="col-3 text-center">
+                            <i class="fa fa-chevron-down m-0" style={icon_size2} aria-hidden="true"></i>
+                          </div>
+                        </div>           
+                    </a>
+                   
+                  
+                
+          </div>
           <div id="collapse2" className="collapse show" data-parent="#accordion">
             <div className="card-body p-0 m-0">
               <FormulaWidget
@@ -1874,7 +1941,7 @@ function onSubmit5(e){
 <div>
 
 </div>
-<div style={filters_wrap} className="flex-nowrap shadow-sm">
+<div style={filters_wrap} className="flex-nowrap shadow-sm d-none d-md-flex">
   <div style={sdg_float} className=" flex-wrap">
                   <Multiselect
                               

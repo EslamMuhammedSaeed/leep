@@ -252,13 +252,14 @@ function Mobile() {
       >
         {drawerOpen ? <CloseIcon /> : <MenuIcon />}
       </IconButton> */}
-      <Divider orientation='vertical' light />
+      {/* <Divider orientation='vertical' light /> */}
       <Link component={NavLink} to={ROUTE_PATHS.STARTUPS8} className={classes.title}>
         <Typography component='h1' variant='subtitle1' noWrap>
           <Hidden smUp>
             {/* <CartoLogoXS /> */}
-            <span className="d-flex align-items-center mr-2">LOGO</span>
-            <Divider orientation='vertical' light />
+            <img src={'img/LEEP_white.png'}/>
+            {/* <span className="d-flex align-items-center mr-2">LOGO</span> */}
+            {/* <Divider orientation='vertical' light /> */}
           </Hidden>
           {/* <AppName/> */}
           {/* <div className="pl-2 py-2 pt-md-0 d-flex align-items-end w-100">
