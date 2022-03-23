@@ -117,10 +117,15 @@ export default function Household9Layer() {
          elem.parentNode.removeChild(elem);
        
         }
+        if(document.getElementById('custom-tooltip2')){
+          var elem2 = document.getElementById('custom-tooltip2');
+         elem2.parentNode.removeChild(elem2);
+       
+        }
           let div1 = document.createElement("div");
           div1.className = "makeStyles2-tooltip-39 d-md-block d-none"
           div1.id = "custom-tooltip";
-          let attr = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-70)+'px); border-color: red;'
+          let attr = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-105)+'px); border-color: red;'
           div1.setAttribute('style',attr);
           // div1.append("Some text");
           y.append(div1);
