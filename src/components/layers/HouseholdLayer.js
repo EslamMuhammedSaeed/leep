@@ -14,7 +14,7 @@ export const COLORS = [
   [239,243,255],
   [189,215,231],
   [107,174,214],
-  [49,105,189],
+  [49,70,189],
   [8,81,156],
 ];
 
@@ -62,7 +62,7 @@ export default function HouseholdLayer() {
         }else if(d.properties.percentage_of_households_connected_to_the_public_network_of_wat <= 80){
           return [107,174,214];
         }else if(d.properties.percentage_of_households_connected_to_the_public_network_of_wat <= 90){
-          return [49,105,189];  
+          return [49,70,189];  
         }else{
           // console.log(d.properties.population_percentage_2017_census_approximated_to_2nd_decimal);
           return [8,81,156];
@@ -142,7 +142,7 @@ export default function HouseholdLayer() {
           let div5 = document.createElement("div");
           div5.className = "makeStyles2-tooltip-39 d-md-none d-block "
           div5.id = "custom-tooltip2";
-          let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-105)+'px); border-color: red;'
+          let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-70)+'px); border-color: red;'
           div5.setAttribute('style',attr2);
           // div1.append("Some text");
           y.append(div5);
