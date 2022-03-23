@@ -113,20 +113,23 @@ const innovation_type = [
 ];
 const SDGs = [
   
-  {name: 'Goal 1: No Poverty', id: 1},
-  {name: 'Goal 2: Zero Hunger', id: 2},
-  {name: 'Goal 3: Good Health and Well-Being', id: 3},
-  {name: 'Goal 4: Quality Education', id: 4},
-  {name: 'Goal 5: Gender Equality', id: 5},
-  {name: 'Goal 6: Clean Water and Sanitation', id: 6},
-  {name: 'Goal 7: Affordable and Clean Energy', id: 7},
-  {name: 'Goal 8: Decent Work and Economic Growth', id: 8},
-  {name: 'Goal 9: Industry, Innovation and Infrastructure', id: 9},
-  {name: 'Goal 10: Reduced Inequalities', id: 10},
-  {name: 'Goal 11: Sustainable Cities and Communities', id: 11},
-  {name: 'Goal 12: Responsible Consumption and Production', id: 12},
-  {name: 'Goal 13: Climate Action', id: 13},
-  {name: 'Goal 14: Life Below Water', id: 14}, 
+  {name: 'GOAL 1: No Poverty', id: 1},
+  {name: 'GOAL 2: Zero Hunger', id: 2},
+  {name: 'GOAL 3: Good Health & Well-being', id: 3},
+  {name: 'GOAL 4: Quality Education', id: 4},
+  {name: 'GOAL 5: Gender Equality', id: 5},
+  {name: 'GOAL 6: Clean Water and Sanitation', id: 6},
+  {name: 'GOAL 7: Affordable and Clean Energy', id: 7},
+  {name: 'GOAL 8: Decent Work and Economic Growth', id: 8},
+  {name: 'GOAL 9: Industry, Innovation AND Infrastructure', id: 9},
+  {name: 'GOAL 10: Reduced Inequalities', id: 10},
+  {name: 'GOAL 11: Sustainable Cities and Communities', id: 11},
+  {name: 'GOAL 12: Responsible Consumption and Production', id: 12},
+  {name: 'GOAL 13: Climate Action', id: 13},
+  {name: 'GOAL 14: Life Below Water', id: 14},
+  {name: 'GOAL 15: Life On Land', id: 15},
+  {name: 'GOAL 16: Peace, Justice and Strong Institutions', id: 16},
+  {name: 'GOAL 17: Partnerships for the Goals', id: 17}, 
 ]
 const development_data = [
   
@@ -198,9 +201,9 @@ const exportButton={
   // right :"366px",
   // top:"54px",
   marginLeft:"10px",
-  height:"37px",
+  height:"34px",
   opacity:"0.8",
-  fontSize:"15px"
+  fontSize:"13px"
 }
 const searchStyle = {
   // background:"#2CA58D",
@@ -209,6 +212,7 @@ const searchStyle = {
   height:"30px",
   width:"100%",
   display:"inline",
+  fontSize:"0.9rem"
   // color:"white"
 
 };
@@ -425,13 +429,15 @@ const style2 ={
   multiselectContainer: { 
     marginLeft:"15px",
     margin:"0px 10px 10px 15px",
-    width:"190px",
+    width:"178px",
     background:"white",
+    fontSize:"0.7rem"
     // paddingRight:"20px"
   },
   searchBox: { // To change search box element look
-    minHeight: "36px",
-    width:"190px"
+    minHeight: "33px",
+    width:"178px",
+    fontSize:"0.8rem"
 	
 	
   },

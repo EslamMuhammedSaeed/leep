@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     // background:'rgba(0,0,0,0)',
     [theme.breakpoints.down('xs')]: {
       background:'rgba(0,0,0,0)',
-      height: 95,
+      // height: 90,
+      height: 60,
     },
     [theme.breakpoints.up('xs')]: {
       width: DRAWER_WIDTH,
@@ -89,7 +90,7 @@ const useStyleMobile = makeStyles((theme) => ({
   bottomSheetButton: {
     width:'150px !important',
     position: 'absolute',
-    bottom: theme.spacing(5),
+    bottom: theme.spacing(2),
     right: theme.spacing(2),
     zIndex: theme.zIndex.drawer + 1,
     color: theme.palette.primary.main,
