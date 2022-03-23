@@ -275,7 +275,7 @@ export default function Startups10Layer() {
           let div5 = document.createElement("div");
           div5.className = "makeStyles2-tooltip-39 d-md-none d-block "
           div5.id = "custom-tooltip2";
-          let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-130)+'px); border-color: red;'
+          let attr2 = 'z-index: 1; position: absolute; color: rgb(160, 167, 180); background: none; padding: 0px; top: 0px; left: 0px; transform: translate('+event.center.x+'px,' +(event.center.y-105)+'px); border-color: red;'
           div5.setAttribute('style',attr2);
           // div1.append("Some text");
           y.append(div5);
