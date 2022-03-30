@@ -64,8 +64,8 @@ const sectors2 = [
   {name2: 'Education'},
   {name: 'Environment'},
   {name2: 'Health'},
-  {name: 'Inclusive Services and Technology'},
-  {name2: 'Infrastructure and Transport'},
+  {name: 'Inclusive Services & Technology'},
+  {name2: 'Infrastructure & Transport'},
   {name: 'Tourism'},
   {name2: 'Other'},
 ];
@@ -74,8 +74,8 @@ var data = [{name: 'Creative Industries'},
 {name2: 'Education'},
 {name: 'Environment'},
 {name2: 'Health'},
-{name: 'Inclusive Services and Technology'},
-{name2: 'Infrastructure and Transport'},
+{name: 'Inclusive Services & Technology'},
+{name2: 'Infrastructure & Transport'},
 {name: 'Tourism'},
 {name2: 'Other'},
 ]  
@@ -91,8 +91,8 @@ const sectors = [
   {name: 'Education', id: 2},
   {name: 'Environment', id: 3},
   {name: 'Health', id: 4},
-  {name: 'Inclusive Services and Technology', id: 5},
-  {name: 'Infrastructure and Transport', id: 6},
+  {name: 'Inclusive Services & Technology', id: 5},
+  {name: 'Infrastructure & Transport', id: 6},
   {name: 'Tourism', id: 7},
   {name: 'Other', id: 8},
   // {name: 'Health', id: 4},
@@ -421,7 +421,7 @@ const style3 ={
   multiselectContainer: { 
     marginLeft:"15px",
     margin:"0px 10px 10px 15px",
-    width:"200px"
+    width:"200px",
     // paddingRight:"20px"
   },
   searchBox: { // To change search box element look
@@ -1997,7 +1997,7 @@ function onSubmit5(e){
 <div>
 
 </div>
-<div style={filters_wrap} className="flex-nowrap shadow-sm d-none d-md-flex">
+{/* <div style={filters_wrap} className="flex-nowrap shadow-sm d-none d-md-flex">
   <div style={sdg_float} className=" flex-wrap">
                   <Multiselect
                               
@@ -2070,7 +2070,7 @@ function onSubmit5(e){
       </div>
       <div style={ignore} className="d-inline-block">
       </div>
-    </div>  
+    </div>   */}
 
     {/* <div style={govern_float}>
     <Multiselect

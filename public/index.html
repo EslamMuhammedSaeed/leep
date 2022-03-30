@@ -72,6 +72,10 @@
 
     <!-- Fix height for iOS devices as long as Material-UI's makeStyles doesn't allow defining the same CSS property twice as a fallback -->
     <style>
+      .content button{
+        width: 15px !important;
+        height: 25px !important;
+      }
       header{
         z-index:1200 !important;
       }
@@ -285,6 +289,10 @@ button:focus{
     align-items: center !important;
     justify-content: start !important;
 }
+.pop-up{
+  max-width: 200px;
+  word-wrap:break-word;
+}
 /* .makeStyles-progressbar-71 div:first-child{
   background-color: black !important;
 } */
@@ -381,7 +389,7 @@ button:focus{
         </div>
         <div class="col-10 pr-0">
           <span class="mb-1">
-            Inclusive Services
+            Inclusive Services & Technology
           </span>
         </div>
         
@@ -396,7 +404,7 @@ button:focus{
         </div>
         <div class="col-10 pr-0">
           <span class="mb-1">
-            Infrastructure and Transport
+            Infrastructure & Transport
           </span>
         </div>
         
