@@ -69,6 +69,7 @@ export default function Main() {
             <input type="password" className="form-control" onChange={onSubmit8} ref={passcodeInput} placeholder="Enter the passcode"></input>
        </div>
     </div>
+    
       <LazyLoadComponent>
       {/* <div style={password_wrapper}>
         <img className="img-fluid" src={'img/LEEP_RGP.png'}/>

@@ -70,12 +70,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const background_white = {
-  background:"rgba(0,0,0,0)",
-  color:"black",
-  float:"right",
-  width:"80%",
-};
+// const background_white = {
+//   background:"rgba(0,0,0,0)",
+//   color:"black",
+//   float:"right",
+//   width:"80%",
+// };
 const card_header = {
   float:"right",
   fontWeight:"bold",
@@ -90,6 +90,26 @@ const searchStyle = {
   // color:"white"
 
 };
+const searchStyle2 = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  fontFamily:'Arial',
+  height:"20px",
+  width:"200px",
+  // height:"80px",
+  display:"inline",
+  background:"rgba(255, 255, 255, 0.356)",
+  borderTop:"0px",
+  borderRight:"0px",
+  borderLeft:"0px",
+  borderBottom:"0px",
+  borderRadius:"0px",
+  margin:"3px",
+  fontSize:"12px"
+  // color:"white"
+
+};
 const searchStyleMobile = {
   // background:"#2CA58D",
   // border: "0",
@@ -101,6 +121,20 @@ const searchStyleMobile = {
   // color:"white"
 
 };
+const search_float2 = {
+  // background:"#2CA58D",
+  // border: "0",
+  // borderBottom:"1px solid white",
+  background:"rgba(255, 255, 255)",
+  position:"fixed",
+  bottom: "30px",
+  right: "360px",
+  padding:"7px",
+  // width:"300px"
+  // color:"white"
+
+};
+
 const submitStyle = {
   background:"#2CA58D",
   color:"white",
@@ -112,6 +146,10 @@ const submitStyle = {
   marginBottom:"4px",
   // color:"white"
 
+};
+const background_white = {
+  background:"rgba(255, 255, 255, 0.356)",
+  color:"black"
 };
 const submitStyleMobile = {
   background:"#2CA58D",
@@ -128,6 +166,7 @@ const submitStyleMobile = {
 };
 let searchInput = React.createRef();
 let searchInput3 = React.createRef();
+let searchInput6 = React.createRef();
 
 
 export default function Header() {
@@ -201,7 +240,29 @@ function Mobile() {
   // const handleDrawerToggle = () => {
   //   setDrawerOpen(!drawerOpen);
   // };
-  
+  function onSubmit6(e){
+    // navigation.goBack();
+    console.log('hi');
+    
+    console.log(searchInput6.current.value);
+    var val = searchInput6.current.value;
+    var val2 = capitalizeFirstLetter(val);
+    console.log(val2);
+    var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%') OR LOWER(description) LIKE LOWER('%"+val+"%') OR LOWER(website) LIKE LOWER('%"+val+"%') OR LOWER(facebook_link) LIKE LOWER('%"+val+"%') OR LOWER(country) LIKE LOWER('%"+val+"%') OR LOWER(full_address) LIKE LOWER('%"+val+"%')";
+    var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(active_inactive_status) LIKE LOWER('%"+val+"%') OR LOWER(operation_cities_governorates) LIKE LOWER('%"+val+"%') OR LOWER(area_of_social_impact) LIKE LOWER('%"+val+"%') OR LOWER(organisation_phone_no) LIKE LOWER('%"+val+"%') OR LOWER(organisation_email) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
+    startups10Source.data=  data2;
+    // startups10Source.data=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%')"  ;
+    // console.log(startups10Source.data);
+    dispatch(
+      addSource(startups10Source)
+    );
+    dispatch(
+      addLayer({
+        id: STARTUPS10_LAYER_ID,
+        source: startups10Source.id,
+      })
+    );
+    }  
   function onSubmit(e){
   // navigation.goBack();
   // console.log('hi');
@@ -244,6 +305,7 @@ function Mobile() {
 
   return (
     <Hidden smUp>
+      
       {/* <IconButton
         className={classes.menuButton}
         color='inherit'
@@ -337,7 +399,30 @@ function NavigationMenu({ column: vertical }) {
   // const handleDrawerToggle = () => {
   //   setDrawerOpen(!drawerOpen);
   // };
-  
+  function onSubmit6(e){
+    // navigation.goBack();
+    console.log('hi');
+    
+    console.log(searchInput6.current.value);
+    var val = searchInput6.current.value;
+    var val2 = capitalizeFirstLetter(val);
+    console.log(val2);
+    var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%') OR LOWER(description) LIKE LOWER('%"+val+"%') OR LOWER(website) LIKE LOWER('%"+val+"%') OR LOWER(facebook_link) LIKE LOWER('%"+val+"%') OR LOWER(country) LIKE LOWER('%"+val+"%') OR LOWER(full_address) LIKE LOWER('%"+val+"%')";
+    var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(active_inactive_status) LIKE LOWER('%"+val+"%') OR LOWER(operation_cities_governorates) LIKE LOWER('%"+val+"%') OR LOWER(area_of_social_impact) LIKE LOWER('%"+val+"%') OR LOWER(organisation_phone_no) LIKE LOWER('%"+val+"%') OR LOWER(organisation_email) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
+    startups10Source.data=  data2;
+    // startups10Source.data=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%')"  ;
+    // console.log(startups10Source.data);
+    dispatch(
+      addSource(startups10Source)
+    );
+    dispatch(
+      addLayer({
+        id: STARTUPS10_LAYER_ID,
+        source: startups10Source.id,
+      })
+    );
+    }  
+ 
   function onSubmit(e){
   // navigation.goBack();
   // console.log('hi');
@@ -444,6 +529,16 @@ function NavigationMenu({ column: vertical }) {
               <input type="text col-8" className="mb-2 mb-md-0 ml-md-4 form-control" style={searchStyle} placeholder="search" ref={searchInput} id='search' ></input>
               <button class="btn ml-md-2 col-4 " style={submitStyle} onClick={onSubmit}>submit</button>
       </div> */}
+      <div className="card p-0 d-none d-md-block" style={search_float2}>
+          
+          <div className="card-header p-1" style={background_white}>
+            
+              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit6} placeholder="Search Innovation" ref={searchInput6} id='search6' ></input>
+              {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
+            
+          </div>
+          
+      </div>
     </Grid>
   );
 }

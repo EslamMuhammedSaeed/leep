@@ -1616,16 +1616,15 @@ function onSubmit5(e){
             <input type="password" className="form-control" placeholder="Enter the passcode"></input>
        </div>
     </div> */}
-    <div className="card p-0 d-none d-md-block" style={search_float2}>
+    {/* <div className="card p-0 d-none d-md-block" style={search_float2}>
           
           <div className="card-header p-1" style={background_white}>
             
               <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit6} placeholder="Search Innovation" ref={searchInput6} id='search6' ></input>
-              {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             
           </div>
           
-    </div>
+    </div> */}
     {/* <div className="card p-0 d-md-none" style={search_float_mobile}>
           
           <div className="card-header p-2" style={background_white}>
