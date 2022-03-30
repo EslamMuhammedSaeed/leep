@@ -72,6 +72,12 @@
 
     <!-- Fix height for iOS devices as long as Material-UI's makeStyles doesn't allow defining the same CSS property twice as a fallback -->
     <style>
+      header{
+        z-index:1200 !important;
+      }
+      .password-wrapper{
+        display: none;
+      }
       @font-face {
             font-family: 'pop';
             src:url('/fonts/Poppins-Regular.ttf');

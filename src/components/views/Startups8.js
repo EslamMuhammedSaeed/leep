@@ -82,8 +82,8 @@ var data = [{name: 'Creative Industries'},
 const fileName = 'download'  ;
 const exportType = exportFromJSON.types.xls; 
 
-var sql_main = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage,innovation_type, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-var sql_main2 = "select cartodb_id, name, sdgs, gov_name AS governorate ,innovation_stage,innovation_type, sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+var sql_main2 = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 var global_data =[];
 const customFormatter = (value) => `${value} Years`;
 const sectors = [
@@ -181,6 +181,22 @@ const options = [
 {name: 'South Sinai', id: 26},
 {name: 'Suez', id: 27}
 ];
+
+const password_wrapper = {
+  width:"100%",
+  height:"100vh",
+  position:"fixed",
+  top:"0",
+  left:"0",
+  // opacity:"0.98",
+  zIndex:"1500",
+  background:"white",
+  display:"flex",
+  justifyContent: "center",
+  alignItems: "center",
+  
+
+};
 
 const styleLabel = {
   marginTop:"10px",
@@ -489,6 +505,7 @@ export default function Startups8() {
   let searchInput = React.createRef(); 
   let searchInput2 = React.createRef();
   let searchInput5 = React.createRef();
+  let searchInput6 = React.createRef();
   const ExportToExcel=async() =>{ 
     
       const credentials = {
@@ -598,11 +615,11 @@ export default function Startups8() {
     
    
     // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -671,7 +688,7 @@ sql_main=sql_main+" WHERE (sector='"+selectedItem.name+"')";
 console.log(sql_main);
 }
 //  var sector_no = selectedList.length;
-//  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+//  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
 //  for (let i = 0; i < sector_no; i++) {
 //      if(i==0){
 //        sql = sql+selectedList[i].name+"'";
@@ -726,7 +743,7 @@ function SDGsOnSelectHandler(selectedList, selectedItem){
   console.log(sql_main);
   }
   //  var sector_no = selectedList.length;
-  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
   //  for (let i = 0; i < sector_no; i++) {
   //      if(i==0){
   //        sql = sql+selectedList[i].name+"'";
@@ -790,11 +807,11 @@ function sectorOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("AND ( )",'');
     
     // if(sql_main.indexOf("gov_name=")>0)
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
   sql_main = sql_main.replace("( OR",'(');
     sql_main = sql_main.replace("( OR",'(');
@@ -863,11 +880,11 @@ function SDGsOnRemoveHandler(selectedList, selectedItem){
     sql_main = sql_main.replace("AND ( )",'');
     
     // if(sql_main.indexOf("gov_name=")>0)
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
-  if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-    sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   }
   
   sql_main = sql_main.replace("OR )",')');
@@ -930,7 +947,7 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
   console.log(sql_main);
   }
   //  var sector_no = selectedList.length;
-  //  var sql="select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
   //  for (let i = 0; i < sector_no; i++) {
   //      if(i==0){
   //        sql = sql+selectedList[i].name+"'";
@@ -994,11 +1011,11 @@ function innovationTypeOnSelectHandler(selectedList, selectedItem){
       sql_main = sql_main.replace("AND ( )",'');
       
       // if(sql_main.indexOf("gov_name=")>0)
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+      sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
-    if(sql_main == "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
-      sql_main = "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+    if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+      sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
     }
     sql_main = sql_main.replace("( OR",'(');
       sql_main = sql_main.replace("( OR",'(');
@@ -1037,7 +1054,7 @@ console.log(searchInput.current.value);
 var val = searchInput.current.value;
 var val2 = capitalizeFirstLetter(val);
 console.log(val2);
-startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
+startups10Source.data=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%')"  ;
 console.log(startups10Source.data);
 dispatch(
   addSource(startups10Source)
@@ -1053,13 +1070,16 @@ dispatch(
 
 function onSubmit5(e){
   // navigation.goBack();
-  // console.log('hi');
+  console.log('hi');
+  
   console.log(searchInput5.current.value);
   var val = searchInput5.current.value;
   var val2 = capitalizeFirstLetter(val);
   console.log(val2);
-  startups10Source.data=  "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') "  ;
-  console.log(startups10Source.data);
+  var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%') OR LOWER(description) LIKE LOWER('%"+val+"%') OR LOWER(website) LIKE LOWER('%"+val+"%') OR LOWER(facebook_link) LIKE LOWER('%"+val+"%') OR LOWER(country) LIKE LOWER('%"+val+"%') OR LOWER(full_address) LIKE LOWER('%"+val+"%')";
+  var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(active_inactive_status) LIKE LOWER('%"+val+"%') OR LOWER(operation_cities_governorates) LIKE LOWER('%"+val+"%') OR LOWER(area_of_social_impact) LIKE LOWER('%"+val+"%') OR LOWER(organisation_phone_no) LIKE LOWER('%"+val+"%') OR LOWER(organisation_email) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
+  startups10Source.data=  data2;
+  // console.log(startups10Source.data);
   dispatch(
     addSource(startups10Source)
   );
@@ -1070,6 +1090,29 @@ function onSubmit5(e){
     })
   );
   }
+  function onSubmit6(e){
+    // navigation.goBack();
+    console.log('hi');
+    
+    console.log(searchInput6.current.value);
+    var val = searchInput6.current.value;
+    var val2 = capitalizeFirstLetter(val);
+    console.log(val2);
+    var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%') OR LOWER(description) LIKE LOWER('%"+val+"%') OR LOWER(website) LIKE LOWER('%"+val+"%') OR LOWER(facebook_link) LIKE LOWER('%"+val+"%') OR LOWER(country) LIKE LOWER('%"+val+"%') OR LOWER(full_address) LIKE LOWER('%"+val+"%')";
+    var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(active_inactive_status) LIKE LOWER('%"+val+"%') OR LOWER(operation_cities_governorates) LIKE LOWER('%"+val+"%') OR LOWER(area_of_social_impact) LIKE LOWER('%"+val+"%') OR LOWER(organisation_phone_no) LIKE LOWER('%"+val+"%') OR LOWER(organisation_email) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
+    startups10Source.data=  data2;
+    // startups10Source.data=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%')"  ;
+    // console.log(startups10Source.data);
+    dispatch(
+      addSource(startups10Source)
+    );
+    dispatch(
+      addLayer({
+        id: STARTUPS10_LAYER_ID,
+        source: startups10Source.id,
+      })
+    );
+    }  
 
 
   // const addPovertyLayer = (e) =>{
@@ -1542,9 +1585,11 @@ function onSubmit5(e){
   //   };
   // }, [dispatch]);
   
+  var password_wrap = document.getElementById('password-wrapper');
+  password_wrap.classList.remove("d-none");
 
   useEffect(() => {
-    startups10Source.data= "select cartodb_id, name, sdgs, gov_name,innovation_stage,innovation_type,sector ,the_geom_webmercator from egypt_si_dataset_final_review_16112021"
+    startups10Source.data= "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021"
     dispatch(addSource(startups10Source));
 
     dispatch(
@@ -1565,11 +1610,17 @@ function onSubmit5(e){
   return (
    
     <Grid container direction='column' className={classes.startups5}>
+    {/* <div style={password_wrapper}>
+        <div>
+            <img className="img-fluid" src={'img/LEEP_RGB.png'}/>
+            <input type="password" className="form-control" placeholder="Enter the passcode"></input>
+       </div>
+    </div> */}
     <div className="card p-0 d-none d-md-block" style={search_float2}>
           
           <div className="card-header p-1" style={background_white}>
             
-              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit5} placeholder="Search Innovation" ref={searchInput5} id='search5' ></input>
+              <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit6} placeholder="Search Innovation" ref={searchInput6} id='search6' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             
           </div>
@@ -1715,7 +1766,7 @@ function onSubmit5(e){
           
           <div className="card-header" style={background_white}>
             <a className="card-link text-dark" style={card_header} data-toggle="collapse" href="#collapse3">
-              <input type="text" className=" ml-1 form-control" style={searchStyle} onChange={onSubmit5} placeholder="Search Innovation" ref={searchInput5} id='search' ></input>
+              <input type="text" className=" ml-1 form-control" style={searchStyle} onChange={onSubmit5} placeholder="Search Innovation" ref={searchInput5} id='search2' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
             </a>
           </div>
