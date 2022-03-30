@@ -453,7 +453,7 @@ const style2 ={
   searchBox: { // To change search box element look
     minHeight: "33px",
     width:"178px",
-    fontSize:"0.8rem"
+    fontSize:"12px"
 	
 	
   },
