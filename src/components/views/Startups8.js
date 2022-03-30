@@ -228,7 +228,7 @@ const searchStyle = {
   height:"30px",
   width:"100%",
   display:"inline",
-  fontSize:"0.9rem"
+  fontSize:"12px"
   // color:"white"
 
 };
@@ -248,7 +248,7 @@ const searchStyle2 = {
   borderBottom:"0px",
   borderRadius:"0px",
   margin:"3px",
-  fontSize:"0.9rem"
+  fontSize:"12px"
   // color:"white"
 
 };
@@ -453,7 +453,7 @@ const style2 ={
   searchBox: { // To change search box element look
     minHeight: "33px",
     width:"178px",
-    fontSize:"12px"
+    fontSize:"0.8rem"
 	
 	
   },
