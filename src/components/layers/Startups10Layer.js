@@ -262,10 +262,10 @@ export default function Startups10Layer() {
           content.className = "content";
           // content.append("Some text");
           div1.append(content);
-          content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
+          content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(': ','')
           .replaceAll('poverty_percentage_2017_2018','Poverty percentage')
           .replaceAll('<strong>name</strong>','<strong>Name</strong>')
-          .replaceAll('<strong>sector_primary_secondary</strong>','<strong>Sector (Primary, Secondary)</strong>')
+          .replaceAll('<strong>sector_primary_secondary</strong>','<strong>Sector <span style="font-size:9px">(Primary, Secondary)<span></strong>')
           .replaceAll('<strong>sub_sector</strong>','<strong>Sub-Sector</strong>')
           .replaceAll('<strong>sdgs</strong>','<strong>SDGs</strong>')
           .replaceAll('<strong>year_founded_if_provided</strong>','<strong>Year Founded</strong>')

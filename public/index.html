@@ -72,9 +72,28 @@
 
     <!-- Fix height for iOS devices as long as Material-UI's makeStyles doesn't allow defining the same CSS property twice as a fallback -->
     <style>
+      .password-title{
+       
+        text-align: center;
+        font-size: 30px;
+        font-weight: 700;
+        color: rgb(102, 102, 102);
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .pop-up strong::after{
+        content: " :";
+      }
       .content button{
-        width: 15px !important;
-        height: 25px !important;
+        /* width: 25px !important;
+        height: 25px !important; */
+        padding: 0 !important;
+        
+      }
+      .MuiDivider-vertical {
+          width: 1px !important;
+          height: 50% !important;
+          background: white !important;
       }
       header{
         z-index:1200 !important;

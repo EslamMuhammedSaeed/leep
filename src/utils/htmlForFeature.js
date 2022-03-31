@@ -75,10 +75,26 @@ function generateHtml(
   html,
   formatterFunction = (v) => v
 ) {
+  if(propertyName == 'website'){
+      return html.concat(
+        `<div class="pop-up">${showColumnName ? `<strong>${propertyName}</strong><a target="_blank" href="${formatterFunction(
+          feature.properties[propertyName])}" class="pop-up-val">: ` : ''}${formatterFunction(
+          feature.properties[propertyName]
+        )}</a><br/></div>`
+      );
+  }
+  if(propertyName == 'facebook_link'){
+      return html.concat(
+        `<div class="pop-up">${showColumnName ? `<strong>${propertyName}</strong><a target="_blank" href="${formatterFunction(
+          feature.properties[propertyName])}" class="pop-up-val">: ` : ''}${formatterFunction(
+          feature.properties[propertyName]
+        )}</a><br/></div>`
+      );
+  }
   return html.concat(
-    `<div class="pop-up">${showColumnName ? `<strong>${propertyName}</strong>: ` : ''}${formatterFunction(
+    `<div class="pop-up">${showColumnName ? `<strong>${propertyName}</strong><span class="pop-up-val">: ` : ''}${formatterFunction(
       feature.properties[propertyName]
-    )}<br/></div>`
+    )}</span><br/></div>`
   );
 }
 

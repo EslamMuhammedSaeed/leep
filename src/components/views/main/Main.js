@@ -66,6 +66,7 @@ export default function Main() {
       <div id='password-wrapper' className='d-none' style={password_wrapper}>
         <div>
             <img className="img-fluid" src={'img/LEEP_RGB.png'}/>
+            <div className="password-title">Egypt Innovation Map</div>
             <input type="password" className="form-control" onChange={onSubmit8} ref={passcodeInput} placeholder="Enter the passcode"></input>
        </div>
     </div>
