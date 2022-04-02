@@ -5,6 +5,7 @@ import { BASEMAP_LAYER_ID } from 'components/layers/BasemapLayer';
 import { UNEMPLOYMENT_LAYER_ID } from 'components/layers/UnemploymentLayer';
 import startups10Source from 'data/sources/startups10Source';
 import pollutionSource from 'data/sources/pollutionSource';
+import { PUBLIC_INNOVATIONS_LAYER_ID } from 'components/layers/PublicInnovationsLayer';
 
 // import startups13Source from 'data/sources/startups13Source';
 // import { SDG_LAYER_ID } from 'components/layers/SdgLayer';
@@ -320,6 +321,7 @@ const submitStyleMobile = {
 let searchInput = React.createRef();
 let searchInput3 = React.createRef();
 let searchInput6 = React.createRef();
+let searchInput6Public = React.createRef();
 
 
 export default function Header() {
@@ -577,6 +579,8 @@ function NavigationMenu({ column: vertical }) {
   
   var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   var sql_main2 = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  var sql_main_public ="select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  
   var global_data =[];
   const customFormatter = (value) => `${value} Years`;
   const sectors = [
@@ -704,6 +708,438 @@ function NavigationMenu({ column: vertical }) {
   
   exportFromJSON({ data, fileName, exportType });
 }
+
+//===============================================public===========================================
+const ExportToExcelPublic=async() =>{ 
+    
+  const credentials = {
+    username: "riseegypt",
+    apiKey: "7ecefb7b10b21eef2a24815d552b9bded4183933",
+    serverUrlTemplate: 'https://riseegypt.carto.com'
+  };
+  const opts = {
+    // format:"CSV"
+  };
+  var query = sql_main_public;
+  query = sql_main_public.replace(",the_geom_webmercator",'');
+  query = query.replace("cartodb_id,",'');
+  // query = startups10Source.data;
+  console.log(query);
+  const fetched_data = await getData({credentials, opts,query});
+  // console.log(fetched_data);
+  data =fetched_data;
+  console.log(global_data);
+  // console.log(fetched_data[0]);
+  // setGovern({
+  //   fetched_data
+  // });
+  console.log(data);
+  // data=startups10Source.data;
+
+
+exportFromJSON({ data, fileName, exportType });
+}
+const governOnSelectHandler2 = (selectedList, selectedItem)=>{
+
+  if(sql_main_public.indexOf("WHERE (gov_name")>0 || sql_main_public.indexOf("WHERE(gov_name")>0){
+    var index = sql_main_public.indexOf("(gov_name");
+    sql_main_public = insert(sql_main_public,"gov_name='"+selectedItem.name+"' OR ",index+1); 
+    console.log(sql_main_public);
+    // sql_main=sql_main+" WHERE sector='"+selectedItem.name+"'";
+  }
+  else if(sql_main_public.indexOf("WHERE( gov_name")>0){
+    var index = sql_main_public.indexOf("( gov_name");
+    sql_main_public = insert(sql_main_public,"gov_name='"+selectedItem.name+"' OR ",index+1); 
+    console.log(sql_main_public);
+    
+  }else if(sql_main_public.indexOf("WHERE ( gov_name")>0){
+    var index = sql_main_public.indexOf("( gov_name");
+    sql_main = insert(sql_main_public,"gov_name='"+selectedItem.name+"' OR ",index+1); 
+    console.log(sql_main_public);
+    
+  }else if(sql_main_public.indexOf("gov_name=")>0){
+    var index = sql_main_public.indexOf("(gov_name");
+    sql_main_public = insert(sql_main_public,"gov_name='"+selectedItem.name+"' OR ",index+1); 
+    console.log(sql_main_public);
+  }else if(sql_main_public.indexOf("WHERE")>0){
+    sql_main_public=sql_main_public+"AND (gov_name='"+selectedItem.name+"')";
+    console.log(sql_main_public);
+  }else{
+    sql_main_public=sql_main_public+" WHERE (gov_name='"+selectedItem.name+"')";
+    console.log(sql_main_public);
+  }
+        startups10Source.data=  sql_main_public;
+        dispatch(
+          addSource(startups10Source)
+        );
+    
+        dispatch(
+          addLayer({
+            id: PUBLIC_INNOVATIONS_LAYER_ID,
+            source: startups10Source.id,
+          })
+        );
+};
+
+function governOnRemoveHandler2(selectedList, selectedItem){
+       
+  console.log(selectedList);
+  console.log(selectedItem.name);
+  var sql ="";
+
+  console.log(sql_main_public);
+  sql_main_public = sql_main_public.replace(" OR gov_name='"+selectedItem.name+"'",'');
+  sql_main_public = sql_main_public.replace(" OR gov_name ='"+selectedItem.name+"'",'');
+  sql_main_public = sql_main_public.replace("gov_name='"+selectedItem.name+"'",'');
+  sql_main_public = sql_main_public.replace("gov_name ='"+selectedItem.name+"'",'');
+  sql_main_public = sql_main_public.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');    
+  
+  
+  
+  
+  sql_main_public = sql_main_public.replace(" WHERE ()",'');
+  sql_main_public = sql_main_public.replace(" WHERE ( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (   )",'');
+  sql_main_public = sql_main_public.replace(" WHERE()",'');
+  sql_main_public = sql_main_public.replace(" WHERE( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE(  )",'');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+  sql_main_public = sql_main_public.replace("WHERE OR",'WHERE');
+  sql_main_public = sql_main_public.replace("WHERE (  OR ",'WHERE (');
+  sql_main_public = sql_main_public.replace("OR  )",')');
+  sql_main_public = sql_main_public.replace("OR  ",'OR ');
+  sql_main_public = sql_main_public.replace("  OR",' OR');
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');
+  sql_main_public = sql_main_public.replace("AND ( )",'');
+  
+ 
+  // if(sql_main_public.indexOf("gov_name=")>0)
+  if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+    sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  }
+  if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+    sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  }
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+  sql_main_public = sql_main_public.replace("AND ()",'');
+  sql_main_public = sql_main_public.replace("AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+  console.log("removed");
+  console.log(sql_main_public);
+
+  
+  startups10Source.data=  sql_main_public;
+  dispatch(
+    addSource(startups10Source)
+  );
+
+  dispatch(
+    addLayer({
+      id: PUBLIC_INNOVATIONS_LAYER_ID,
+      source: startups10Source.id,
+    })
+  );
+};
+
+// function insert(main_string, ins_string, pos) {
+// if(typeof(pos) == "undefined") {
+//    pos = 0;
+// }
+// if(typeof(ins_string) == "undefined") {
+//    ins_string = '';
+// }
+// return main_string.slice(0, pos) + ins_string + main_string.slice(pos);
+// }
+function sectorOnSelectHandler2(selectedList, selectedItem){
+
+//  console.log(selectedList);
+//  var govern = selectedList[0].name;
+if(sql_main_public.indexOf("WHERE (sector")>0|| sql_main_public.indexOf("WHERE(sector")>0|| sql_main_public.indexOf("WHERE( sector")>0){
+var index = sql_main_public.indexOf("(sector");
+sql_main_public = insert(sql_main_public,"sector='"+selectedItem.name+"' OR ",index+1); 
+console.log(sql_main_public);
+// sql_main_public=sql_main_public+" WHERE sector='"+selectedItem.name+"'";
+}else if(sql_main_public.indexOf("WHERE( sector")>0){
+var index = sql_main_public.indexOf("( sector");
+sql_main_public = insert(sql_main_public,"sector='"+selectedItem.name+"' OR ",index+1); 
+console.log(sql_main_public);
+
+}else if(sql_main_public.indexOf("WHERE ( sector")>0){
+var index = sql_main_public.indexOf("( sector");
+sql_main_public = insert(sql_main_public,"sector='"+selectedItem.name+"' OR ",index+1); 
+console.log(sql_main_public);
+
+}else if(sql_main_public.indexOf("sector=")>0){
+var index = sql_main_public.indexOf("(sector");
+sql_main_public = insert(sql_main_public,"sector='"+selectedItem.name+"' OR ",index+1); 
+console.log(sql_main_public);
+}else if(sql_main_public.indexOf("WHERE")>0){
+sql_main_public=sql_main_public+"AND (sector='"+selectedItem.name+"')";
+console.log(sql_main_public);
+}else{
+sql_main_public=sql_main_public+" WHERE (sector='"+selectedItem.name+"')";
+console.log(sql_main_public);
+}
+//  var sector_no = selectedList.length;
+//  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+//  for (let i = 0; i < sector_no; i++) {
+//      if(i==0){
+//        sql = sql+selectedList[i].name+"'";
+//      }else{
+//        sql = sql+"OR sector ='"+selectedList[i].name+"'";
+//      }
+ 
+//  }
+//  console.log(sql);
+startups10Source.data=  sql_main_public;
+dispatch(
+addSource(startups10Source)
+);
+
+dispatch(
+addLayer({
+ id: PUBLIC_INNOVATIONS_LAYER_ID,
+ source: startups10Source.id,
+})
+);
+};
+
+function SDGsOnSelectHandler2(selectedList, selectedItem){
+
+//  console.log(selectedList);
+//  var govern = selectedList[0].name;
+if(sql_main_public.indexOf("WHERE (sdgs")>0|| sql_main_public.indexOf("WHERE(sdgs")>0|| sql_main_public.indexOf("WHERE( sdgs")>0){
+var index = sql_main_public.indexOf("(sdgs");
+sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+//LOWER(name) LIKE LOWER('%"+val+"%')
+console.log(sql_main_public);
+// sql_main_public=sql_main_public+" WHERE sector='"+selectedItem.name+"'";
+}else if(sql_main_public.indexOf("WHERE( LOWER(sdgs)")>0){
+  var index = sql_main_public.indexOf("( LOWER(sdgs)");
+  sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  console.log(sql_main_public);
+  
+}else if(sql_main_public.indexOf("WHERE ( LOWER(sdgs)")>0){
+  var index = sql_main_public.indexOf("( LOWER(sdgs)");
+  sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  console.log(sql_main_public);
+  
+}else if(sql_main_public.indexOf("LOWER(sdgs)")>0){
+var index = sql_main_public.indexOf("(LOWER(sdgs)");
+sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+console.log(sql_main_public);
+}else if(sql_main_public.indexOf("WHERE")>0){
+sql_main_public=sql_main_public+"AND (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+console.log(sql_main_public);
+}else{
+sql_main_public=sql_main_public+" WHERE (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+console.log(sql_main_public);
+}
+//  var sector_no = selectedList.length;
+//  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+//  for (let i = 0; i < sector_no; i++) {
+//      if(i==0){
+//        sql = sql+selectedList[i].name+"'";
+//      }else{
+//        sql = sql+"OR sector ='"+selectedList[i].name+"'";
+//      }
+   
+//  }
+//  console.log(sql);
+startups10Source.data=  sql_main_public;
+dispatch(
+ addSource(startups10Source)
+);
+
+dispatch(
+ addLayer({
+   id: PUBLIC_INNOVATIONS_LAYER_ID,
+   source: startups10Source.id,
+ })
+);
+};
+
+function sectorOnRemoveHandler2(selectedList, selectedItem){
+   
+console.log(selectedList);
+console.log(selectedItem.name);
+var sql ="";
+
+console.log(sql_main_public);
+sql_main_public = sql_main_public.replace(" OR sector='"+selectedItem.name+"'",'');
+sql_main_public = sql_main_public.replace(" OR sector ='"+selectedItem.name+"'",'');
+sql_main_public = sql_main_public.replace("sector='"+selectedItem.name+"'",'');
+sql_main_public = sql_main_public.replace("sector ='"+selectedItem.name+"'",'');
+sql_main_public = sql_main_public.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');    
+  
+  
+  
+  sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE ()",'');
+  sql_main_public = sql_main_public.replace(" WHERE ( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (   )",'');
+  sql_main_public = sql_main_public.replace(" WHERE()",'');
+  sql_main_public = sql_main_public.replace(" WHERE( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE(  )",'');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+  sql_main_public = sql_main_public.replace("WHERE OR",'WHERE');
+  sql_main_public = sql_main_public.replace("WHERE (  OR ",'WHERE (');
+  sql_main_public = sql_main_public.replace("OR  )",')');
+  sql_main_public = sql_main_public.replace("OR  ",'OR ');
+  sql_main_public = sql_main_public.replace("  OR",' OR');
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');
+  sql_main_public = sql_main_public.replace("AND ( )",'');
+  
+  // if(sql_main_public.indexOf("gov_name=")>0)
+if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+  sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+  sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+sql_main_public = sql_main_public.replace("AND ()",'');
+sql_main_public = sql_main_public.replace("AND ( )",'');
+sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+console.log("removed");
+console.log(sql_main_public);
+
+
+startups10Source.data=  sql_main_public;
+dispatch(
+  addSource(startups10Source)
+);
+
+dispatch(
+  addLayer({
+    id: PUBLIC_INNOVATIONS_LAYER_ID,
+    source: startups10Source.id,
+  })
+);
+};
+function SDGsOnRemoveHandler2(selectedList, selectedItem){
+   
+console.log(selectedList);
+console.log(selectedItem.name);
+var sql ="";
+
+console.log(sql_main_public);
+sql_main_public = sql_main_public.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+sql_main_public = sql_main_public.replace(" OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+sql_main_public = sql_main_public.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+// sql_main_public = sql_main_public.replace("sector ='"+selectedItem.name+"'",'');
+sql_main_public = sql_main_public.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');    
+  
+  
+  
+  sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE ()",'');
+  sql_main_public = sql_main_public.replace(" WHERE ( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (   )",'');
+  sql_main_public = sql_main_public.replace(" WHERE()",'');
+  sql_main_public = sql_main_public.replace(" WHERE( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE(  )",'');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+  sql_main_public = sql_main_public.replace("WHERE OR",'WHERE');
+  sql_main_public = sql_main_public.replace("WHERE (  OR ",'WHERE (');
+  sql_main_public = sql_main_public.replace("OR  )",')');
+  sql_main_public = sql_main_public.replace("OR  ",'OR ');
+  sql_main_public = sql_main_public.replace("  OR",' OR');
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');
+  sql_main_public = sql_main_public.replace("AND ( )",'');
+  
+  // if(sql_main_public.indexOf("gov_name=")>0)
+if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+  sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+  sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+
+sql_main_public = sql_main_public.replace("OR )",')');
+sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+sql_main_public = sql_main_public.replace("AND ()",'');
+sql_main_public = sql_main_public.replace("AND ( )",'');
+sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+console.log("removed");
+console.log(sql_main_public);
+
+
+startups10Source.data=  sql_main_public;
+dispatch(
+  addSource(startups10Source)
+);
+
+dispatch(
+  addLayer({
+    id: PUBLIC_INNOVATIONS_LAYER_ID,
+    source: startups10Source.id,
+  })
+);
+};
+
+
+  function onSubmit6Public(e){
+    
+    var val = searchInput6Public.current.value;
+    var val2 = capitalizeFirstLetter(val);
+    var data1=  "select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%')";
+    var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
+    startups10Source.data=  data2;
+    
+    dispatch(
+      addSource(startups10Source)
+    );
+    dispatch(
+      addLayer({
+        id: PUBLIC_INNOVATIONS_LAYER_ID,
+        source: startups10Source.id,
+      })
+    );
+    }
+//=============================================end of public===============================================
 const governOnSelectHandler = (selectedList, selectedItem)=>{
 
   if(sql_main.indexOf("WHERE (gov_name")>0 || sql_main.indexOf("WHERE(gov_name")>0){
@@ -1212,7 +1648,7 @@ function innovationTypeOnRemoveHandler(selectedList, selectedItem){
     })
   );
 };
-  function onSubmit6(e){
+function onSubmit6(e){
     // navigation.goBack();
     console.log('hi');
     
@@ -1234,7 +1670,9 @@ function innovationTypeOnRemoveHandler(selectedList, selectedItem){
         source: startups10Source.id,
       })
     );
-    }  
+}
+
+
 
     
   const addPopulationLayer = (e) =>{
@@ -1683,6 +2121,13 @@ function innovationTypeOnRemoveHandler(selectedList, selectedItem){
           to={ROUTE_PATHS.STARTUPS8}
           className={classes.navLink+" text-md-white text-decoration-none  text-white border-0"}
         />
+        <Tab
+          label='Public'
+          value='public'
+          component={NavLink}
+          to={ROUTE_PATHS.PUBLIC}
+          className={classes.navLink}
+        />
       </Tabs>
       {/* <div className="row pl-2 pt-3 pt-md-0 d-none d-md-block">
         <div className="col-7 pr-0">
@@ -1700,76 +2145,157 @@ function innovationTypeOnRemoveHandler(selectedList, selectedItem){
               <button class="btn ml-md-2 col-4 " style={submitStyle} onClick={onSubmit}>submit</button>
       </div> */}
       <div style={filters_wrap} className="flex-nowrap shadow-sm d-none d-md-flex">
-  <div style={sdg_float} className=" flex-wrap">
-                  <Multiselect
-                              
-                      options={SDGs} // Options to display in the dropdown
-                      selectedValues={SDGs[0]} // Preselected value to persist in dropdown
-                      onSelect={SDGsOnSelectHandler} // Function will trigger on select event
-                      onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
-                      displayValue="name" // Property name to display in the dropdown options
-                      placeholder="Filter by SDG"
-                      // showCheckbox="true"
-                      // closeOnSelect=false
-                      showCheckbox={true}
-                      showArrow="true"
-                      closeOnSelect={false}
-                      closeIcon="cancel"
-                      style={style2}
-                        
-                  />
-                  <Multiselect
-                              
-                              options={options} // Options to display in the dropdown
-                              selectedValues={options[0]} // Preselected value to persist in dropdown
-                              onSelect={governOnSelectHandler} // Function will trigger on select event
-                              onRemove={governOnRemoveHandler} // Function will trigger on remove event
-                              displayValue="name" // Property name to display in the dropdown options
-                              showCheckbox="true"
-                              showArrow="true"
-                              placeholder="Filter by Governorate"
-                              closeOnSelect={false}
-                              closeIcon="cancel"
-                              style={style2}
-                                
-                  />
-                  <Multiselect
-                  
-                              options={sectors} // Options to display in the dropdown
-                              selectedValues={sectors[0]} // Preselected value to persist in dropdown
-                              onSelect={sectorOnSelectHandler} // Function will trigger on select event
-                              onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
-                              displayValue="name" // Property name to display in the dropdown options
-                              showCheckbox="true"
-                              showArrow="true"
-                              placeholder="Filter by Sector"
-                              closeOnSelect={false}
-                              closeIcon="cancel"
-                              style={style2}        
-                  />
-                  <Multiselect
-                  
-                      options={development_data} // Options to display in the dropdown
-                      selectedValues={development_data[0]} // Preselected value to persist in dropdown
-                      onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
-                      onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
-                      displayValue="name" // Property name to display in the dropdown options
-                      showCheckbox={true}
-                      placeholder="Development Data"
-                      // singleSelect={true}
-                      selectionLimit={1}
-                      showArrow="true"
-                      hidePlaceholder={false}
-                      closeOnSelect={false}
-                      closeIcon="cancel"
-                      style={style2}
-                        
-                  />
-                  <button type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button> 
-                  <div style={legendFloat}>
-                    <LegendWidget  />
-                  </div>
+      <div id="exportPrivate" style={sdg_float} className=" flex-wrap">
+                      <Multiselect
+                                  
+                          options={SDGs} // Options to display in the dropdown
+                          selectedValues={SDGs[0]} // Preselected value to persist in dropdown
+                          onSelect={SDGsOnSelectHandler} // Function will trigger on select event
+                          onRemove={SDGsOnRemoveHandler} // Function will trigger on remove event
+                          displayValue="name" // Property name to display in the dropdown options
+                          placeholder="Filter by SDG"
+                          // showCheckbox="true"
+                          // closeOnSelect=false
+                          showCheckbox={true}
+                          showArrow="true"
+                          closeOnSelect={false}
+                          closeIcon="cancel"
+                          style={style2}
+                            
+                      />
+                      <Multiselect
+                                  
+                                  options={options} // Options to display in the dropdown
+                                  selectedValues={options[0]} // Preselected value to persist in dropdown
+                                  onSelect={governOnSelectHandler} // Function will trigger on select event
+                                  onRemove={governOnRemoveHandler} // Function will trigger on remove event
+                                  displayValue="name" // Property name to display in the dropdown options
+                                  showCheckbox="true"
+                                  showArrow="true"
+                                  placeholder="Filter by Governorate"
+                                  closeOnSelect={false}
+                                  closeIcon="cancel"
+                                  style={style2}
+                                    
+                      />
+                      <Multiselect
+                      
+                                  options={sectors} // Options to display in the dropdown
+                                  selectedValues={sectors[0]} // Preselected value to persist in dropdown
+                                  onSelect={sectorOnSelectHandler} // Function will trigger on select event
+                                  onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+                                  displayValue="name" // Property name to display in the dropdown options
+                                  showCheckbox="true"
+                                  showArrow="true"
+                                  placeholder="Filter by Sector"
+                                  closeOnSelect={false}
+                                  closeIcon="cancel"
+                                  style={style2}        
+                      />
+                      <Multiselect
+                      
+                          options={development_data} // Options to display in the dropdown
+                          selectedValues={development_data[0]} // Preselected value to persist in dropdown
+                          onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+                          onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+                          displayValue="name" // Property name to display in the dropdown options
+                          showCheckbox={true}
+                          placeholder="Development Data"
+                          // singleSelect={true}
+                          selectionLimit={1}
+                          showArrow="true"
+                          hidePlaceholder={false}
+                          closeOnSelect={false}
+                          closeIcon="cancel"
+                          style={style2}
+                            
+                      />
+                      <button id="exportPrivateBtn" type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button> 
+                      {/* <button id="exportPublic" type="button" className="btn btn-dark disabled d-none" dataToggle="tooltip" title="not available for public version" style={exportButton}>Export</button>  */}
+
+                      <div style={legendFloat}>
+                        <LegendWidget  />
+                      </div>
       </div>
+
+
+      <div id="exportPublic" style={sdg_float} className=" flex-wrap d-none">
+                      <Multiselect
+                                  
+                          options={SDGs} // Options to display in the dropdown
+                          selectedValues={SDGs[0]} // Preselected value to persist in dropdown
+                          onSelect={SDGsOnSelectHandler2} // Function will trigger on select event
+                          onRemove={SDGsOnRemoveHandler2} // Function will trigger on remove event
+                          displayValue="name" // Property name to display in the dropdown options
+                          placeholder="Filter by SDG"
+                          // showCheckbox="true"
+                          // closeOnSelect=false
+                          showCheckbox={true}
+                          showArrow="true"
+                          closeOnSelect={false}
+                          closeIcon="cancel"
+                          style={style2}
+                            
+                      />
+                      <Multiselect
+                                  
+                                  options={options} // Options to display in the dropdown
+                                  selectedValues={options[0]} // Preselected value to persist in dropdown
+                                  onSelect={governOnSelectHandler2} // Function will trigger on select event
+                                  onRemove={governOnRemoveHandler2} // Function will trigger on remove event
+                                  displayValue="name" // Property name to display in the dropdown options
+                                  showCheckbox="true"
+                                  showArrow="true"
+                                  placeholder="Filter by Governorate"
+                                  closeOnSelect={false}
+                                  closeIcon="cancel"
+                                  style={style2}
+                                    
+                      />
+                      <Multiselect
+                      
+                                  options={sectors} // Options to display in the dropdown
+                                  selectedValues={sectors[0]} // Preselected value to persist in dropdown
+                                  onSelect={sectorOnSelectHandler2} // Function will trigger on select event
+                                  onRemove={sectorOnRemoveHandler2} // Function will trigger on remove event
+                                  displayValue="name" // Property name to display in the dropdown options
+                                  showCheckbox="true"
+                                  showArrow="true"
+                                  placeholder="Filter by Sector"
+                                  closeOnSelect={false}
+                                  closeIcon="cancel"
+                                  style={style2}        
+                      />
+                      <Multiselect
+                      
+                          options={development_data} // Options to display in the dropdown
+                          selectedValues={development_data[0]} // Preselected value to persist in dropdown
+                          onSelect={developmentDataOnSelectHandler} // Function will trigger on select event
+                          onRemove={developmentDataOnRemoveHandler} // Function will trigger on remove event
+                          displayValue="name" // Property name to display in the dropdown options
+                          showCheckbox={true}
+                          placeholder="Development Data"
+                          // singleSelect={true}
+                          selectionLimit={1}
+                          showArrow="true"
+                          hidePlaceholder={false}
+                          closeOnSelect={false}
+                          closeIcon="cancel"
+                          style={style2}
+                            
+                      />
+                      {/* <button id="exportPrivate" type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button>  */}
+                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" dataToggle="tooltip" title="not available for public version" style={exportButton}>Export</button> 
+
+                      <div style={legendFloat}>
+                        <LegendWidget  />
+                      </div>
+      </div>
+
+
+      
+
+
       <div style={ignore} className="d-inline-block">
       </div>
     </div>  
@@ -1780,10 +2306,12 @@ function innovationTypeOnRemoveHandler(selectedList, selectedItem){
             
               <input type="text" className=" form-control" style={searchStyle2} onChange={onSubmit6} placeholder="Search Innovation" ref={searchInput6} id='search6' ></input>
               {/* <button class="btn btn-primary" style={submitStyle} onClick={onSubmit}>submit</button> */}
-            
+              <input type="text" className=" form-control d-none" style={searchStyle2} onChange={onSubmit6Public} placeholder="Search Innovation" ref={searchInput6Public} id='search6Public' ></input>
+
           </div>
           
       </div>
+      
     </Grid>
   );
 }

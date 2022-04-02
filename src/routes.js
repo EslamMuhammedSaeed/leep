@@ -13,6 +13,7 @@ const Startups4 = lazy(() => import('components/views/Startups4.js'));
 const Startups5 = lazy(() => import('components/views/Startups5.js'));
 const Startups6 = lazy(() => import('components/views/Startups6.js'));
 const Startups8 = lazy(() => import('components/views/Startups8.js'));
+const Public = lazy(() => import('components/views/Public.js'));
 // [hygen] Import views
 
 export const ROUTE_PATHS = {
@@ -27,6 +28,7 @@ export const ROUTE_PATHS = {
   STARTUPS5: '/startups5',
   STARTUPS6: '/startups6',
   STARTUPS8: '/startups8',
+  PUBLIC: '/public',
   // [hygen] Add path routes
 };
 
@@ -49,6 +51,7 @@ const routes = [
       { path: ROUTE_PATHS.STARTUPS5, element: <Startups5 /> },
       { path: ROUTE_PATHS.STARTUPS6, element: <Startups6 /> },
       { path: ROUTE_PATHS.STARTUPS8, element: <Startups8 /> },
+      { path: ROUTE_PATHS.PUBLIC, element: <Public /> },
       // [hygen] Add routes
     ],
   },

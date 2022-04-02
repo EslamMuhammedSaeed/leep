@@ -30,6 +30,7 @@ import Household11Layer from './Household11Layer';
 import Household12Layer from './Household12Layer';
 import Household13Layer from './Household13Layer';
 import PollutionLayer from './PollutionLayer';
+import PublicInnovationsLayer from './PublicInnovationsLayer';
 // [hygen] Import layers
 
 export const getLayers = () => {
@@ -81,6 +82,7 @@ export const getLayers = () => {
     
     
     PollutionLayer(),
+    PublicInnovationsLayer(),
     // [hygen] Add layer
   ];
 };

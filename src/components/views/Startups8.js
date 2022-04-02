@@ -1588,6 +1588,22 @@ function onSubmit5(e){
   var password_wrap = document.getElementById('password-wrapper');
   password_wrap.classList.remove("d-none");
 
+  var searchPublic = document.getElementById('search6Public');
+  searchPublic.classList.add("d-none");
+
+  var searchPrivate = document.getElementById('search6');
+  if(searchPrivate.classList.contains("d-none")){
+    searchPublic.classList.remove("d-none");
+  }
+  var exportPublic = document.getElementById('exportPublic');
+  exportPublic.classList.add("d-none");
+
+  var exportPrivate = document.getElementById('exportPrivate');
+  if(exportPrivate.classList.contains("d-none")){
+    exportPrivate.classList.remove("d-none");
+  }
+  
+
   useEffect(() => {
     startups10Source.data= "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021"
     dispatch(addSource(startups10Source));
