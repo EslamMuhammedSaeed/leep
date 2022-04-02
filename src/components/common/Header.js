@@ -2121,13 +2121,13 @@ function onSubmit6(e){
           to={ROUTE_PATHS.STARTUPS8}
           className={classes.navLink+" text-md-white text-decoration-none  text-white border-0"}
         />
-        <Tab
+        {/* <Tab
           label='Public'
           value='public'
           component={NavLink}
           to={ROUTE_PATHS.PUBLIC}
           className={classes.navLink}
-        />
+        /> */}
       </Tabs>
       {/* <div className="row pl-2 pt-3 pt-md-0 d-none d-md-block">
         <div className="col-7 pr-0">
