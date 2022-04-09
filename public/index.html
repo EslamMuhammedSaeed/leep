@@ -175,6 +175,11 @@ input#search6 {
     background-repeat: no-repeat !important;
     text-indent: 20px !important;
 }
+input#search6Public {
+    background-image: url('img/search-icon3.png') !important;
+    background-repeat: no-repeat !important;
+    text-indent: 20px !important;
+}
 .makeStyles-button-110{
   border :0px !important;
 }
@@ -315,6 +320,23 @@ button:focus{
 .pop-up{
   max-width: 200px;
   word-wrap:break-word;
+}
+.popover{
+  z-index:1500 !important;
+}
+.title-header{
+  opacity: 1 !important;
+}
+[class*=makeStyles-cartoLogoMap-]{
+    bottom: 20px !important;
+  
+}
+.popover-body{
+  color: #721c24 !important;
+  background-color:#f8d7da!important
+}
+.bs-popover-right>.arrow::after {
+  border-right-color: #f8d7da !important;
 }
 /* .makeStyles-progressbar-71 div:first-child{
   background-color: black !important;
@@ -461,6 +483,14 @@ button:focus{
       
       
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();   
+      });
+    </script>
     <script>
       // const ul = document.querySelector('.MuiGrid-grid-xs-true');
       // console.log(ul);

@@ -114,11 +114,11 @@ var data = [{name: 'Creative Industries'},
 {name: 'Tourism'},
 {name2: 'Other'},
 ]  
-const fileName = 'download'  ;
+const fileName = 'Development_Data'  ;
 const exportType = exportFromJSON.types.xls; 
 
-var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-var sql_main2 = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+// var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+// var sql_main2 = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
 
 
 
@@ -574,13 +574,15 @@ function NavigationMenu({ column: vertical }) {
   {name: 'Tourism'},
   {name2: 'Other'},
   ]  
-  const fileName = 'download'  ;
+  var fileName2= 'Development_Data_Export';
+  var fileName = 'Egypt_Innovation_Map_Export'  ;
   const exportType = exportFromJSON.types.xls; 
   
-  var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  // var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  var sql_main = "select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   var sql_main2 = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   var sql_main_public ="select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-  
+  var sql_main_2_public ="select cartodb_id,gov_name_en,female_graduation_rate_in_high_school,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
   var global_data =[];
   const customFormatter = (value) => `${value} Years`;
   const sectors = [
@@ -689,23 +691,25 @@ function NavigationMenu({ column: vertical }) {
     const opts = {
       // format:"CSV"
     };
-    var query = sql_main;
-    query = sql_main.replace(",the_geom_webmercator",'');
-    query = query.replace("cartodb_id,",'');
-    // query = startups10Source.data;
-    console.log(query);
+    console.log(sql_main_2_public);
+    console.log(developmentSource.data);
+    var query = developmentSource.data;
+    query = developmentSource.data.replace(",the_geom_webmercator",'');
+  if(developmentSource.data != 'development_data_dataset_final_review_12_2_2021'){
     const fetched_data = await getData({credentials, opts,query});
-    // console.log(fetched_data);
     data =fetched_data;
-    console.log(global_data);
-    // console.log(fetched_data[0]);
-    // setGovern({
-    //   fetched_data
-    // });
-    console.log(data);
-    // data=startups10Source.data;
-  
-  
+    fileName = 'Development_Data';
+    exportFromJSON({ data, fileName, exportType });
+  }
+  query = sql_main;
+  query = sql_main.replace(",the_geom_webmercator",'');
+  query = query.replace("cartodb_id,",'');
+  const fetched_data_2 = await getData({credentials, opts,query});
+ 
+  data =fetched_data_2;
+  // const fetched_data_2= await getData({credentials, opts,query2});
+  fileName = 'Egypt_Innovation_Map_Export';
+  // data = fetched_data_2;
   exportFromJSON({ data, fileName, exportType });
 }
 
@@ -720,24 +724,32 @@ const ExportToExcelPublic=async() =>{
   const opts = {
     // format:"CSV"
   };
+  
   var query = sql_main_public;
   query = sql_main_public.replace(",the_geom_webmercator",'');
   query = query.replace("cartodb_id,",'');
+
+  var query2 = developmentSource.data;
+  query2 = sql_main_public.replace(",the_geom_webmercator",'');
+  query2 = query.replace("cartodb_id,",'');
   // query = startups10Source.data;
-  console.log(query);
+  // console.log(query);
   const fetched_data = await getData({credentials, opts,query});
+  const fetched_data_2 = await getData({credentials, opts,query2});
   // console.log(fetched_data);
   data =fetched_data;
-  console.log(global_data);
+  const data2 = fetched_data_2;
+  // console.log(global_data);
   // console.log(fetched_data[0]);
   // setGovern({
   //   fetched_data
   // });
-  console.log(data);
+  // console.log(data);
   // data=startups10Source.data;
-
+  const fileName2= 'Development_Data_Export'
 
 exportFromJSON({ data, fileName, exportType });
+exportFromJSON({ data2, fileName2, exportType });
 }
 const governOnSelectHandler2 = (selectedList, selectedItem)=>{
 
@@ -1995,36 +2007,52 @@ function onSubmit6(e){
   function developmentDataOnRemoveHandler(selectedList, selectedItem){
     if(selectedItem.name=="poverty (2017/2018)"){
       dispatch(removeLayer(POVERTY_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Unemployment"){
       dispatch(removeLayer(HOUSEHOLD7_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Population"){
       dispatch(removeLayer(POPULATION_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Access to Water"){
       dispatch(removeLayer(HOUSEHOLD_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Access to Electricity"){
       dispatch(removeLayer(HOUSEHOLD2_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Access to Sewage"){
       dispatch(removeLayer(HOUSEHOLD3_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Landline Phone Connectivity"){
       dispatch(removeLayer(HOUSEHOLD4_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Garbage"){
       dispatch(removeLayer(HOUSEHOLD5_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Municipal Waste"){
       dispatch(removeLayer(HOUSEHOLD6_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Dropout in Primary Education"){
       dispatch(removeLayer(HOUSEHOLD8_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Dropout in Preparatory Education"){
       dispatch(removeLayer(HOUSEHOLD9_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Illiteracy"){
       dispatch(removeLayer(HOUSEHOLD10_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Total GDP"){
       dispatch(removeLayer(HOUSEHOLD11_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Poverty"){
       dispatch(removeLayer(HOUSEHOLD12_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Access to Hospitals"){
       dispatch(removeLayer(HOUSEHOLD13_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Pollution"){
       dispatch(removeLayer(POLLUTION_LAYER_ID));
+      developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }      
        
 
@@ -2119,7 +2147,7 @@ function onSubmit6(e){
           value='startups8'
           component={NavLink}
           to={ROUTE_PATHS.STARTUPS8}
-          className={classes.navLink+" text-md-white text-decoration-none  text-white border-0"}
+          className={classes.navLink+" text-md-white text-decoration-none  text-white border-0 title-header"}
         />
         {/* <Tab
           label='Public'
@@ -2285,7 +2313,7 @@ function onSubmit6(e){
                             
                       />
                       {/* <button id="exportPrivate" type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button>  */}
-                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" dataToggle="tooltip" title="not available for public version" style={exportButton}>Export</button> 
+                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" data-toggle="popover" data-content="not available for public version" style={exportButton}>Export</button> 
 
                       <div style={legendFloat}>
                         <LegendWidget  />
