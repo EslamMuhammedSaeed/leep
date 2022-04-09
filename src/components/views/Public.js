@@ -511,6 +511,11 @@ export default function Public() {
     let searchInput2 = React.createRef();
     let searchInput5 = React.createRef();
     let searchInput6 = React.createRef();
+
+    const onSubmitWarning = () =>{
+      var btn_danger = document.getElementById('btn-export-danger');
+      btn_danger.innerHTML = "Export<span class='text-danger ml-1'>not available for public version<span>"
+    }
     const ExportToExcel=async() =>{ 
     
       const credentials = {
@@ -1766,7 +1771,7 @@ export default function Public() {
   
                 <Divider></Divider>
                 <div className="text-center px-4">
-                  <button type="button" className="btn btn-dark btn-block mx-0 px-0 my-2" data-toggle="popover" data-content="not available for public version" style={exportButton}>Export</button> 
+                  <button id="btn-export-danger" type="button" onClick={onSubmitWarning} className="btn btn-dark btn-block mx-0 px-0 my-2" data-toggle="popover" data-content="not available for public version" style={exportButton}>Export</button> 
                 </div>
                
   

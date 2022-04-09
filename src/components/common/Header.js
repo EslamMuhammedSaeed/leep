@@ -698,7 +698,7 @@ function NavigationMenu({ column: vertical }) {
   if(developmentSource.data != 'development_data_dataset_final_review_12_2_2021'){
     const fetched_data = await getData({credentials, opts,query});
     data =fetched_data;
-    fileName = 'Development_Data';
+    fileName = 'Development_Data_Export';
     exportFromJSON({ data, fileName, exportType });
   }
   query = sql_main;

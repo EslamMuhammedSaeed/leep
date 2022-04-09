@@ -79,8 +79,8 @@ var data = [{name: 'Creative Industries'},
 {name: 'Tourism'},
 {name2: 'Other'},
 ]  
-const fileName2= 'Development_Data_Export';
-const fileName = 'Egypt_Innovation_Map_Export'  ;
+var fileName2= 'Development_Data_Export';
+var fileName = 'Egypt_Innovation_Map_Export'  ;
 const exportType = exportFromJSON.types.xls; 
 
  // var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
@@ -527,8 +527,8 @@ export default function Startups8() {
   if(developmentSource.data != 'development_data_dataset_final_review_12_2_2021'){
     const fetched_data = await getData({credentials, opts,query});
     data =fetched_data;
-    const title = 'development';
-    exportFromJSON({ data, title, exportType });
+    fileName = 'Development_Data_Export';
+    exportFromJSON({ data, fileName, exportType });
   }
   query = sql_main;
   query = sql_main.replace(",the_geom_webmercator",'');
