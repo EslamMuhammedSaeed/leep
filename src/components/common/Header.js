@@ -2313,7 +2313,7 @@ function onSubmit6(e){
                             
                       />
                       {/* <button id="exportPrivate" type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button>  */}
-                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" data-toggle="popover" data-trigger="focus" data-content="Please contact Rise Egypt to access this feature." style={exportButton}>Export</button> 
+                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" data-toggle="popover" data-content="Please contact Rise Egypt to access this feature." style={exportButton}>Export</button> 
 
                       <div style={legendFloat}>
                         <LegendWidget  />
