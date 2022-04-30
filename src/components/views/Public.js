@@ -514,7 +514,7 @@ export default function Public() {
 
     const onSubmitWarning = () =>{
       var btn_danger = document.getElementById('btn-export-danger');
-      btn_danger.innerHTML = "Export<span style='font-size:10px' class='text-danger ml-1'>Please <a style='margin-left:2px;margin-right:2px' target='_blank' href='https://www.leep4impact.org/contact'>contact</a> Rise Egypt to access this feature.<span>"
+      btn_danger.innerHTML = "Export<span style='font-size:10px' class='text-danger ml-1'>Please <a style='margin-left:2px;margin-right:2px' target='_blank' href='https://www.leep4impact.org/contact'>contact</a> RISE Egypt to access this feature.<span>"
     }
     const ExportToExcel=async() =>{ 
     
