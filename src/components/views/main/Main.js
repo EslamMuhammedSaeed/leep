@@ -40,7 +40,7 @@ function onSubmit8(e){
     console.log('change');
     console.log(passcodeInput.current.value);
     var val = passcodeInput.current.value;
-    if(val == '123456'){
+    if(val == 'InnoMAP_RISE#4/2022'){
       var password_wrap = document.getElementById('password-wrapper');
       password_wrap.classList.add("d-none");
     }

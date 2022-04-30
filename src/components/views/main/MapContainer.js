@@ -70,7 +70,7 @@ export default function MapContainer() {
         <ZoomControl className={classes.zoomControl} showCurrentZoom />
       </Hidden>
       {/* {!isGmaps && <CartoLogoMap className={classes.cartoLogoMap} />} */}
-      <img src={'img/rise-initiative_3.png'} className={classes.cartoLogoMap}/>
+      <img src={'img/rise-initiative_4.png'} className={classes.cartoLogoMap}/>
       
     </Grid>
   );

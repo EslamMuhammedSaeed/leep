@@ -363,7 +363,7 @@ function Desktop() {
           <AppName />
         </Typography>
       </Link>
-      <Divider orientation='vertical' className={classes.divider} light></Divider>
+      {/* <Divider orientation='vertical' className={classes.divider} light></Divider> */}
       <NavigationMenu pathname={pathname} />
       <Grid container item xs justifyContent='flex-end'>
         <UserMenu />
@@ -471,7 +471,7 @@ function Mobile() {
       </IconButton> */}
       <img className="mr-3" src={'img/LEEP_RGB2.png'}/>
 
-      <Divider orientation='vertical' light />
+      {/* <Divider orientation='vertical' light /> */}
       
       <Link component={NavLink} to={ROUTE_PATHS.STARTUPS8} className={classes.title}>
         <Typography component='h1' variant='subtitle1' noWrap>
@@ -2313,7 +2313,7 @@ function onSubmit6(e){
                             
                       />
                       {/* <button id="exportPrivate" type="button" className="btn btn-dark" style={exportButton} onClick={ExportToExcel}>Export</button>  */}
-                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" data-toggle="popover" data-trigger="focus" data-content="Please <a class='mx-1' target='_blank' href='https://www.leep4impact.org/contact'>contact</a> Rise Egypt to access this feature" style={exportButton}>Export</button> 
+                      <button id="exportPublicBtn"  type="button" className="btn btn-dark disabled" data-toggle="popover" data-trigger="focus" data-content="Please contact Rise Egypt to access this feature." style={exportButton}>Export</button> 
 
                       <div style={legendFloat}>
                         <LegendWidget  />

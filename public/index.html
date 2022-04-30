@@ -249,6 +249,7 @@ button:focus{
 } */
 [class*=makeStyles2-tooltip-] .content{
   color: white;
+  width: 230px;
     opacity: 1;
     padding: 8px 12px;
     padding-right: 0px;
@@ -328,7 +329,7 @@ button:focus{
   opacity: 1 !important;
 }
 [class*=makeStyles-cartoLogoMap-]{
-    bottom: 10px !important;
+    bottom: 5px !important;
   
 }
 .popover-body{
@@ -488,7 +489,8 @@ button:focus{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
       $(document).ready(function(){
-        $('[data-toggle="popover"]').popover({html:true});   
+        // $('[data-toggle="popover"]').popover({html:true});
+        $('[data-toggle="popover"]').popover();   
       });
     </script>
     <script>
