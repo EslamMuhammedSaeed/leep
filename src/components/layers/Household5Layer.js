@@ -37,7 +37,7 @@ const layerConfig = {
   visible: true,
   switchable: false,
   legend: {
-    attr: 'Amount in Ton',
+    attr: 'Amount Collected in Ton',
     type: LEGEND_TYPES.BINS,
     labels: LABELS,
     colors: COLORS,

@@ -514,7 +514,7 @@ export default function Public() {
 
     const onSubmitWarning = () =>{
       var btn_danger = document.getElementById('btn-export-danger');
-      btn_danger.innerHTML = "Export<span class='text-danger ml-1'>not available for public version<span>"
+      btn_danger.innerHTML = "Export<span style='font-size:10px' class='text-danger ml-1'>Please <a class='mx-1' target='_blank' href='https://www.leep4impact.org/contact'>contact</a> Rise Egypt to access this feature<span>"
     }
     const ExportToExcel=async() =>{ 
     
@@ -1771,7 +1771,7 @@ export default function Public() {
   
                 <Divider></Divider>
                 <div className="text-center px-4">
-                  <button id="btn-export-danger" type="button" onClick={onSubmitWarning} className="btn btn-dark btn-block mx-0 px-0 my-2" data-toggle="popover" data-content="not available for public version" style={exportButton}>Export</button> 
+                  <button id="btn-export-danger" type="button" onClick={onSubmitWarning} className="btn btn-dark btn-block mx-0 px-0 my-2" data-toggle="popover" data-trigger="focus" data-content="Please contact Rise Egypt to access this feature" style={exportButton}>Export</button> 
                 </div>
                
   
