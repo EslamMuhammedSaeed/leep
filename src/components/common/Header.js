@@ -933,29 +933,29 @@ function SDGsOnSelectHandler2(selectedList, selectedItem){
 //  var govern = selectedList[0].name;
 if(sql_main_public.indexOf("WHERE (sdgs")>0|| sql_main_public.indexOf("WHERE(sdgs")>0|| sql_main_public.indexOf("WHERE( sdgs")>0){
 var index = sql_main_public.indexOf("(sdgs");
-sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
 //LOWER(name) LIKE LOWER('%"+val+"%')
 console.log(sql_main_public);
 // sql_main_public=sql_main_public+" WHERE sector='"+selectedItem.name+"'";
 }else if(sql_main_public.indexOf("WHERE( LOWER(sdgs)")>0){
   var index = sql_main_public.indexOf("( LOWER(sdgs)");
-  sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
   console.log(sql_main_public);
   
 }else if(sql_main_public.indexOf("WHERE ( LOWER(sdgs)")>0){
   var index = sql_main_public.indexOf("( LOWER(sdgs)");
-  sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
   console.log(sql_main_public);
   
 }else if(sql_main_public.indexOf("LOWER(sdgs)")>0){
 var index = sql_main_public.indexOf("(LOWER(sdgs)");
-sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+sql_main_public = insert(sql_main_public,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
 console.log(sql_main_public);
 }else if(sql_main_public.indexOf("WHERE")>0){
-sql_main_public=sql_main_public+"AND (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+sql_main_public=sql_main_public+"AND (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%'))";
 console.log(sql_main_public);
 }else{
-sql_main_public=sql_main_public+" WHERE (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+sql_main_public=sql_main_public+" WHERE (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%'))";
 console.log(sql_main_public);
 }
 //  var sector_no = selectedList.length;
@@ -1062,9 +1062,9 @@ console.log(selectedItem.name);
 var sql ="";
 
 console.log(sql_main_public);
-sql_main_public = sql_main_public.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
-sql_main_public = sql_main_public.replace(" OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
-sql_main_public = sql_main_public.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+sql_main_public = sql_main_public.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%')",'');
+sql_main_public = sql_main_public.replace(" OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%')",'');
+sql_main_public = sql_main_public.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%')",'');
 // sql_main_public = sql_main_public.replace("sector ='"+selectedItem.name+"'",'');
 sql_main_public = sql_main_public.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
 
@@ -1334,29 +1334,29 @@ function SDGsOnSelectHandler(selectedList, selectedItem){
 //  var govern = selectedList[0].name;
 if(sql_main.indexOf("WHERE (sdgs")>0|| sql_main.indexOf("WHERE(sdgs")>0|| sql_main.indexOf("WHERE( sdgs")>0){
 var index = sql_main.indexOf("(sdgs");
-sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
 //LOWER(name) LIKE LOWER('%"+val+"%')
 console.log(sql_main);
 // sql_main=sql_main+" WHERE sector='"+selectedItem.name+"'";
 }else if(sql_main.indexOf("WHERE( LOWER(sdgs)")>0){
   var index = sql_main.indexOf("( LOWER(sdgs)");
-  sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
   console.log(sql_main);
   
 }else if(sql_main.indexOf("WHERE ( LOWER(sdgs)")>0){
   var index = sql_main.indexOf("( LOWER(sdgs)");
-  sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+  sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR  ",index+1); 
   console.log(sql_main);
   
 }else if(sql_main.indexOf("LOWER(sdgs)")>0){
 var index = sql_main.indexOf("(LOWER(sdgs)");
-sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR ",index+1); 
+sql_main = insert(sql_main,"LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%') OR ",index+1); 
 console.log(sql_main);
 }else if(sql_main.indexOf("WHERE")>0){
-sql_main=sql_main+"AND (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+sql_main=sql_main+"AND (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%'))";
 console.log(sql_main);
 }else{
-sql_main=sql_main+" WHERE (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%'))";
+sql_main=sql_main+" WHERE (LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%'))";
 console.log(sql_main);
 }
 //  var sector_no = selectedList.length;
@@ -1463,9 +1463,9 @@ console.log(selectedItem.name);
 var sql ="";
 
 console.log(sql_main);
-sql_main = sql_main.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
-sql_main = sql_main.replace(" OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
-sql_main = sql_main.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%')",'');
+sql_main = sql_main.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%')",'');
+sql_main = sql_main.replace(" OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%')",'');
+sql_main = sql_main.replace("LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+",%') OR LOWER(sdgs) LIKE LOWER('% "+selectedItem.id+".%')",'');
 // sql_main = sql_main.replace("sector ='"+selectedItem.name+"'",'');
 sql_main = sql_main.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
 
