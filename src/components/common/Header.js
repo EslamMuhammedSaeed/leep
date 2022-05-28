@@ -581,7 +581,7 @@ function NavigationMenu({ column: vertical }) {
   // var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   // var sql_main = "select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   var sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness ,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
-  var sql_main_public ="select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+  var sql_main_public ="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021";
   var sql_main_2_public ="select cartodb_id,gov_name_en,female_graduation_rate_in_high_school,the_geom_webmercator from development_data_dataset_final_review_12_2_2021";
   var global_data =[];
   const customFormatter = (value) => `${value} Years`;
@@ -1137,7 +1137,7 @@ dispatch(
     
     var val = searchInput6Public.current.value;
     var val2 = capitalizeFirstLetter(val);
-    var data1=  "select cartodb_id, sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%')";
+    var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%')";
     var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
     startups10Source.data=  data2;
     

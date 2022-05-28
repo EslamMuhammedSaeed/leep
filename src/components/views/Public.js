@@ -1085,7 +1085,7 @@ export default function Public() {
     
     var val = searchInput5.current.value;
     var val2 = capitalizeFirstLetter(val);
-    var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%')";
+    var data1=  "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,gov_name,innovation_stage,innovation_type,stage_investment_readiness,the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE LOWER(name) LIKE LOWER('%"+val+"%') OR LOWER(gov_name) LIKE LOWER('%"+val+"%') OR LOWER(sector) LIKE LOWER('%"+val+"%') OR LOWER(sector_primary_secondary) LIKE LOWER('%"+val+"%') OR LOWER(sub_sector) LIKE LOWER('%"+val+"%')";
     var data2 = data1+ " OR LOWER(sdgs) LIKE LOWER('%"+val+"%') OR LOWER(innovation_type) LIKE LOWER('%"+val+"%') OR LOWER(innovation_stage) LIKE LOWER('%"+val+"%') OR LOWER(stage_investment_readiness) LIKE LOWER('%"+val+"%')";
     startups10Source.data=  data2;
     // console.log(startups10Source.data);
