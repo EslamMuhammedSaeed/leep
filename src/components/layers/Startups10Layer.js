@@ -79,9 +79,9 @@ export default function Startups10Layer() {
           return [58, 139, 40];
         }else if(d.properties.sector === "Health"){
           return [233, 78, 36];
-        }else if(d.properties.sector === "Inclusive Services and Technology"){
+        }else if(d.properties.sector === "Inclusive Services & Technology"){
           return [255, 168, 38];
-        }else if(d.properties.sector === "Infrastructure and Transport"){
+        }else if(d.properties.sector === "Infrastructure & Transport"){
           return [3, 117, 125];
         }else if(d.properties.sector === "Tourism"){
           return [83, 186, 193];
