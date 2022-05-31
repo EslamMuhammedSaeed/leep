@@ -1383,6 +1383,139 @@ dispatch(
 );
 };
 
+function sectorPrimarySecondaryOnSelectHandler(selectedList, selectedItem){
+  
+  //  console.log(selectedList);
+  //  var govern = selectedList[0].name;
+  console.log(selectedItem);
+  if(sql_main.indexOf("WHERE (sector_primary_secondary")>0|| sql_main.indexOf("WHERE(sector_primary_secondary")>0|| sql_main.indexOf("WHERE( sector_primary_secondary")>0){
+    var index = sql_main.indexOf("(sector_primary_secondary");
+    sql_main = insert(sql_main,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+    //LOWER(name) LIKE LOWER('%"+val+"%')
+  console.log(sql_main);
+  // sql_main=sql_main+" WHERE sector='"+selectedItem.name+"'";
+  }else if(sql_main.indexOf("WHERE( LOWER(sector_primary_secondary)")>0){
+    var index = sql_main.indexOf("( LOWER(sector_primary_secondary)");
+    sql_main = insert(sql_main,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+    console.log(sql_main);
+    
+  }else if(sql_main.indexOf("WHERE ( LOWER(sector_primary_secondary)")>0){
+    var index = sql_main.indexOf("( LOWER(sector_primary_secondary)");
+    sql_main = insert(sql_main,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+    console.log(sql_main);
+    
+  }else if(sql_main.indexOf("LOWER(sector_primary_secondary)")>0){
+  var index = sql_main.indexOf("(LOWER(sector_primary_secondary)");
+  sql_main = insert(sql_main,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+  console.log(sql_main);
+  }else if(sql_main.indexOf("WHERE")>0){
+  sql_main=sql_main+"AND (LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%'))";
+  console.log(sql_main);
+  }else{
+  sql_main=sql_main+" WHERE (LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%'))";
+  console.log(sql_main);
+  }
+  //  var sector_no = selectedList.length;
+  //  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  for (let i = 0; i < sector_no; i++) {
+  //      if(i==0){
+  //        sql = sql+selectedList[i].name+"'";
+  //      }else{
+  //        sql = sql+"OR sector ='"+selectedList[i].name+"'";
+  //      }
+     
+  //  }
+  //  console.log(sql);
+  startups10Source.data=  sql_main;
+  dispatch(
+   addSource(startups10Source)
+  );
+  
+  dispatch(
+   addLayer({
+     id: STARTUPS10_LAYER_ID,
+     source: startups10Source.id,
+   })
+  );
+};  
+
+function sectorPrimarySecondaryOnRemoveHandler(selectedList, selectedItem){
+   
+console.log(selectedList);
+console.log(selectedItem.name);
+var sql ="";
+
+console.log(sql_main);
+sql_main = sql_main.replace("LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%')",'');
+sql_main = sql_main.replace(" OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%')",'');
+sql_main = sql_main.replace("LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%')",'');
+// sql_main = sql_main.replace("sector ='"+selectedItem.name+"'",'');
+sql_main = sql_main.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+
+  sql_main = sql_main.replace("16112021AND",'16112021 WHERE');    
+  
+  
+  
+  sql_main = sql_main.replace(" AND ()",'');
+  sql_main = sql_main.replace(" AND ( )",'');
+  sql_main = sql_main.replace(" AND()",'');
+  sql_main = sql_main.replace(" AND( )",'');
+  sql_main = sql_main.replace(" AND(  )",'');
+  sql_main = sql_main.replace(" WHERE ()",'');
+  sql_main = sql_main.replace(" WHERE ( )",'');
+  sql_main = sql_main.replace(" WHERE (  )",'');
+  sql_main = sql_main.replace(" WHERE (   )",'');
+  sql_main = sql_main.replace(" WHERE()",'');
+  sql_main = sql_main.replace(" WHERE( )",'');
+  sql_main = sql_main.replace(" WHERE(  )",'');
+  sql_main = sql_main.replace("( OR",'(');
+  sql_main = sql_main.replace("( OR",'(');
+  sql_main = sql_main.replace(" OR OR",'OR');
+  sql_main = sql_main.replace("WHERE OR",'WHERE');
+  sql_main = sql_main.replace("WHERE (  OR ",'WHERE (');
+  sql_main = sql_main.replace("OR  )",')');
+  sql_main = sql_main.replace("OR  ",'OR ');
+  sql_main = sql_main.replace("  OR",' OR');
+  sql_main = sql_main.replace("16112021AND",'16112021 WHERE');
+  sql_main = sql_main.replace("AND ( )",'');
+  
+  // if(sql_main.indexOf("gov_name=")>0)
+if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+  sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+if(sql_main == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+  sql_main = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+
+sql_main = sql_main.replace("OR )",')');
+sql_main = sql_main.replace("( OR",'(');
+  sql_main = sql_main.replace("( OR",'(');
+  sql_main = sql_main.replace(" OR OR",'OR');
+sql_main = sql_main.replace("AND ()",'');
+sql_main = sql_main.replace("AND ( )",'');
+sql_main = sql_main.replace(" AND ()",'');
+  sql_main = sql_main.replace(" AND ( )",'');
+  sql_main = sql_main.replace(" AND()",'');
+  sql_main = sql_main.replace(" AND( )",'');
+  sql_main = sql_main.replace(" AND(  )",'');
+  sql_main = sql_main.replace("( OR",'(');
+console.log("removed");
+console.log(sql_main);
+
+
+startups10Source.data=  sql_main;
+dispatch(
+  addSource(startups10Source)
+);
+
+dispatch(
+  addLayer({
+    id: STARTUPS10_LAYER_ID,
+    source: startups10Source.id,
+  })
+);
+};
+
 function sectorOnRemoveHandler(selectedList, selectedItem){
    
 console.log(selectedList);
@@ -2210,8 +2343,8 @@ function onSubmit6(e){
                       
                                   options={sectors} // Options to display in the dropdown
                                   selectedValues={sectors[0]} // Preselected value to persist in dropdown
-                                  onSelect={sectorOnSelectHandler} // Function will trigger on select event
-                                  onRemove={sectorOnRemoveHandler} // Function will trigger on remove event
+                                  onSelect={sectorPrimarySecondaryOnSelectHandler} // Function will trigger on select event
+                                  onRemove={sectorPrimarySecondaryOnRemoveHandler} // Function will trigger on remove event
                                   displayValue="name" // Property name to display in the dropdown options
                                   showCheckbox="true"
                                   showArrow="true"
@@ -2284,8 +2417,8 @@ function onSubmit6(e){
                       
                                   options={sectors} // Options to display in the dropdown
                                   selectedValues={sectors[0]} // Preselected value to persist in dropdown
-                                  onSelect={sectorOnSelectHandler2} // Function will trigger on select event
-                                  onRemove={sectorOnRemoveHandler2} // Function will trigger on remove event
+                                  onSelect={sectorPrimarySecondaryOnSelectHandler} // Function will trigger on select event
+                                  onRemove={sectorPrimarySecondaryOnRemoveHandler} // Function will trigger on remove event
                                   displayValue="name" // Property name to display in the dropdown options
                                   showCheckbox="true"
                                   showArrow="true"
