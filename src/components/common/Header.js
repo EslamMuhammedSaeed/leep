@@ -1387,6 +1387,8 @@ function sectorPrimarySecondaryOnSelectHandler(selectedList, selectedItem){
   
   //  console.log(selectedList);
   //  var govern = selectedList[0].name;
+  console.log('here');
+
   console.log(selectedItem);
   if(sql_main.indexOf("WHERE (sector_primary_secondary")>0|| sql_main.indexOf("WHERE(sector_primary_secondary")>0|| sql_main.indexOf("WHERE( sector_primary_secondary")>0){
     var index = sql_main.indexOf("(sector_primary_secondary");
@@ -1504,6 +1506,141 @@ console.log(sql_main);
 
 
 startups10Source.data=  sql_main;
+dispatch(
+  addSource(startups10Source)
+);
+
+dispatch(
+  addLayer({
+    id: STARTUPS10_LAYER_ID,
+    source: startups10Source.id,
+  })
+);
+};
+
+function sectorPrimarySecondaryPublicOnSelectHandler(selectedList, selectedItem){
+  
+  //  console.log(selectedList);
+  //  var govern = selectedList[0].name;
+  console.log('here');
+
+  console.log(selectedItem);
+  if(sql_main_public.indexOf("WHERE (sector_primary_secondary")>0|| sql_main_public.indexOf("WHERE(sector_primary_secondary")>0|| sql_main_public.indexOf("WHERE( sector_primary_secondary")>0){
+    var index = sql_main_public.indexOf("(sector_primary_secondary");
+    sql_main_public = insert(sql_main_public,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+    //LOWER(name) LIKE LOWER('%"+val+"%')
+  console.log(sql_main_public);
+  // sql_main_public=sql_main_public+" WHERE sector='"+selectedItem.name+"'";
+  }else if(sql_main_public.indexOf("WHERE( LOWER(sector_primary_secondary)")>0){
+    var index = sql_main_public.indexOf("( LOWER(sector_primary_secondary)");
+    sql_main_public = insert(sql_main_public,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+    console.log(sql_main_public);
+    
+  }else if(sql_main_public.indexOf("WHERE ( LOWER(sector_primary_secondary)")>0){
+    var index = sql_main_public.indexOf("( LOWER(sector_primary_secondary)");
+    sql_main_public = insert(sql_main_public,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+    console.log(sql_main_public);
+    
+  }else if(sql_main_public.indexOf("LOWER(sector_primary_secondary)")>0){
+  var index = sql_main_public.indexOf("(LOWER(sector_primary_secondary)");
+  sql_main_public = insert(sql_main_public,"LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%') OR ",index+1); 
+  console.log(sql_main_public);
+  }else if(sql_main_public.indexOf("WHERE")>0){
+  sql_main_public=sql_main_public+"AND (LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%'))";
+  console.log(sql_main_public);
+  }else{
+  sql_main_public=sql_main_public+" WHERE (LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%'))";
+  console.log(sql_main_public);
+  }
+  //  var sector_no = selectedList.length;
+  //  var sql="select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE sector='";
+  //  for (let i = 0; i < sector_no; i++) {
+  //      if(i==0){
+  //        sql = sql+selectedList[i].name+"'";
+  //      }else{
+  //        sql = sql+"OR sector ='"+selectedList[i].name+"'";
+  //      }
+     
+  //  }
+  //  console.log(sql);
+  startups10Source.data=  sql_main_public;
+  dispatch(
+   addSource(startups10Source)
+  );
+  
+  dispatch(
+   addLayer({
+     id: STARTUPS10_LAYER_ID,
+     source: startups10Source.id,
+   })
+  );
+};  
+
+function sectorPrimarySecondaryPublicOnRemoveHandler(selectedList, selectedItem){
+   
+console.log(selectedList);
+console.log(selectedItem.name);
+var sql ="";
+
+console.log(sql_main_public);
+sql_main_public = sql_main_public.replace("LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%')",'');
+sql_main_public = sql_main_public.replace(" OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%')",'');
+sql_main_public = sql_main_public.replace("LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+",%') OR LOWER(sector_primary_secondary) LIKE LOWER('% "+selectedItem.name+".%')",'');
+// sql_main_public = sql_main_public.replace("sector ='"+selectedItem.name+"'",'');
+sql_main_public = sql_main_public.replace("egypt_si_dataset_final_review_16112021   AND",'egypt_si_dataset_final_review_16112021   WHERE');
+
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');    
+  
+  
+  
+  sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE ()",'');
+  sql_main_public = sql_main_public.replace(" WHERE ( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (  )",'');
+  sql_main_public = sql_main_public.replace(" WHERE (   )",'');
+  sql_main_public = sql_main_public.replace(" WHERE()",'');
+  sql_main_public = sql_main_public.replace(" WHERE( )",'');
+  sql_main_public = sql_main_public.replace(" WHERE(  )",'');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+  sql_main_public = sql_main_public.replace("WHERE OR",'WHERE');
+  sql_main_public = sql_main_public.replace("WHERE (  OR ",'WHERE (');
+  sql_main_public = sql_main_public.replace("OR  )",')');
+  sql_main_public = sql_main_public.replace("OR  ",'OR ');
+  sql_main_public = sql_main_public.replace("  OR",' OR');
+  sql_main_public = sql_main_public.replace("16112021AND",'16112021 WHERE');
+  sql_main_public = sql_main_public.replace("AND ( )",'');
+  
+  // if(sql_main_public.indexOf("gov_name=")>0)
+if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE"){
+  sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+if(sql_main_public == "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021 WHERE "){
+  sql_main_public = "select cartodb_id, name,sector,sector_primary_secondary,sub_sector,sdgs,year_founded_if_provided,website,facebook_link,gov_name,description,country,full_address,innovation_stage,innovation_type,active_inactive_status,operation_cities_governorates,area_of_social_impact,no_of_female_founder_co_founder,organisation_phone_no,organisation_email,stage_investment_readiness , the_geom_webmercator from egypt_si_dataset_final_review_16112021";
+}
+
+sql_main_public = sql_main_public.replace("OR )",')');
+sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+  sql_main_public = sql_main_public.replace(" OR OR",'OR');
+sql_main_public = sql_main_public.replace("AND ()",'');
+sql_main_public = sql_main_public.replace("AND ( )",'');
+sql_main_public = sql_main_public.replace(" AND ()",'');
+  sql_main_public = sql_main_public.replace(" AND ( )",'');
+  sql_main_public = sql_main_public.replace(" AND()",'');
+  sql_main_public = sql_main_public.replace(" AND( )",'');
+  sql_main_public = sql_main_public.replace(" AND(  )",'');
+  sql_main_public = sql_main_public.replace("( OR",'(');
+console.log("removed");
+console.log(sql_main_public);
+
+
+startups10Source.data=  sql_main_public;
 dispatch(
   addSource(startups10Source)
 );
@@ -2417,8 +2554,8 @@ function onSubmit6(e){
                       
                                   options={sectors} // Options to display in the dropdown
                                   selectedValues={sectors[0]} // Preselected value to persist in dropdown
-                                  onSelect={sectorPrimarySecondaryOnSelectHandler} // Function will trigger on select event
-                                  onRemove={sectorPrimarySecondaryOnRemoveHandler} // Function will trigger on remove event
+                                  onSelect={sectorPrimarySecondaryPublicOnSelectHandler} // Function will trigger on select event
+                                  onRemove={sectorPrimarySecondaryPublicOnRemoveHandler} // Function will trigger on remove event
                                   displayValue="name" // Property name to display in the dropdown options
                                   showCheckbox="true"
                                   showArrow="true"
