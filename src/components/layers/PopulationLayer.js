@@ -30,7 +30,7 @@ const layerConfig = {
   visible: true,
   switchable: false,
   legend: {
-    attr: 'Percentage',
+    attr: 'Percent',
     type: LEGEND_TYPES.BINS,
     labels: LABELS,
     colors: COLORS,

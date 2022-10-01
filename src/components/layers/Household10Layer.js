@@ -137,10 +137,15 @@ export default function Household10Layer() {
           // content.append("Some text");
           div1.append(content);
           content.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip');x.parentNode.removeChild(x);" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('illiteracy_percentage_2017_census','Illiteracy Percentage')
+          .replaceAll('<strong>illiteracy_percentage_2017_census</strong>','<strong>Overall Percentage</strong>')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>male_illiteracy_percentage_2017_census</strong>','<strong>Male Illiteracy Percentage</strong>')
-          .replaceAll('<strong>female_illiteracy_percentage_2017_census</strong>','<strong>Female Illiteracy Percentage</strong>')
+          .replaceAll('<strong>male_illiteracy_percentage_2017_census</strong>','<strong>Male Percentage</strong>')
+          .replaceAll('male_illiteracy','Male Illiteracy')
+
+          .replaceAll('<strong>female_illiteracy_percentage_2017_census</strong>','<strong>Female Percentage</strong>')
+          .replaceAll('female_illiteracy','Female Illiteracy')
+          .replaceAll('<strong>feMale Illiteracy_percentage_2017_census</strong>','<strong>Female Percentage</strong>')
+
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;
@@ -160,11 +165,13 @@ export default function Household10Layer() {
           // content.append("Some text");
           div5.append(content2);
           content2.innerHTML = `<button onclick="let x=document.getElementById('custom-tooltip2');x.classList.remove('d-block');x.classList.add('d-none');" style="position:absolute;display:flex;text-align:center;align-items:center;justify-content:center;top:-12px;right:-12px;border-radius:50%;z-index:4;background-color:white;color:black;width:29px;height:29px;overflow-x:visible;box-shadow: 0 2px 4px 0 rgb(0 0 0 / 24%);cursor: pointer;">&#x2715</button><div style="max-height:100px;overflow-y:scroll;margin-bottom:10px;box-sizing: content-box;">${info.object.html.replaceAll(':','')
-          .replaceAll('illiteracy_percentage_2017_census','Illiteracy Percentage')
+          .replaceAll('illiteracy_percentage_2017_census','Overall Percentage')
           .replaceAll('<strong>governorate</strong>','<strong>Governorate</strong>')
-          .replaceAll('<strong>male_illiteracy_percentage_2017_census</strong>','<strong>Male Illiteracy Percentage</strong>')
-          .replaceAll('<strong>female_illiteracy_percentage_2017_census</strong>','<strong>Female Illiteracy Percentage</strong>')
-          
+          .replaceAll('<strong>male_illiteracy_percentage_2017_census</strong>','<strong>Male Percentage</strong>')
+          .replaceAll('<strong>female_illiteracy_percentage_2017_census</strong>','<strong>Female Percentage</strong>')
+          .replaceAll('male_illiteracy','Male Illiteracy')
+
+          .replaceAll('<strong>feMale Illiteracy_percentage_2017_census</strong>','<strong>Female Percentage</strong>')
           .replaceAll('<div class="pop-up">','<div class="pop-up mb-2">')
           .replaceAll('<div class="pop-up mb-2"><strong>longitude','<div class="pop-up" style="display:none"><strong>lonitude')
           .replaceAll('<br/>','<br/><div style="min-height:5px;"></div>')}</div><div class='arrow'></div>`;

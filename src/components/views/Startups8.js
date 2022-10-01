@@ -142,7 +142,7 @@ const development_data = [
   {name: 'Dropout in Primary Education', id: 3},
   {name: 'Garbage', id: 4},
   {name: 'Access to Electricity', id: 5},
-  {name: 'Access to Sewage', id: 6},
+  {name: 'Access to Sewerage', id: 6},
   {name: 'Access to Water', id: 7},
   {name: 'Illiteracy', id: 8},
   {name: 'Municipal Waste', id: 9},
@@ -1582,7 +1582,7 @@ function onSubmit5(e){
       addHouseholdElectricityLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
-    }else if(selectedItem.name=="Access to Sewage"){
+    }else if(selectedItem.name=="Access to Sewerage"){
       addHouseholdSewageLayer();
       // dispatch(removeLayer(POVERTY_LAYER_ID));
       // dispatch(removeLayer(UNEMPLOYMENT_LAYER_ID));
@@ -1627,7 +1627,7 @@ function onSubmit5(e){
     }else if(selectedItem.name=="Access to Electricity"){
       dispatch(removeLayer(HOUSEHOLD2_LAYER_ID));
       developmentSource.data = "development_data_dataset_final_review_12_2_2021";
-    }else if(selectedItem.name=="Access to Sewage"){
+    }else if(selectedItem.name=="Access to Sewerage"){
       dispatch(removeLayer(HOUSEHOLD3_LAYER_ID));
       developmentSource.data = "development_data_dataset_final_review_12_2_2021";
     }else if(selectedItem.name=="Landline Phone Connectivity"){

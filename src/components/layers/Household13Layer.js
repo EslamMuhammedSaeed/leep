@@ -36,7 +36,7 @@ const layerConfig = {
   visible: true,
   switchable: false,
   legend: {
-    attr: 'Average no. of hospitals / 100K Residents',
+    attr: 'Average No. of Hospitals / 100K Residents',
     type: LEGEND_TYPES.BINS,
     labels: LABELS,
     colors: COLORS,

@@ -33,7 +33,7 @@ export const LABELS = [
 ];
 
 const layerConfig = {
-  title: 'Access to Sewage and Sanitation',
+  title: 'Access to Sewerage',
   visible: true,
   switchable: false,
   legend: {
