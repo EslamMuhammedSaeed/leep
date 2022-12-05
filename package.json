@@ -2,6 +2,9 @@
   "name": "carto_rise",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.15.0"
+  },
   "dependencies": {
     "@carto/react-api": "1.1.0",
     "@carto/react-auth": "1.1.0",
